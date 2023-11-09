@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <p>
+    <button onclick="setBeginningSoundOn()" ; type="button">beginning</button>
+    <button onclick="setSoundMinus()" ; type="button">-</button>
+    <button onclick="setSoundPlus()" ; type="button">+</button>
+    <button autofocus onclick="setPausePlay()" ; type="button">stop/play</button>
+    <button onclick="setPositionBack()" ; type="button">back: -1</button>
+    <button onclick="setShiftPowerPlus()" ; type="button">*10</button>
+    <button onclick="setShiftPowerMinus()" ; type="button">/2</button>
+    <button onclick="setPositionGoo()" ; type="button">forward:+1</button>
+    <button id="demo" onclick="setShowTime()" ; type="button"></button>
+
+
+
+  </p>
+
+  <video id="myVideo" width="80%" height="80%" autoplay muted ontimeupdate="setCurTime()">
+
+    Your browser does not support the video tag.
+  </video><br>
+
+
+  <script src="ScriptHandler.js"></script>
+</body>
+
+</html>
+
+<!-- log (c 16-08-23г)
+16-08-23 
+-в число атрибутов кнопки переключения в начало видео и включения звука добавил свойство автофокуса при загрузке: autofocus (ps: работает)
+- добавил аргумент включения звука в обработчик кнопки stop/play, для продолжения (включения) просмотра со звуком при любом состоянии свойства muted до нажатия кнопки play.(ps: работает)
+-  поменял название кнопки sound of/on на beginning
+и поменял обработчик данной кнопки:
+function setSound(){
+if(vid.muted === false){
+vid.muted = true;}
+else{vid.muted =false;}
+vid.currentTime = s
+vid.play()}
+
+на:
+function setBeginningSoundOn(){
+if(vid.muted === true){
+  vid.currentTime = s
+  vid.play()
+  vid.muted =false;
+}
+else{var result = confirm("ВЕРНУТЬСЯ К НАЧАЛУ ?")
+if(result===true){
+vid.currentTime = s
+}
+}
+}
+
+т.к последний код правильнее описывает функционал этой кнопки (возврат к началу записи фрагмента его включение с включением звука), в случае нажатия данной кнопки после начала воспроизведения программа учточняет необходимость возврата к началу, что бы исключить случайную инициализацию этого действия.
+
+- изменил надпись кнопки +1 на forward:+1 и надпись кнопки-1 на back: -1, т.к. последнее логически в визуальном выглядит более верно
+
+-->
