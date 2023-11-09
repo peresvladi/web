@@ -81,6 +81,8 @@ function handlerInputNow(e, z) {
             arrBodyLocStorage.push(e[x]);
         } else {
             window.localStorage.setItem((y + z) + namePartVCatalog, arrBodyLocStorage);
+            let arh = (y + z) + namePartVCatalog, arrBodyLocStorage;
+            textSave(arh);
             arrBodyLocStorage.length = 0;
             y++;
         }
@@ -90,7 +92,7 @@ function handlerInputNow(e, z) {
 }
 
 
-function textSave() {
+function textSave(e) {
     const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel'; a.click();
 }
 
