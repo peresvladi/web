@@ -73,17 +73,18 @@ function inputNow(e) {
 
 
 function handlerInputNow(e, z) {
-    let arrBodyLocStorage = new Array();
+    let BodyLocStorage = "";
     let y = 0;
     for (let x = 0; x < e.length; x++) {
         let ifKeyLocStorage = e[x];
         if (ifKeyLocStorage !== namePartVCatalog) {
-            arrBodyLocStorage.push(e[x]);
+            BodyLocStorage = BodyLocStorage + ifKeyLocStorage + ",";
         } else {
-            window.localStorage.setItem((y + z) + namePartVCatalog, arrBodyLocStorage);
-            let arh = (y + z) + namePartVCatalog, arrBodyLocStorage;
+            window.localStorage.setItem((y + z) + namePartVCatalog, BodyLocStorage);
+            let arh = ((y + z) + namePartVCatalog) + "," + window.localStorage.getItem((y + z) + namePartVCatalog);
             textSave(arh);
-            arrBodyLocStorage.length = 0;
+            arh = "";
+            BodyLocStorage = "";
             y++;
         }
 
@@ -110,10 +111,10 @@ function checkingConditions(e, u) {
         var res = keySearchAorASimilar(e, u);
 
     } else {
-        alert("условий нет");
+        alert("с аналогичным ключем в хранилице данных нет, результат - 0");
         res = 0;
     }
-    alert("услования есть");
+    alert(`в хранилище имеются данные с шаблоном ключа - ${namePartVCatalog} , результат (в количестве) - ${res}`);
     return res;
 }
 
@@ -125,7 +126,7 @@ function keySearchAorASimilar(e, u) {
             i++;
         }
     }
-    alert(`Количество записей по шаблону ключа ${u} составляет ${i}`);
+    alert(`Количество записей по шаблону ключа ${namePartVCatalog} составляет ${i}`);
     return i;
 
 }
@@ -151,7 +152,7 @@ function go_key(event) {
         case 119: vid.pause(); arr.push((keySave(119))); break;
         case 120: vid.pause(); arr.push((keySave(1201))); arr.push((keySave(1202))); arr.push(namePartVCatalog); confirm("Начать следующий фрагмент") === true ? arr.push((keySave(1203))) : arr; break;
         case 115: inputNow(arr); break;
-        case 114: confirm("Удалить последнюю запись") === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
+        case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
         case 90: alert
 
             // ("ИТОГО: " + checkingConditions(window.localStorage, namePartVCatalog)); 
