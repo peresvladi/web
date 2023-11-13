@@ -70,37 +70,37 @@ function arrPopDel(a) {
 // (arr, window.localStorage, namePartVCatalog);
 function inputNow(a, e, u) {
     let vvalue = "";
-    if(checkingConditions(e, u) === 0){handlerInputNow(e, z=0)}else{
-    switch (vvalue = prompt(`В хранилище (LocalStorage) уже имеются записи фрагментов с ключом по шаблону - ${u} в количестве для продолжение  предыдущей сессии (выполненой по шаблону ключа - ${u}) нажмите 1, для перезаписи указанной сессии нажмите 2, для перезаписи с определенного фрагмента нажмите 3, для вставки перед определенным фрагментов нажмите 4`)){ 
-        case "1": handlerInputNow(a, e, u, z = a.length); break; 
-        case "2": handlerInputNow(a, e, u, z = 0); break; 
-        case "3": handlerInputNow(a, e, u, z = inputMsg("Введите номер фрагмента с которого начнется перезапись")); break; 
-        // (arr, window.localStorage, namePartVCatalog);
-        case "4": handlerInputNow(a, e, u, z = nameOftheСontrFragm(a, e, u)); break;
+    if (checkingConditions(e, u) === 0) { handlerInputNow(e, z = 0) } else {
+        switch (vvalue = prompt(`В хранилище (LocalStorage) уже имеются записи фрагментов с ключом по шаблону - ${u} в количестве - ${keySearchAorASimilar(e, u)} для продолжение  предыдущей сессии (выполненой по шаблону ключа - ${u}) нажмите 1, для перезаписи указанной сессии нажмите 2, для перезаписи с определенного фрагмента нажмите 3, для вставки перед определенным фрагментов нажмите 4`)) {
+            case "1": handlerInputNow(a, e, u, z = (keySearchAorASimilar(e, u))); break;
+            case "2": handlerInputNow(a, e, u, z = 0); break;
+            case "3": handlerInputNow(a, e, u, z = inputMsg("Введите номер фрагмента с которого начнется перезапись")); break;
+            // (arr, window.localStorage, namePartVCatalog);
+            case "4": handlerInputNow(a, e, u, z = nameOftheСontrFragm(a, e, u)); break;
+        }
+
     }
-   
-   }
-     
+
 }
 
 
 // (arr, window.localStorage, namePartVCatalog);
-function nameOftheСontrFragm(a, e, u){
+function nameOftheСontrFragm(a, e, u) {
     let s = 0;
     let keySearchForS = keySearchAorASimilar(e, u)
-    var nameOftheСontrolFragment ="";
+    var nameOftheСontrolFragment = "";
     let keyNumber = inputMsg("Введите номер ключа фрагмента перед которым необходимо сделать вставку новой записи");
     nameOftheСontrolFragment = keyNumber + u;
     do {
-    e.setItem((keySearchForS+a.length-s)+u) = e.getItem((keySearchForS-s)+u);
-    s++    
-    }while (nameOftheСontrolFragment !== e.getItem((keySearchForS - s) + u ));
-        
-return keyNumber;     
-     
+        e.setItem((keySearchForS + a.length - s) + u) = e.getItem((keySearchForS - s) + u);
+        s++
+    } while (nameOftheСontrolFragment !== e.getItem((keySearchForS - s) + u));
+
+    return keyNumber;
+
 }
 
-// (arr, window.localStorage, namePartVCatalog);
+// (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
 function handlerInputNow(a, e, u, z) {
     let BodyLocStorage = "";
     let y = 0;
@@ -148,13 +148,13 @@ function keySearchAorASimilar(e, u) {
             i++;
         }
     }
-alert(`Количество записей по шаблону ключа ${namePartVCatalog} составляет ${i}`);
-return i;
+    alert(`Количество записей по шаблону ключа ${namePartVCatalog} составляет ${i}`);
+    return i;
 
 }
 
-function inputMsg(msg){
-prompt(msg);
+function inputMsg(msg) {
+    prompt(msg);
 }
 
 // (arr, window.localStorage, namePartVCatalog);
@@ -169,11 +169,11 @@ function go_key(event) {
     if (!event) { event = window.event; }
     console.log(event, event.keyCode)
     switch (event.keyCode) {
-        case 32: 
-        
-        
-        // setPausePlay(); 
-        break;
+        case 32:
+
+
+            // setPausePlay(); 
+            break;
 
         case 39: setPositionGoo(); break;
         case 37: setPositionBack(); break;
