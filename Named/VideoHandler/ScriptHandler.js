@@ -3,7 +3,7 @@ var parametr = p_url.split("&");
 var s = parametr[0];
 //alert("var s = parametr[0]; = " + s)
 var f = parametr[1];
-var e = parametr[2];
+var ee = parametr[2];
 const namePartVCatalog = parametr[3];
 // alert("namePartVCatalog...:" + namePartVCatalog);
 //alert(s + "||" + f + "||" + e + "||" + nameVCatalog);
@@ -23,7 +23,7 @@ if (pathURL === null) {
 }
 var pathName = window.localStorage.getItem('C_7LAT5TG_func2')
 if (pathName === null) {
-    pathName = e
+    pathName = ee
 
 }
 var pathURLName = (pathURL + pathName)
@@ -61,27 +61,56 @@ function keySave(whatKey) {
         return sess;
     }
 }
-
-function arrPopDel(ar) {
-    ar.length === 0 ? alert("Длина массива: 0, - нет элементов для удаления") : alert("элемент: " + ar.pop() + "удален");
+//  (arr, window.localStorage, namePartVCatalog);
+function arrPopDel(a) {
+    a.length === 0 ? alert("Длина массива: 0, - нет элементов для удаления") : alert("элемент: " + a.pop() + "удален");
 
 }
 
-function inputNow(e) {
-    if (checkingConditions(window.localStorage, namePartVCatalog) === 0 || true === confirm(`В хранилище (LocalStorage) уже имеются записи фрагментов с ключом по шаблону - ${namePartVCatalog} для их перезаписи нажмите OK. Для продолжение сессии нажмите что-то другое`)) { handlerInputNow(e, z = 0) } else { handlerInputNow(e, z = checkingConditions(window.localStorage, namePartVCatalog)) };
+// (arr, window.localStorage, namePartVCatalog);
+function inputNow(a, e, u) {
+    let vvalue = "";
+    if(checkingConditions(e, u) === 0){handlerInputNow(e, z=0)}else{
+    switch (vvalue = prompt(`В хранилище (LocalStorage) уже имеются записи фрагментов с ключом по шаблону - ${u} в количестве для продолжение  предыдущей сессии (выполненой по шаблону ключа - ${u}) нажмите 1, для перезаписи указанной сессии нажмите 2, для перезаписи с определенного фрагмента нажмите 3, для вставки перед определенным фрагментов нажмите 4`)){ 
+        case "1": handlerInputNow(a, e, u, z = a.length); break; 
+        case "2": handlerInputNow(a, e, u, z = 0); break; 
+        case "3": handlerInputNow(a, e, u, z = inputMsg("Введите номер фрагмента с которого начнется перезапись")); break; 
+        // (arr, window.localStorage, namePartVCatalog);
+        case "4": handlerInputNow(a, e, u, z = nameOftheСontrFragm(a, e, u)); break;
+    }
+   
+   }
+     
 }
 
 
-function handlerInputNow(e, z) {
+// (arr, window.localStorage, namePartVCatalog);
+function nameOftheСontrFragm(a, e, u){
+    let s = 0;
+    let keySearchForS = keySearchAorASimilar(e, u)
+    var nameOftheСontrolFragment ="";
+    let keyNumber = inputMsg("Введите номер ключа фрагмента перед которым необходимо сделать вставку новой записи");
+    nameOftheСontrolFragment = keyNumber + u;
+    do {
+    e.setItem((keySearchForS+a.length-s)+u) = e.getItem((keySearchForS-s)+u);
+    s++    
+    }while (nameOftheСontrolFragment !== e.getItem((keySearchForS - s) + u ));
+        
+return keyNumber;     
+     
+}
+
+// (arr, window.localStorage, namePartVCatalog);
+function handlerInputNow(a, e, u, z) {
     let BodyLocStorage = "";
     let y = 0;
-    for (let x = 0; x < e.length; x++) {
-        let ifKeyLocStorage = e[x];
-        if (ifKeyLocStorage !== namePartVCatalog) {
+    for (let x = 0; x < a.length; x++) {
+        let ifKeyLocStorage = a[x];
+        if (ifKeyLocStorage !== u) {
             BodyLocStorage = BodyLocStorage + ifKeyLocStorage + ",";
         } else {
-            window.localStorage.setItem((y + z) + namePartVCatalog, BodyLocStorage);
-            let arh = ((y + z) + namePartVCatalog) + "," + window.localStorage.getItem((y + z) + namePartVCatalog);
+            e.setItem((y + z) + u, BodyLocStorage);
+            let arh = ((y + z) + u) + "," + e.getItem((y + z) + u);
             textSave(arh);
             arh = "";
             BodyLocStorage = "";
@@ -92,19 +121,12 @@ function handlerInputNow(e, z) {
 
 }
 
-
-function textSave(e) {
-    const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel'; a.click();
+//(arr, window.localStorage, namePartVCatalog);
+function textSave(a) {
+    const data = a; const b = document.createElement('b'); const blob = new Blob([JSON.stringify(data)]); b.href = URL.createObjectURL(blob); b.download = 'fuel'; b.click();
 }
 
-
-
-// function continuedRecording(e, u) {
-//     if (availabilityOfaKeys(e) && keySearch(e, u) === true) {
-
-//     }
-// }
-
+// (arr, window.localStorage, namePartVCatalog);
 function checkingConditions(e, u) {
     if (availabilityOfaKeys(e) > 0 && keySearchAorASimilar(e, u) > 0) {
 
@@ -118,7 +140,7 @@ function checkingConditions(e, u) {
     return res;
 }
 
-
+// (arr, window.localStorage, namePartVCatalog);
 function keySearchAorASimilar(e, u) {
     let i = 0
     for (let z = 0; z < e.length; z++) {
@@ -126,13 +148,16 @@ function keySearchAorASimilar(e, u) {
             i++;
         }
     }
-    alert(`Количество записей по шаблону ключа ${namePartVCatalog} составляет ${i}`);
-    return i;
+alert(`Количество записей по шаблону ключа ${namePartVCatalog} составляет ${i}`);
+return i;
 
 }
 
+function inputMsg(msg){
+prompt(msg);
+}
 
-
+// (arr, window.localStorage, namePartVCatalog);
 function availabilityOfaKeys(e) {
     alert(`Общее количество элементов LocalStorage ${e.length}`);
     return e.length;
@@ -144,14 +169,19 @@ function go_key(event) {
     if (!event) { event = window.event; }
     console.log(event, event.keyCode)
     switch (event.keyCode) {
-        //case 32: setPausePlay(); break;
+        case 32: 
+        
+        
+        // setPausePlay(); 
+        break;
+
         case 39: setPositionGoo(); break;
         case 37: setPositionBack(); break;
         case 38: setSoundPlus(); break;
         case 40: setSoundMinus(); break;
         case 119: vid.pause(); arr.push((keySave(119))); break;
         case 120: vid.pause(); arr.push((keySave(1201))); arr.push((keySave(1202))); arr.push(namePartVCatalog); confirm("Начать следующий фрагмент") === true ? arr.push((keySave(1203))) : arr; break;
-        case 115: inputNow(arr); break;
+        case 115: inputNow(arr, window.localStorage, namePartVCatalog); arr.length = 0; break;
         case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
         case 90: alert
 
@@ -164,10 +194,7 @@ function go_key(event) {
 
             //availabilityOfaKeys(window.localStorage);
 
-
             //keySearchAorASimilar(window.localStorage, namePartVCatalog);
-
-
 
 
             if (true === confirm('Очистить LocalStorage ?')) {
