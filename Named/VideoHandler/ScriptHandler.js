@@ -91,8 +91,13 @@ function nameOftheСontrFragm(a, e, u) {
     var nameOftheСontrolFragment = "";
     let keyNumber = inputMsg("Введите номер ключа фрагмента перед которым необходимо сделать вставку новой записи");
     nameOftheСontrolFragment = keyNumber + u;
+    // let inputLocStorage = "";
+    let outputLocStorage = "";
     do {
-        e.setItem((keySearchForS + a.length - s) + u) = e.getItem((keySearchForS - s) + u);
+        
+        outputLocStorage = e.getItem((keySearchForS - s) + u)
+        
+        e.setItem(((keySearchForS + (a.length / 4) - s) + u), outputLocStorage);
         s++
     } while (nameOftheСontrolFragment !== e.getItem((keySearchForS - s) + u));
 
