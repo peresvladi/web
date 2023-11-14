@@ -70,11 +70,11 @@ function arrPopDel(a) {
 // (arr, window.localStorage, namePartVCatalog);
 function inputNow(a, e, u) {
     let vvalue = "";
-    if (checkingConditions(e, u) === 0) { handlerInputNow(e, z = 0) } else {
+    if (checkingConditions(e, u) === 0) { handlerInputNow(a, e, u, z = 0) } else {
         switch (vvalue = prompt(`В хранилище (LocalStorage) уже имеются записи фрагментов с ключом по шаблону - ${u} в количестве - ${keySearchAorASimilar(e, u)} для продолжение  предыдущей сессии (выполненой по шаблону ключа - ${u}) нажмите 1, для перезаписи указанной сессии нажмите 2, для перезаписи с определенного фрагмента нажмите 3, для вставки перед определенным фрагментов нажмите 4`)) {
             case "1": handlerInputNow(a, e, u, z = (keySearchAorASimilar(e, u))); break;
             case "2": handlerInputNow(a, e, u, z = 0); break;
-            case "3": handlerInputNow(a, e, u, z = inputMsg("Введите номер фрагмента с которого начнется перезапись")); break;
+            case "3": handlerInputNow(a, e, u, z = parseInt(inputMsg("Введите номер фрагмента с которого начнется перезапись"))); break;
             // (arr, window.localStorage, namePartVCatalog);
             case "4": handlerInputNow(a, e, u, z = nameOftheСontrFragm(a, e, u)); break;
         }
@@ -154,7 +154,7 @@ function keySearchAorASimilar(e, u) {
 }
 
 function inputMsg(msg) {
-    prompt(msg);
+    return prompt(msg);
 }
 
 // (arr, window.localStorage, namePartVCatalog);
