@@ -76,7 +76,7 @@ function inputNow(a, e, u) {
             case "2": handlerInputNow(a, e, u, z = 0); break;
             case "3": handlerInputNow(a, e, u, z = parseInt(inputMsg("Введите номер фрагмента с которого начнется перезапись"))); break;
             // (arr, window.localStorage, namePartVCatalog);
-            case "4": handlerInputNow(a, e, u, z = nameOftheСontrFragm(a, e, u)); break;
+            case "4": handlerInputNow(a, e, u, z = parseInt(nameOftheСontrFragm(a, e, u))); break;
         }
 
     }
@@ -86,20 +86,23 @@ function inputNow(a, e, u) {
 
 // (arr, window.localStorage, namePartVCatalog);
 function nameOftheСontrFragm(a, e, u) {
-    let s = 0;
-    let keySearchForS = keySearchAorASimilar(e, u)
-    var nameOftheСontrolFragment = "";
+    let keySearchForS = (keySearchAorASimilar(e, u) - 1)
+    var nameOftheСontrolFragment1 = "";
+    var nameOftheСontrolFragment2 = "";
     let keyNumber = inputMsg("Введите номер ключа фрагмента перед которым необходимо сделать вставку новой записи");
-    nameOftheСontrolFragment = keyNumber + u;
+    nameOftheСontrolFragment1 = keyNumber + u;
     // let inputLocStorage = "";
     let outputLocStorage = "";
+    let s = 0;
     do {
-        
-        outputLocStorage = e.getItem((keySearchForS - s) + u)
-        
+
+        outputLocStorage = e.getItem((keySearchForS - s) + u);
+
         e.setItem(((keySearchForS + (a.length / 4) - s) + u), outputLocStorage);
+
+        nameOftheСontrolFragment2 = (keySearchForS - s) + u;
         s++
-    } while (nameOftheСontrolFragment !== e.getItem((keySearchForS - s) + u));
+    } while (nameOftheСontrolFragment1 !== nameOftheСontrolFragment2);
 
     return keyNumber;
 
@@ -188,25 +191,14 @@ function go_key(event) {
         case 120: vid.pause(); arr.push((keySave(1201))); arr.push((keySave(1202))); arr.push(namePartVCatalog); confirm("Начать следующий фрагмент") === true ? arr.push((keySave(1203))) : arr; break;
         case 115: inputNow(arr, window.localStorage, namePartVCatalog); arr.length = 0; break;
         case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
-        case 90: alert
-
-            // ("ИТОГО: " + checkingConditions(window.localStorage, namePartVCatalog)); 
-
-            break;
+        case 90: confirm("Очистить arr ?") ? arr.length = 0 : alert(arr); break;
 
 
-        case 88:
-
-            //availabilityOfaKeys(window.localStorage);
-
-            //keySearchAorASimilar(window.localStorage, namePartVCatalog);
-
-
-            if (true === confirm('Очистить LocalStorage ?')) {
-                if (true === confirm('Вы действительно желаете удалить данные LocalStorage, без возможности их востановления ?')) {
-                    window.localStorage.clear(); alert("очищено " + window.localStorage.length);
-                };
+        case 88: if (true === confirm('Очистить LocalStorage ?')) {
+            if (true === confirm('Вы действительно желаете удалить данные LocalStorage, без возможности их востановления ?')) {
+                window.localStorage.clear(); alert("очищено " + window.localStorage.length);
             };
+        };
 
 
             break;
