@@ -2,6 +2,7 @@
 <html>
 
 <body>
+
   <p>
     <button onclick="setBeginningSoundOn()" ; type="button">beginning</button>
     <button onclick="setSoundMinus()" ; type="button">-</button>
@@ -12,10 +13,25 @@
     <button onclick="setShiftPowerMinus()" ; type="button">/2</button>
     <button onclick="setPositionGoo()" ; type="button">forward:+1</button>
     <button id="demo" onclick="setShowTime()" ; type="button"></button>
+    <a href="javascript:document.getElementById('inputfile').click(); ">file</a>
+    <input type="file" onchange="inputText()" style="display:none;" id="inputfile" />
 
+    <!-- <input type="file" id="file-selector" accept=".txt"></input> -->
+
+    <!-- The `multiple` attribute lets users select multiple files. -->
+
+    <!-- <input type="file" id="file-selector" multiple>
+<script>
+  const fileSelector = document.getElementById('file-selector');
+  fileSelector.addEventListener('change', (event) => {
+    const fileList = event.target.files;
+    console.log(fileList);
+  });
+</script> -->
 
 
   </p>
+
 
   <video id="myVideo" width="80%" height="80%" autoplay muted ontimeupdate="setCurTime()">
 
