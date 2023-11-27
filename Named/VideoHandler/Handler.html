@@ -1,45 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<link rel="stylesheet" href="../Style/style.css">
 
 <body>
-
-  <p>
-    <button onclick="setBeginningSoundOn()" ; type="button">beginning</button>
-    <button onclick="setSoundMinus()" ; type="button">-</button>
-    <button onclick="setSoundPlus()" ; type="button">+</button>
-    <button autofocus onclick="setPausePlay()" ; type="button">stop/play</button>
-    <button onclick="setPositionBack()" ; type="button">back: -1</button>
-    <button onclick="setShiftPowerPlus()" ; type="button">*10</button>
-    <button onclick="setShiftPowerMinus()" ; type="button">/2</button>
-    <button onclick="setPositionGoo()" ; type="button">forward:+1</button>
-    <button id="demo" onclick="setShowTime()" ; type="button"></button>
-    <a href="javascript:document.getElementById('inputfile').click(); ">file</a>
-    <input type="file" onchange="inputText()" style="display:none;" id="inputfile" />
-
-    <!-- <input type="file" id="file-selector" accept=".txt"></input> -->
-
-    <!-- The `multiple` attribute lets users select multiple files. -->
-
-    <!-- <input type="file" id="file-selector" multiple>
-<script>
-  const fileSelector = document.getElementById('file-selector');
-  fileSelector.addEventListener('change', (event) => {
-    const fileList = event.target.files;
-    console.log(fileList);
-  });
-</script> -->
+  <div class="all">
 
 
-  </p>
+    <div class="header">
+      <button class="button_header" onclick="setBeginningSoundOn()" ; type="button">beginning</button>
+      <button class="button_header" onclick="setSoundMinus()" ; type="button">-</button>
+      <button class="button_header" onclick="setSoundPlus()" ; type="button">+</button>
+      <button class="button_header" autofocus onclick="setPausePlay()" ; type="button">stop/play</button>
+      <button class="button_header" onclick="setPositionBack()" ; type="button">back: -1</button>
+      <button class="button_header" onclick="setShiftPowerPlus()" ; type="button">*10</button>
+      <button class="button_header" onclick="setShiftPowerMinus()" ; type="button">/2</button>
+      <button class="button_header" onclick="setPositionGoo()" ; type="button">forward:+1</button>
+      <button class="button_header" id="demo" onclick="setShowTime()" ; type="button"></button>
+      <div class="header_right">
+        <a class="hyperlink" href="javascript:document.getElementById('inputfile').click(); ">Upload-fragments</a>
+        <input type="file" onchange="inputText()" style="display:none;" id="inputfile" />
+        <a class="hyperlink" href="javascript:document.getElementById('inputfile').click(); ">Video</a>
+        <input type="file" onchange="" style="display:none;" id="inputfile" />
+      </div>
+    </div>
 
 
-  <video id="myVideo" width="80%" height="80%" autoplay muted ontimeupdate="setCurTime()">
 
-    Your browser does not support the video tag.
-  </video><br>
+    <video id="myVideo" width="80%" height="80%" autoplay muted ontimeupdate="setCurTime()">
+
+      Your browser does not support the video tag.
+    </video><br>
 
 
-  <script src="ScriptHandler.js"></script>
+    <script src="ScriptHandler.js"></script>
+  </div>
 </body>
 
 </html>

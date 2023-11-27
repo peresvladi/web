@@ -1,0 +1,39 @@
+*{margin: 0;
+padding: 0;}
+
+.all{
+    padding-left: 10px;
+    padding-right: 10px;}
+
+
+.header{ display: flex; justify-content: flex-start; gap: 5px;}
+.button_header{width: 0 auto;}
+
+hr{margin-top: 2px;
+   margin-bottom: 3px;}
+h2{color:darkred;}
+h3{color:darkviolet;}
+h4{color:green;}
+a{text-decoration: none;}
+summary{
+    color:darkslateblue;}
+
+.heading4 {color: skyblue;}
+.btn{
+    display: flex;
+    justify-content: flex-start;   
+    margin-top: 18px;
+    width: 100%;
+    color:chocolate;
+    padding-left: 71px;
+}
+    
+.btn2{margin-top: 9px;
+    color:rgb(66, 128, 244);}
+.btn3{
+    margin-bottom: 4px;
+    color:rgb(162, 202, 93)}
+.line1{text-decoration:underline;}
+.heading-about{color:orange;}
+.title{background-color: grey;}
+
