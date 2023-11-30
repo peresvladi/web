@@ -117,7 +117,7 @@ function handlerInputNow(a, e, u, z) {
             BodyLocStorage = BodyLocStorage + ifKeyLocStorage + ",";
         } else {
             e.setItem((y + z) + u, BodyLocStorage);
-             BodyLocStorage = "";
+            BodyLocStorage = "";
             y++;
         }
     }
@@ -168,16 +168,31 @@ function availabilityOfaKeys(e, u) {
 function inputLocStorage(e, u) {
     let element = "";
     for (let iSt = 0; iSt < e.length; iSt++) {
-        element = element + e.getItem(iSt + u)  + u + ",";
-
-
+        element = element + e.getItem(iSt + u) + u + ",";
     }
 
     // alert(element);
     return (element);
 }
 
+function inputFile() {
+    let svithFlag = prompt("Для загрузки видеофайла введите - 'v', для загружки текстового файла разметки фрагметов видео (name: fuel...) введите - 'т', для выхода введите либой иной символ(символы)", "Тестируем ?")
+    let onSvithFlag = svithFlag.toLowerCase();
+    switch (onSvithFlag) {
+        case "v":
+            alert("Выбрана загрузка видеофайла")
 
+            break;
+        case "т":
+            alert("Выбрана загрузка текстового файла")
+            inputText();
+            break;
+        default:
+            inputVideo()
+            break;
+    }
+
+}
 function inputText() {
     // получим элемент, используя селектор [type="file"]
     const elemInput = document.querySelector('[type="file"]');
@@ -199,8 +214,11 @@ function inputText() {
             alert("Содержимое файла: " + contents);
             Array.prototype.push.apply(arr, contents.split(","));
             //alert(arr);
-            inputNow(arr, window.localStorage, namePartVCatalog); 
+            inputNow(arr, window.localStorage, namePartVCatalog);
             arr.length = 0;
+            document.getElementById('inputfile1').value = "";
+            //document.getElementById('inputfile2').value="";
+            //document.getElementById('example').value=''
         };
 
         reader.onerror = function (selectedFile) {
@@ -216,13 +234,143 @@ function inputText() {
 }
 
 
+function inputVideo() {
+    // получим элемент, используя селектор [type="file"]
+    const elemInput = document.querySelector('[type="file"]');
+    // сохраним в переменную files значение свойства files
+    const files = elemInput.files;
+    // files = e.target.files;
+    // сохраним количество элементов в files в переменную countFiles
+    const countFiles = files.length;
+    if (!countFiles) {
+        alert('Не выбран файл!');
+        return;
+    } else {
+
+        //-//присваиваем переменной selectedFile ссылку на выбранный файл
+        const selectedFile = files[0];
+        //-// const reader = new FileReader();
+        let reader = new FileReader();
+        reader.readAsArrayBuffer(selectedFile);
+
+
+        reader.onload = function (selectedFile) {
+            let buffer = selectedFile.target.result;
+            //-// alert("Содержимое файла: " + contents);
+            let videoBlob = new Blob([new Uint8Array(buffer)], { type: 'video/mp4' });
+            let url = window.URL.createObjectURL(videoBlob);
+
+            alert(url);
+            //--// video.src = url;
+
+            //-//arr.length = 0;
+            //-//document.getElementById('inputfile1').value = "";
+
+        };
+
+        reader.onerror = function (selectedFile) {
+
+            selectedFile.error(
+                "Файл не может быть прочитан! код " + selectedFile.target.error.code);
+        };
+
+        //reader.readAsText(selectedFile);
+
+    }
+
+}
+
+
+function inputText2(a) {
+    if (a === 0) {
+        alert(a);
+        // получим элемент, используя селектор [type="file"]
+        const elemInput = document.querySelector('[type="file"]');
+        // сохраним в переменную files значение свойства files
+        const files = elemInput.files;
+        // files = e.target.files;
+        // сохраним количество элементов в files в переменную countFiles
+        const countFiles = files.length;
+        if (!countFiles) {
+            alert('Не выбран файл!');
+            return;
+        } else {
+
+            // присваиваем переменной selectedFile ссылку на выбранный файл
+            const selectedFile = files[0];
+            const reader = new FileReader();
+            reader.onload = function (selectedFile) {
+                var contents = selectedFile.target.result;
+                alert("Содержимое файла: " + contents);
+                Array.prototype.push.apply(arr, contents.split(","));
+                //alert(arr);
+                inputNow(arr, window.localStorage, namePartVCatalog);
+                arr.length = 0;
+                document.getElementById('inputfile0').value = "";
+                document.getElementById('inputfile2').value = "";
+            };
+
+            reader.onerror = function (selectedFile) {
+
+                selectedFile.error(
+                    "Файл не может быть прочитан! код " + selectedFile.target.error.code);
+            };
+
+            reader.readAsText(selectedFile);
+
+        }
+
+    } else {
+        alert(a);
+        // получим элемент, используя селектор [type="file"]
+        const elemInput = document.querySelector('[type="file"]');
+        // сохраним в переменную files значение свойства files
+        const files = elemInput.files;
+        // files = e.target.files;
+        // сохраним количество элементов в files в переменную countFiles
+        const countFiles = files.length;
+        if (!countFiles) {
+            alert('Не выбран файл!');
+            return;
+        } else {
+
+            // присваиваем переменной selectedFile ссылку на выбранный файл
+            const selectedFile = files[0];
+            const reader = new FileReader();
+            reader.onload = function (selectedFile) {
+                var contents = selectedFile.target.result;
+                alert("Содержимое файла: " + contents);
+                Array.prototype.push.apply(arr, contents.split(","));
+                //alert(arr);
+                inputNow(arr, window.localStorage, namePartVCatalog);
+                arr.length = 0;
+                document.getElementById('inputfile2').value = "";
+                document.getElementById('inputfile0').value = ""
+            };
+
+            reader.onerror = function (selectedFile) {
+
+                selectedFile.error(
+                    "Файл не может быть прочитан! код " + selectedFile.target.error.code);
+            };
+
+            reader.readAsText(selectedFile);
+
+        }
+
+    }
+
+
+}
+
+
 
 document.onkeydown = go_key;
 function go_key(event) {
     if (!event) { event = window.event; }
     console.log(event, event.keyCode)
     switch (event.keyCode) {
-        case 32: 
+        case 32:
             break;
 
         case 39: setPositionGoo(); break;
