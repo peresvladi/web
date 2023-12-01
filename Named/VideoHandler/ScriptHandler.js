@@ -28,19 +28,20 @@ if (pathName === null) {
 }
 var pathURLName = (pathURL + pathName)
 
-source.setAttribute('src', pathURLName);
-source.setAttribute('type', 'video/mp4');
+if (pathURLName !== "undefined") {
+    source.setAttribute('src', pathURLName);
+    source.setAttribute('type', 'video/mp4');
 
-vid.appendChild(source);
-vid.play();
-console.log({
-    src: source.getAttribute('src'),
-    type: source.getAttribute('type'),
-});
+    vid.appendChild(source);
+    vid.play();
+    console.log({
+        src: source.getAttribute('src'),
+        type: source.getAttribute('type'),
+    });
 
-vid.addEventListener("timeupdate", getCurTime);
+    vid.addEventListener("timeupdate", getCurTime);
 
-
+}
 
 
 
@@ -244,7 +245,6 @@ function inputVideo() {
     const countFiles = files.length;
     if (!countFiles) {
         alert('Не выбран файл!');
-        return;
     } else {
 
         //-//присваиваем переменной selectedFile ссылку на выбранный файл
@@ -259,8 +259,9 @@ function inputVideo() {
             //-// alert("Содержимое файла: " + contents);
             let videoBlob = new Blob([new Uint8Array(buffer)], { type: 'video/mp4' });
             let url = window.URL.createObjectURL(videoBlob);
-
-            alert(url);
+            vid.src = url;
+            return url;
+            //alert(url);
             //--// video.src = url;
 
             //-//arr.length = 0;
