@@ -253,19 +253,14 @@ function inputVideo() {
         let reader = new FileReader();
         reader.readAsArrayBuffer(selectedFile);
 
-
         reader.onload = function (selectedFile) {
             let buffer = selectedFile.target.result;
-            //-// alert("Содержимое файла: " + contents);
-            let videoBlob = new Blob([new Uint8Array(buffer)], { type: 'video/mp4' });
-            let url = window.URL.createObjectURL(videoBlob);
+            let tempDateBlob = new Blob([new Uint8Array(buffer)], { type: 'video/mp4' });
+            let url = window.URL.createObjectURL(tempDateBlob);
             vid.src = url;
+           
+            document.getElementById('inputfile1').value = "";
             return url;
-            //alert(url);
-            //--// video.src = url;
-
-            //-//arr.length = 0;
-            //-//document.getElementById('inputfile1').value = "";
 
         };
 
@@ -282,86 +277,14 @@ function inputVideo() {
 }
 
 
-function inputText2(a) {
-    if (a === 0) {
-        alert(a);
-        // получим элемент, используя селектор [type="file"]
-        const elemInput = document.querySelector('[type="file"]');
-        // сохраним в переменную files значение свойства files
-        const files = elemInput.files;
-        // files = e.target.files;
-        // сохраним количество элементов в files в переменную countFiles
-        const countFiles = files.length;
-        if (!countFiles) {
-            alert('Не выбран файл!');
-            return;
-        } else {
-
-            // присваиваем переменной selectedFile ссылку на выбранный файл
-            const selectedFile = files[0];
-            const reader = new FileReader();
-            reader.onload = function (selectedFile) {
-                var contents = selectedFile.target.result;
-                alert("Содержимое файла: " + contents);
-                Array.prototype.push.apply(arr, contents.split(","));
-                //alert(arr);
-                inputNow(arr, window.localStorage, namePartVCatalog);
-                arr.length = 0;
-                document.getElementById('inputfile0').value = "";
-                document.getElementById('inputfile2').value = "";
-            };
-
-            reader.onerror = function (selectedFile) {
-
-                selectedFile.error(
-                    "Файл не может быть прочитан! код " + selectedFile.target.error.code);
-            };
-
-            reader.readAsText(selectedFile);
-
-        }
-
-    } else {
-        alert(a);
-        // получим элемент, используя селектор [type="file"]
-        const elemInput = document.querySelector('[type="file"]');
-        // сохраним в переменную files значение свойства files
-        const files = elemInput.files;
-        // files = e.target.files;
-        // сохраним количество элементов в files в переменную countFiles
-        const countFiles = files.length;
-        if (!countFiles) {
-            alert('Не выбран файл!');
-            return;
-        } else {
-
-            // присваиваем переменной selectedFile ссылку на выбранный файл
-            const selectedFile = files[0];
-            const reader = new FileReader();
-            reader.onload = function (selectedFile) {
-                var contents = selectedFile.target.result;
-                alert("Содержимое файла: " + contents);
-                Array.prototype.push.apply(arr, contents.split(","));
-                //alert(arr);
-                inputNow(arr, window.localStorage, namePartVCatalog);
-                arr.length = 0;
-                document.getElementById('inputfile2').value = "";
-                document.getElementById('inputfile0').value = ""
-            };
-
-            reader.onerror = function (selectedFile) {
-
-                selectedFile.error(
-                    "Файл не может быть прочитан! код " + selectedFile.target.error.code);
-            };
-
-            reader.readAsText(selectedFile);
-
-        }
-
+function httpGetAsync(theUrl, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.response);
     }
-
-
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
 }
 
 
@@ -382,7 +305,17 @@ function go_key(event) {
         case 120: vid.pause(); arr.push((keySave(1201))); arr.push((keySave(1202))); arr.push(namePartVCatalog); confirm("Начать следующий фрагмент") === true ? arr.push((keySave(1203))) : arr; break;
         case 115: inputNow(arr, window.localStorage, namePartVCatalog); arr.length = 0; break;
         case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
-        case 90: confirm("Очистить arr ?") ? arr.length = 0 : alert(arr); break;
+        case 90:httpGetAsync();  
+        
+        
+//         var videoTags = document.getElementsByTagName('video')
+//         for( var i = 0; i < videoTags.length; i++){
+//         alert( videoTags.item(i).currentSrc);
+// }
+        
+        
+        ///confirm("Очистить arr ?") ? arr.length = 0 : alert(arr); 
+        break;
 
 
         case 88: if (true === confirm('Очистить LocalStorage ?')) {
