@@ -26,30 +26,41 @@
       <div class="header_right">
         <a href="javascript:document.getElementById('inputfile1').click(); ">Click to upload FILE</a>
         <input type="file" onchange="inputFile()" style="display:none;" id="inputfile1" />
-        
-    <script>
-      
-      var locat = loc();
-      function loc() {
-      return window.location.href;
-      }
-      let fileName = locat.split('VCatalog').pop();
-      fileName = fileName.substring(0, fileName.lastIndexOf(".") + 0);
-      if (window.localStorage.getItem("0" + fileName) !== null) {
+
+        <script>
+
+          var locat = loc();
+          function loc() {
+            return window.location.href;
+          }
+          let fileName = locat.split('VCatalog').pop();
+          fileName = fileName.substring(0, fileName.lastIndexOf(".") + 0);
           document.write(`<select name="pets" id = "pet-select">Choose a pet:</label>`);
-          document.write(`<option value=''>'Кликните'</option>`);
-          for (let i = 0; i < window.localStorage.length; i++) {
+
+          document.getElementById("pet-select").onchange = function () {
+            let sheet = document.getElementById("pet-select").value;
+
+            if (sheet == "Добавить") {
+              document.getElementById('inputfile1').click();
+            }
+          };
+
+          document.write(`<option onclick= 'inputFile()' value='Пусто'>'Пусто'</option>`);
+          document.write(`<option onclick= 'inputFile()' value='Добавить'>'Добавить'</option>`);
+          if (window.localStorage.getItem("0" + fileName) !== null) {
+            document.write(`<option value=''>'Кликните'</option>`);
+            for (let i = 0; i < window.localStorage.length; i++) {
               let keyFragment = i + fileName;
               let fragment = (window.localStorage.getItem(keyFragment)).split(",");
               let nameInputButton = fragment[0] + "&" + fragment[1];
               let meFragment = fragment[2];
               let nameFragment = i + "-" + meFragment.replace(/\s/g, "&nbsp");
               document.write(`<option value='${nameFragment}'>'${nameFragment}'</option>`);
+            }
+            document.write(`</select>`);
           }
-          document.write(`</select>`);    
-      }
-  </script>
-   
+        </script>
+
       </div>
     </div>
 
@@ -62,8 +73,8 @@
       <!-- Your browser does not support the video tag. -->
     </video><br>
 
-    
-    <script src="../../../../VideoHandler/ScriptHandler.js"></script>
+
+    <script src="../VideoHandler/ScriptHandler.js"></script>
   </div>
 </body>
 

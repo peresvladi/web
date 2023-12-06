@@ -177,21 +177,45 @@ function inputLocStorage(e, u) {
 }
 
 function inputFile() {
-    let svithFlag = prompt("Для загрузки видеофайла введите - 'v', для загружки текстового файла разметки фрагметов видео (name: fuel...) введите - 'т', для выхода введите либой иной символ(символы)", "Тестируем ?")
+
+    let svithFlag = prompt("Для загрузки видеофайла введите - 'V', для загружки текстового файла разметки фрагметов видео (name: fuel...) введите - 'иное', для выхода введите либой иной символ(символы)", "V");
+
+    // let svithFlag = prompt("Для загрузки видеофайла введите - 'v', для загружки текстового файла разметки фрагметов видео (name: fuel...) введите - 'т', для выхода введите либой иной символ(символы)", e)
+
     let onSvithFlag = svithFlag.toLowerCase();
     switch (onSvithFlag) {
         case "v":
             alert("Выбрана загрузка видеофайла")
-
+            inputVideo()
             break;
         case "т":
+
+            break;
+        default:
             alert("Выбрана загрузка текстового файла")
             inputText();
             break;
-        default:
-            inputVideo()
-            break;
     }
+
+    // let v = (document.querySelector('[type="file"]').nodeType) + " " + (document.querySelector('[type="file"]').nodeName) + " " +
+    //     (document.querySelector('[type="file"]').COMMENT_NODE) + " " +
+    //     (document.querySelector('[type="file"]').ATTRIBUTE_NODE) + " " +
+    //     (document.querySelector('[type="file"]').CDATA_SECTION_NODE) + " " +
+    //     (document.querySelector('[type="file"]').DOCUMENT_FRAGMENT_NODE) + " " +
+    //     (document.querySelector('[type="file"]').DOCUMENT_NODE) + " " +
+    //     (document.querySelector('[type="file"]').DOCUMENT_POSITION_CONTAINED_BY) + " " +
+    //     (document.querySelector('[type="file"]').DOCUMENT_POSITION_CONTAINS) + " " +
+    //     (document.querySelector('[type="file"]').DOCUMENT_POSITION_DISCONNECTED) + " " +
+    //     (document.querySelector('[type="file"]').DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC) + " " +
+    //     (document.querySelector('[type="file"]').DOCUMENT_POSITION_PRECEDING) + " " +
+    //     (document.querySelector('[type="file"]').DOCUMENT_TYPE_NODE);
+    // alert(v);
+
+
+
+
+
+
 
 }
 function inputText() {
@@ -258,7 +282,7 @@ function inputVideo() {
             let tempDateBlob = new Blob([new Uint8Array(buffer)], { type: 'video/mp4' });
             let url = window.URL.createObjectURL(tempDateBlob);
             vid.src = url;
-           
+
             document.getElementById('inputfile1').value = "";
             return url;
 
@@ -279,7 +303,7 @@ function inputVideo() {
 
 function httpGetAsync(theUrl, callback) {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
+    xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             callback(xmlHttp.response);
     }
@@ -305,17 +329,17 @@ function go_key(event) {
         case 120: vid.pause(); arr.push((keySave(1201))); arr.push((keySave(1202))); arr.push(namePartVCatalog); confirm("Начать следующий фрагмент") === true ? arr.push((keySave(1203))) : arr; break;
         case 115: inputNow(arr, window.localStorage, namePartVCatalog); arr.length = 0; break;
         case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
-        case 90:httpGetAsync();  
-        
-        
-//         var videoTags = document.getElementsByTagName('video')
-//         for( var i = 0; i < videoTags.length; i++){
-//         alert( videoTags.item(i).currentSrc);
-// }
-        
-        
-        ///confirm("Очистить arr ?") ? arr.length = 0 : alert(arr); 
-        break;
+        case 90: httpGetAsync();
+
+
+            //         var videoTags = document.getElementsByTagName('video')
+            //         for( var i = 0; i < videoTags.length; i++){
+            //         alert( videoTags.item(i).currentSrc);
+            // }
+
+
+            ///confirm("Очистить arr ?") ? arr.length = 0 : alert(arr); 
+            break;
 
 
         case 88: if (true === confirm('Очистить LocalStorage ?')) {
