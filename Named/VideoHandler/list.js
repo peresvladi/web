@@ -16,7 +16,6 @@ document.getElementById("pet-select").onchange = function () {
     callsTheInputfile2();
   }
 };
-
 document.write(`<option onclick= 'inputFile()' value='Пусто'>'Пусто'</option>`);
 document.write(`<option onclick= 'inputFile()' value='Добавить'>'Добавить'</option>`);
 if (window.localStorage.getItem("0" + fileName) !== null) {

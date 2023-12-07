@@ -177,6 +177,9 @@ function inputLocStorage(e, u) {
 }
 
 function inputFile() {
+    const elemInput = document.querySelector('[type="file"]');
+    const typeResulte = elemInput.files[0].type;
+    
 
     let svithFlag = prompt("Для загрузки видеофайла введите - 'V', для загружки текстового файла разметки фрагметов видео (name: fuel...) введите - 'иное', для выхода введите либой иной символ(символы)", "V");
 
@@ -196,27 +199,7 @@ function inputFile() {
             inputText();
             break;
     }
-
-    // let v = (document.querySelector('[type="file"]').nodeType) + " " + (document.querySelector('[type="file"]').nodeName) + " " +
-    //     (document.querySelector('[type="file"]').COMMENT_NODE) + " " +
-    //     (document.querySelector('[type="file"]').ATTRIBUTE_NODE) + " " +
-    //     (document.querySelector('[type="file"]').CDATA_SECTION_NODE) + " " +
-    //     (document.querySelector('[type="file"]').DOCUMENT_FRAGMENT_NODE) + " " +
-    //     (document.querySelector('[type="file"]').DOCUMENT_NODE) + " " +
-    //     (document.querySelector('[type="file"]').DOCUMENT_POSITION_CONTAINED_BY) + " " +
-    //     (document.querySelector('[type="file"]').DOCUMENT_POSITION_CONTAINS) + " " +
-    //     (document.querySelector('[type="file"]').DOCUMENT_POSITION_DISCONNECTED) + " " +
-    //     (document.querySelector('[type="file"]').DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC) + " " +
-    //     (document.querySelector('[type="file"]').DOCUMENT_POSITION_PRECEDING) + " " +
-    //     (document.querySelector('[type="file"]').DOCUMENT_TYPE_NODE);
-    // alert(v);
-
-
-
-
-
-
-
+    
 }
 function inputText() {
     // получим элемент, используя селектор [type="file"]
@@ -273,6 +256,7 @@ function inputVideo() {
 
         //-//присваиваем переменной selectedFile ссылку на выбранный файл
         const selectedFile = files[0];
+        const nameResulte = selectedFile.name;
         //-// const reader = new FileReader();
         let reader = new FileReader();
         reader.readAsArrayBuffer(selectedFile);
@@ -281,6 +265,9 @@ function inputVideo() {
             let buffer = selectedFile.target.result;
             let tempDateBlob = new Blob([new Uint8Array(buffer)], { type: 'video/mp4' });
             let url = window.URL.createObjectURL(tempDateBlob);
+            let path = prompt("вставьте скопированный путь к файлу");
+            let generalPath = path + nameResulte;
+            alert(generalPath);
             vid.src = url;
 
             document.getElementById('inputfile1').value = "";
