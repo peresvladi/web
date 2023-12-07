@@ -179,28 +179,23 @@ function inputLocStorage(e, u) {
 function inputFile() {
     const elemInput = document.querySelector('[type="file"]');
     const typeResulte = elemInput.files[0].type;
-    
-
-    let svithFlag = prompt("Для загрузки видеофайла введите - 'V', для загружки текстового файла разметки фрагметов видео (name: fuel...) введите - 'иное', для выхода введите либой иной символ(символы)", "V");
-
-    // let svithFlag = prompt("Для загрузки видеофайла введите - 'v', для загружки текстового файла разметки фрагметов видео (name: fuel...) введите - 'т', для выхода введите либой иной символ(символы)", e)
-
-    let onSvithFlag = svithFlag.toLowerCase();
-    switch (onSvithFlag) {
-        case "v":
+    alert(typeResulte);
+    switch (typeResulte) {
+        case "video/mp4":
             alert("Выбрана загрузка видеофайла")
             inputVideo()
             break;
-        case "т":
-
-            break;
-        default:
+        case "text/plain":
             alert("Выбрана загрузка текстового файла")
             inputText();
             break;
+        default:
+            alert('Формат файла неприемлем для загрузки программой "TimeCode For TheVideo"');
+            break;
     }
-    
+
 }
+
 function inputText() {
     // получим элемент, используя селектор [type="file"]
     const elemInput = document.querySelector('[type="file"]');
@@ -266,10 +261,29 @@ function inputVideo() {
             let tempDateBlob = new Blob([new Uint8Array(buffer)], { type: 'video/mp4' });
             let url = window.URL.createObjectURL(tempDateBlob);
             let path = prompt("вставьте скопированный путь к файлу");
-            let generalPath = path + nameResulte;
-            alert(generalPath);
-            vid.src = url;
+            let correctedPath = path.replace(/\\/g, '/') + '/';
 
+            let generalPath = correctedPath + nameResulte;
+            alert(generalPath);
+            const relativePath = CreateArelativePath(generalPath);
+            function CreateArelativePath(gP) {
+                const divided = gP.split('/');
+                let section = "";
+                let i = 1;
+                let relative = "";
+                while (section !== "Named") {
+                    section = divided[divided.length - i];
+                    relative = '/' + section + relative;
+                    i++;
+
+                    alert(relative);
+                }
+                return relative;
+            };
+            
+            let nameDir = nameResulte.split(".");
+            window.localStorage.setItem("0" + nameDir[0], relativePath);
+            vid.src = url;
             document.getElementById('inputfile1').value = "";
             return url;
 
