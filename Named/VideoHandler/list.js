@@ -21,11 +21,10 @@ document.write(`<option onclick= 'inputFile()' value='Добавить'>'Доб�
 if (window.localStorage.getItem("0" + fileName) !== null) {
   document.write(`<option value=''>'Кликните'</option>`);
   for (let i = 0; i < window.localStorage.length; i++) {
-  if(window.localStorage.key(i).charAt(0)==="0"){}
-    // let keyFragment = i + fileName;
-    // let fragment = (window.localStorage.getItem(keyFragment)).split(",");
-    // let nameInputButton = fragment[0] + "&" + fragment[1];
-    // let meFragment = fragment[2];
+    let keyFragment = i + fileName;
+    let fragment = (window.localStorage.getItem(keyFragment)).split(",");
+    let nameInputButton = fragment[0] + "&" + fragment[1];
+    let meFragment = fragment[2];
     let nameFragment = i + "-" + meFragment.replace(/\s/g, "&nbsp");
     document.write(`<option value='${nameFragment}'>'${nameFragment}'</option>`);
   }
