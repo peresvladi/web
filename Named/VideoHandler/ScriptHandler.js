@@ -278,11 +278,13 @@ function inputVideo() {
 
                     alert(relative);
                 }
+                
                 return relative;
             };
             
             let nameDir = nameResulte.split(".");
             window.localStorage.setItem("0" + nameDir[0], relativePath);
+            listNamberOne(nameDir, relativePath);
             vid.src = url;
             document.getElementById('inputfile1').value = "";
             return url;
@@ -302,15 +304,59 @@ function inputVideo() {
 }
 
 
-function httpGetAsync(theUrl, callback) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.response);
+
+function listNamberOne(name) {
+    document.write(`<select name="listNamberOne" id = "listOne">Choose a list:</label>`);
+
+    document.getElementById("listOne").onchange = function () {
+      let sheet = document.getElementById("listOne").value;
+    
+      if (sheet == "Добавить") {
+        //callsTheInputfile2(e = "v");
+        callsTheInputfile1();
+      }
+      function callsTheInputfile1() {
+        return document.getElementById('inputfile1').click();
+    };
+    document.write(`<option onclick= 'inputFile()' value='Пусто'>'Пусто'</option>`);
+    document.write(`<option onclick= 'inputFile()' value='Добавить'>'Добавить'</option>`);
+    if (window.localStorage.getItem("0" + name) === null) {
+     alert (name + ' - в localStorage не вставлен, ОШИБКА!')};
+     for (let i = 0; i < window.localStorage.length; i++) { 
+     if(window.localStorage.key(i).charAt(0)==="0"){
+     let  nameВutton = window.localStorage.key(i);
+     let  valueВutton = window.localStorage.getItem(nameВutton);
+     document.write(`<option value='${valueВutton}'>'${nameВutton}'</option>`);
     }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
+    }
+     
+    //  for (let i = 0; i < window.localStorage.length; i++) {
+    //     let keyFragment = i + name;
+    //     let fragment = (window.localStorage.getItem(keyFragment)).split(",");
+    //     let nameInputButton = fragment[0] + "&" + fragment[1];
+    //     let meFragment = fragment[2];
+    //     let nameFragment = i + "-" + meFragment.replace(/\s/g, "&nbsp");
+    //     document.write(`<option value='${nameFragment}'>'${nameFragment}'</option>`);
+    //   }
+
+
+
+      document.write(`</select>`);
+    
+}    
 }
+
+
+
+// function httpGetAsync(theUrl, callback) {
+//     var xmlHttp = new XMLHttpRequest();
+//     xmlHttp.onreadystatechange = function () {
+//         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+//             callback(xmlHttp.response);
+//     }
+//     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+//     xmlHttp.send(null);
+// }
 
 
 
