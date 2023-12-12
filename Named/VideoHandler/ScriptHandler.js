@@ -278,10 +278,10 @@ function inputVideo() {
 
                     alert(relative);
                 }
-                
+
                 return relative;
             };
-            
+
             let nameDir = nameResulte.split(".");
             window.localStorage.setItem("0" + nameDir[0], relativePath);
             listNamberOne(nameDir, relativePath);
@@ -305,31 +305,59 @@ function inputVideo() {
 
 
 
-function listNamberOne(name) {
-    document.write(`<select name="listNamberOne" id = "listOne">Choose a list:</label>`);
+function listNamberOne(name, path) {
 
-    document.getElementById("listOne").onchange = function () {
-      let sheet = document.getElementById("listOne").value;
-    
-      if (sheet == "Добавить") {
-        //callsTheInputfile2(e = "v");
-        callsTheInputfile1();
-      }
-      function callsTheInputfile1() {
-        return document.getElementById('inputfile1').click();
-    };
-    document.write(`<option onclick= 'inputFile()' value='Пусто'>'Пусто'</option>`);
-    document.write(`<option onclick= 'inputFile()' value='Добавить'>'Добавить'</option>`);
-    if (window.localStorage.getItem("0" + name) === null) {
-     alert (name + ' - в localStorage не вставлен, ОШИБКА!')};
-     for (let i = 0; i < window.localStorage.length; i++) { 
-     if(window.localStorage.key(i).charAt(0)==="0"){
-     let  nameВutton = window.localStorage.key(i);
-     let  valueВutton = window.localStorage.getItem(nameВutton);
-     document.write(`<option value='${valueВutton}'>'${nameВutton}'</option>`);
+
+
+    // document.write(`<select name="listNamberOne" id = "listOne">Choose a list:</label>`);
+
+
+    document.write(`<select name="top" id="top">`);
+    alert(window.localStorage.length);
+    for (let i = 0; i < window.localStorage.length; i++) {
+        if (window.localStorage.key(i).charAt(0) === "0") {
+            alert(window.localStorage.key(i).charAt(0));
+            let nameВutton = window.localStorage.key(i);
+            let valueВutton = window.localStorage.getItem(nameВutton);
+            document.write(`<option value='${valueВutton}'>'${nameВutton}'</option>`);
+        }
     }
-    }
-     
+
+
+
+
+
+
+
+
+
+    // document.write(`<select name="listNamberOne" id = "listOne">Choose a list:</label>`);
+
+    // document.getElementById("listOne").onchange = function () {
+    //   let sheet = document.getElementById("listOne").value;
+
+    //   if (sheet == "Добавить") {
+    //     //callsTheInputfile2(e = "v");
+    //     callsTheInputfile1();
+    //   }
+    //   function callsTheInputfile1() {
+    //     return document.getElementById('inputfile1').click();
+    // };
+    // document.write(`<option onclick= 'inputFile()' value='Пусто'>'Пусто'</option>`);
+    // document.write(`<option onclick= 'inputFile()' value='Добавить'>'Добавить'</option>`);
+    // if (window.localStorage.getItem("0" + name) === null) {
+    //  alert (name + ' - в localStorage не вставлен, ОШИБКА!')};
+    //  for (let i = 0; i < window.localStorage.length; i++) { 
+    //  if(window.localStorage.key(i).charAt(0)==="0"){
+    //  let  nameВutton = window.localStorage.key(i);
+    //  let  valueВutton = window.localStorage.getItem(nameВutton);
+    //  document.write(`<option value='${valueВutton}'>'${nameВutton}'</option>`);
+    // }
+    // }
+
+
+
+
     //  for (let i = 0; i < window.localStorage.length; i++) {
     //     let keyFragment = i + name;
     //     let fragment = (window.localStorage.getItem(keyFragment)).split(",");
@@ -341,10 +369,10 @@ function listNamberOne(name) {
 
 
 
-      document.write(`</select>`);
-    
-}    
+    document.write(`</select>`);
+
 }
+
 
 
 
