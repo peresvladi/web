@@ -42,7 +42,7 @@ if (pathURLName !== "undefined") {
     vid.addEventListener("timeupdate", getCurTime);
 
 }
-
+listNamberOne();
 
 
 
@@ -284,7 +284,7 @@ function inputVideo() {
 
             let nameDir = nameResulte.split(".");
             window.localStorage.setItem("0" + nameDir[0], relativePath);
-            listNamberOne(nameDir, relativePath);
+
             vid.src = url;
             document.getElementById('inputfile1').value = "";
             return url;
@@ -305,7 +305,7 @@ function inputVideo() {
 
 
 
-function listNamberOne(name, path) {
+function listNamberOne() {
 
 
 
