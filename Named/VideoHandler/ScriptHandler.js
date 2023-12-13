@@ -306,26 +306,25 @@ function inputVideo() {
 
 
 function listNamberOne() {
-
-
-
-    // document.write(`<select name="listNamberOne" id = "listOne">Choose a list:</label>`);
-
-
-
-
     let selectedNameMeny1 = meny1();
     document.write(`<select name="topic" id="topic">`);
     // alert(window.localStorage.length);
-    for (let i = 0; i < window.localStorage.length; i++) {
+    let i = 0;
+    while (window.localStorage.getItem(selectedNameMeny1.replace("0", i))!== null) {
+        let nameВutton = selectedNameMeny1.replace("0", i);
+        i++;
+        let nameValueВutton = window.localStorage.getItem(nameВutton); 
+        
+        document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);  
 
-        alert(selectedNameMeny1.replace("0", i))
-        if (window.localStorage.key(i) === selectedNameMeny1.replace("0", i)) {
-            let nameВutton = window.localStorage.key(i);
-            let valueВutton = window.localStorage.getItem(nameВutton);
-            document.write(`<option value='${valueВutton}'>'${nameВutton}'</option>`);
-        }
+        alert(" key:    "+ nameВutton + "   value:   "+ nameValueВutton);
+       
     }                                                                                          
+    document.write(`</select>`);
+
+}
+
+    
     function meny1() {
         document.write(`<select name="top" id="top">`);
         // alert(window.localStorage.length);
@@ -388,10 +387,7 @@ function listNamberOne() {
 
 
 
-    document.write(`</select>`);
-
-}
-
+   
 
 
 
