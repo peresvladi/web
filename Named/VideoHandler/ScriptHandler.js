@@ -312,16 +312,35 @@ function listNamberOne() {
     // document.write(`<select name="listNamberOne" id = "listOne">Choose a list:</label>`);
 
 
-    document.write(`<select name="top" id="top">`);
-    alert(window.localStorage.length);
+
+
+    let selectedNameMeny1 = meny1();
+    document.write(`<select name="topic" id="topic">`);
+    // alert(window.localStorage.length);
     for (let i = 0; i < window.localStorage.length; i++) {
-        if (window.localStorage.key(i).charAt(0) === "0") {
-            alert(window.localStorage.key(i).charAt(0));
+
+        alert(selectedNameMeny1.replace("0", i))
+        if (window.localStorage.key(i) === selectedNameMeny1.replace("0", i)) {
             let nameВutton = window.localStorage.key(i);
             let valueВutton = window.localStorage.getItem(nameВutton);
             document.write(`<option value='${valueВutton}'>'${nameВutton}'</option>`);
         }
+    }                                                                                          
+    function meny1() {
+        document.write(`<select name="top" id="top">`);
+        // alert(window.localStorage.length);
+        for (let i = 0; i < window.localStorage.length; i++) {
+            if (window.localStorage.key(i).charAt(0) === "0") {
+                alert(window.localStorage.key(i).charAt(0));
+                let nameValueВutton = window.localStorage.key(i);
+                // let valueВutton = window.localStorage.getItem(nameВutton);
+                document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);
+            }
+        }
+        document.write(`</select>`);
+        return document.querySelector('#top').value;
     }
+
 
 
 
