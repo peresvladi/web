@@ -310,35 +310,51 @@ function listNamberOne() {
     document.write(`<select name="topic" id="topic">`);
     // alert(window.localStorage.length);
     let i = 0;
-    while (window.localStorage.getItem(selectedNameMeny1.replace("0", i))!== null) {
+    while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
         let nameВutton = selectedNameMeny1.replace("0", i);
         i++;
-        let nameValueВutton = window.localStorage.getItem(nameВutton); 
-        
-        document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);  
+        let nameValueВutton = window.localStorage.getItem(nameВutton);
 
-        alert(" key:    "+ nameВutton + "   value:   "+ nameValueВutton);
-       
-    }                                                                                          
+        document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);
+
+        alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
+
+    }
     document.write(`</select>`);
 
 }
 
-    
-    function meny1() {
-        document.write(`<select name="top" id="top">`);
-        // alert(window.localStorage.length);
-        for (let i = 0; i < window.localStorage.length; i++) {
-            if (window.localStorage.key(i).charAt(0) === "0") {
-                alert(window.localStorage.key(i).charAt(0));
-                let nameValueВutton = window.localStorage.key(i);
-                // let valueВutton = window.localStorage.getItem(nameВutton);
-                document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);
-            }
+
+function meny1() {
+    document.write(`<select name="top" id="top">`);
+    // alert(window.localStorage.length);
+    for (let i = 0; i < window.localStorage.length; i++) {
+        if (window.localStorage.key(i).charAt(0) === "0") {
+            // alert(window.localStorage.key(i).charAt(0));
+            let nameValueВutton = window.localStorage.key(i);
+            // let valueВutton = window.localStorage.getItem(nameВutton);
+            document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);
         }
-        document.write(`</select>`);
-        return document.querySelector('#top').value;
     }
+    document.write(`</select>`);
+    let theSelectedLine = document.getElementById('top').value;
+    const theBeginningOftheName = theSelectedLine.charAt(1);
+    alert(theBeginningOftheName);
+    if (theBeginningOftheName !== '0') {
+        ReplacementWithAdoubleOfLocalStorage(theSelectedLine);
+        ReplacementWithAdoubleOfMeny(theSelectedLine);
+    }
+    return document.querySelector('#top').value;
+}
+function ReplacementWithAdoubleOfLocalStorage(a) {
+    let tempValueItemLocalStorage = window.localStorage.getItem(a);
+    window.localStorage.removeItem(a);
+    window.localStorage.setItem('0' + a, tempValueItemLocalStorage);
+}
+
+function ReplacementWithAdoubleOfMeny(a) {
+    a = '0' + a;
+}
 
 
 
@@ -349,45 +365,46 @@ function listNamberOne() {
 
 
 
-    // document.write(`<select name="listNamberOne" id = "listOne">Choose a list:</label>`);
 
-    // document.getElementById("listOne").onchange = function () {
-    //   let sheet = document.getElementById("listOne").value;
+// document.write(`<select name="listNamberOne" id = "listOne">Choose a list:</label>`);
 
-    //   if (sheet == "Добавить") {
-    //     //callsTheInputfile2(e = "v");
-    //     callsTheInputfile1();
-    //   }
-    //   function callsTheInputfile1() {
-    //     return document.getElementById('inputfile1').click();
-    // };
-    // document.write(`<option onclick= 'inputFile()' value='Пусто'>'Пусто'</option>`);
-    // document.write(`<option onclick= 'inputFile()' value='Добавить'>'Добавить'</option>`);
-    // if (window.localStorage.getItem("0" + name) === null) {
-    //  alert (name + ' - в localStorage не вставлен, ОШИБКА!')};
-    //  for (let i = 0; i < window.localStorage.length; i++) { 
-    //  if(window.localStorage.key(i).charAt(0)==="0"){
-    //  let  nameВutton = window.localStorage.key(i);
-    //  let  valueВutton = window.localStorage.getItem(nameВutton);
-    //  document.write(`<option value='${valueВutton}'>'${nameВutton}'</option>`);
-    // }
-    // }
+// document.getElementById("listOne").onchange = function () {
+//   let sheet = document.getElementById("listOne").value;
 
-
-
-
-    //  for (let i = 0; i < window.localStorage.length; i++) {
-    //     let keyFragment = i + name;
-    //     let fragment = (window.localStorage.getItem(keyFragment)).split(",");
-    //     let nameInputButton = fragment[0] + "&" + fragment[1];
-    //     let meFragment = fragment[2];
-    //     let nameFragment = i + "-" + meFragment.replace(/\s/g, "&nbsp");
-    //     document.write(`<option value='${nameFragment}'>'${nameFragment}'</option>`);
-    //   }
+//   if (sheet == "Добавить") {
+//     //callsTheInputfile2(e = "v");
+//     callsTheInputfile1();
+//   }
+//   function callsTheInputfile1() {
+//     return document.getElementById('inputfile1').click();
+// };
+// document.write(`<option onclick= 'inputFile()' value='Пусто'>'Пусто'</option>`);
+// document.write(`<option onclick= 'inputFile()' value='Добавить'>'Добавить'</option>`);
+// if (window.localStorage.getItem("0" + name) === null) {
+//  alert (name + ' - в localStorage не вставлен, ОШИБКА!')};
+//  for (let i = 0; i < window.localStorage.length; i++) { 
+//  if(window.localStorage.key(i).charAt(0)==="0"){
+//  let  nameВutton = window.localStorage.key(i);
+//  let  valueВutton = window.localStorage.getItem(nameВutton);
+//  document.write(`<option value='${valueВutton}'>'${nameВutton}'</option>`);
+// }
+// }
 
 
 
-   
+
+//  for (let i = 0; i < window.localStorage.length; i++) {
+//     let keyFragment = i + name;
+//     let fragment = (window.localStorage.getItem(keyFragment)).split(",");
+//     let nameInputButton = fragment[0] + "&" + fragment[1];
+//     let meFragment = fragment[2];
+//     let nameFragment = i + "-" + meFragment.replace(/\s/g, "&nbsp");
+//     document.write(`<option value='${nameFragment}'>'${nameFragment}'</option>`);
+//   }
+
+
+
+
 
 
 
