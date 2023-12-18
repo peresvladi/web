@@ -306,10 +306,10 @@ function inputVideo() {
 
 
 function listNamberOne() {
-    let selectedNameMeny1 = meny1().substr(1);
+    let selectedNameMeny1 = meny1();
     document.write(`<select name="topic" id="topic">`);
     // alert(window.localStorage.length);
-    let i = 1;
+    let i = 0;
     while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
         let nameВutton = selectedNameMeny1.replace("0", i);
         i++;
