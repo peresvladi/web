@@ -306,10 +306,11 @@ function inputVideo() {
 
 
 function listNamberOne() {
-    let selectedNameMeny1 = meny1();
-    document.write(`<select name="topic" id="topic">`);
+    let nameSelectedMeny1 = meny1();
+    let selectedNameMeny1 = nameSelectedMeny1.substr(1);
+    document.write(`<select name='${nameSelectedMeny1}' id="topic">`);
     // alert(window.localStorage.length);
-    let i = 0;
+    let i = 1;
     while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
         let nameВutton = selectedNameMeny1.replace("0", i);
         i++;
@@ -317,7 +318,7 @@ function listNamberOne() {
 
         document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);
 
-        alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
+        // alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
 
     }
     document.write(`</select>`);
@@ -334,16 +335,18 @@ function meny1() {
             let nameValueВutton = window.localStorage.key(i);
             // let valueВutton = window.localStorage.getItem(nameВutton);
             document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);
+
         }
     }
     document.write(`</select>`);
     let theSelectedLine = document.getElementById('top').value;
     const theBeginningOftheName = theSelectedLine.charAt(1);
-    alert(theBeginningOftheName);
+    // alert(theBeginningOftheName);
     if (theBeginningOftheName !== '0') {
         ReplacementWithAdoubleOfLocalStorage(theSelectedLine);
         ReplacementWithAdoubleOfMeny(theSelectedLine);
     }
+
     return document.querySelector('#top').value;
 }
 function ReplacementWithAdoubleOfLocalStorage(a) {
@@ -351,10 +354,23 @@ function ReplacementWithAdoubleOfLocalStorage(a) {
     window.localStorage.removeItem(a);
     window.localStorage.setItem('0' + a, tempValueItemLocalStorage);
 }
-
+function ReplacingItWithAsingleOneInThelocalStorage(a) {
+    let tempValueItemLocalStorage = window.localStorage.getItem(a);
+    window.localStorage.removeItem(a);
+    window.localStorage.setItem(a.slice(1), tempValueItemLocalStorage);
+}
 function ReplacementWithAdoubleOfMeny(a) {
     a = '0' + a;
 }
+
+
+document.getElementById("top").onchange = function () {
+    //alert(document.getElementById("topic").name);
+    ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("topic").name);
+    //alert(document.getElementById("top").value);
+    ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
+    window.location.reload();
+};
 
 
 
