@@ -351,8 +351,12 @@ function meny1() {
 }
 function ReplacementWithAdoubleOfLocalStorage(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
-    window.localStorage.removeItem(a);
-    window.localStorage.setItem('0' + a, tempValueItemLocalStorage);
+    if (a.charAt(1) === "0") {
+        window.localStorage.setItem('0' + ReplacingItWithAsingleOneInThelocalStorage(a), tempValueItemLocalStorage);
+    } else {
+        window.localStorage.removeItem(a);
+        window.localStorage.setItem('0' + a, tempValueItemLocalStorage);
+    }
 }
 function ReplacingItWithAsingleOneInThelocalStorage(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
