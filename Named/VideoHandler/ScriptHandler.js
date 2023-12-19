@@ -328,13 +328,13 @@ function listNamberOne() {
 
 function meny1() {
     document.write(`<select name="top" id="top">`);
-    // alert(window.localStorage.length);
     for (let i = 0; i < window.localStorage.length; i++) {
         if (window.localStorage.key(i).charAt(0) === "0") {
-            // alert(window.localStorage.key(i).charAt(0));
             let nameValueВutton = window.localStorage.key(i);
-            // let valueВutton = window.localStorage.getItem(nameВutton);
             document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);
+            if (nameValueВutton.charAt(1) === 0) {
+                document.getElementById('#top') = nameValueВutton;
+            }
 
         }
     }
@@ -356,8 +356,12 @@ function ReplacementWithAdoubleOfLocalStorage(a) {
 }
 function ReplacingItWithAsingleOneInThelocalStorage(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
-    window.localStorage.removeItem(a);
-    window.localStorage.setItem(a.slice(1), tempValueItemLocalStorage);
+    while (a.charAt(1) === "0") {
+        window.localStorage.removeItem(a);
+        a = a.slice(1);
+        window.localStorage.setItem(a, tempValueItemLocalStorage);
+    }
+
 }
 function ReplacementWithAdoubleOfMeny(a) {
     a = '0' + a;
@@ -365,9 +369,7 @@ function ReplacementWithAdoubleOfMeny(a) {
 
 
 document.getElementById("top").onchange = function () {
-    //alert(document.getElementById("topic").name);
     ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("topic").name);
-    //alert(document.getElementById("top").value);
     ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
     window.location.reload();
 };
