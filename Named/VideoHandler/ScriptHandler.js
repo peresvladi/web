@@ -332,14 +332,14 @@ function meny1() {
         if (window.localStorage.key(i).charAt(0) === "0") {
             let nameValueВutton = window.localStorage.key(i);
             document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);
-            if (nameValueВutton.charAt(1) === 0) {
-                document.getElementById('#top') = nameValueВutton;
+            if (nameValueВutton.charAt(1) === "0") {
+                document.getElementById("top").value = nameValueВutton;
             }
 
         }
     }
     document.write(`</select>`);
-    let theSelectedLine = document.getElementById('top').value;
+    let theSelectedLine = document.getElementById("top").value;
     const theBeginningOftheName = theSelectedLine.charAt(1);
     // alert(theBeginningOftheName);
     if (theBeginningOftheName !== '0') {
@@ -347,7 +347,7 @@ function meny1() {
         ReplacementWithAdoubleOfMeny(theSelectedLine);
     }
 
-    return document.querySelector('#top').value;
+    return document.querySelector("#top").value;
 }
 function ReplacementWithAdoubleOfLocalStorage(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
