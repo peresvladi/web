@@ -375,7 +375,7 @@ function ReplacementWithAdoubleOfMeny(a) {
 document.getElementById("top").onchange = function () {
     ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("topic").name);
     ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
-    //window.location.reload();
+    window.location.reload();
 };
 
 
