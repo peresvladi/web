@@ -16,6 +16,7 @@ var d = 2;
 var MP = 0.1;
 var vid = document.getElementById("myVideo");
 var source = document.createElement('source');
+//var menyItem = documtnt.getElementById("top").value
 var pathURL = window.localStorage.getItem('C_7LAT5TG_func1')
 if (pathURL === null) {
     pathURL = ""
