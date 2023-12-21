@@ -276,7 +276,32 @@ function inputVideo() {
                     relative = '/' + section + relative;
                     i++;
 
-                    alert(relative);
+                    //alert(relative);
+                }
+
+                const correctName = correctedName();
+
+                function correctedName() {
+                    return nameResulte.split(".")[0];
+                    //return nameResulte[1];
+                }
+
+                alert(correctName);
+
+                if (window.localStorage.getItem("0" + correctName) === null && window.localStorage.getItem("00" + correctName) === null) {
+                    document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
+                    window.localStorage.setItem("00" + correctName, relative);
+                    window.location.reload();
+                } else {
+                    if (window.localStorage.getItem("0" + correctName) !== null) {
+                        document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
+                        ReplacementWithAdoubleOfLocalStorage("0" + correctName);
+                        window.location.reload();
+                    }
+                    if (window.localStorage.getItem("00" + correctName) !== null) {
+                        document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
+                        window.location.reload();
+                    }
                 }
 
                 return relative;
