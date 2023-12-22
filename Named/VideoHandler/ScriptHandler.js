@@ -1,12 +1,22 @@
 var p_url = location.search.substring(1);
 var parametr = p_url.split("&");
 var s = parametr[0];
-//alert("var s = parametr[0]; = " + s)
+alert("var s = parametr[0]; = " + s)
 var f = parametr[1];
+alert("var f = parametr[1]; = " + f)
 var ee = parametr[2];
+
+alert("var ee = parametr[2]; = " + ee)
+
 const namePartVCatalog = parametr[3];
-// alert("namePartVCatalog...:" + namePartVCatalog);
+
+
+alert("parametr[3].:" + parametr[3]);
+
+
 //alert(s + "||" + f + "||" + e + "||" + nameVCatalog);
+
+
 var g = 1;
 var b = 1;
 var pos1 = 0;
@@ -265,7 +275,7 @@ function inputVideo() {
             let correctedPath = path.replace(/\\/g, '/') + '/';
 
             let generalPath = correctedPath + nameResulte;
-            alert(generalPath);
+            // alert(generalPath);
             const relativePath = CreateArelativePath(generalPath);
             function CreateArelativePath(gP) {
                 const divided = gP.split('/');
@@ -277,7 +287,7 @@ function inputVideo() {
                     relative = '/' + section + relative;
                     i++;
 
-                    //alert(relative);
+                    alert(".." + relative);
                 }
 
                 const correctName = correctedName();
@@ -291,21 +301,21 @@ function inputVideo() {
 
                 if (window.localStorage.getItem("0" + correctName) === null && window.localStorage.getItem("00" + correctName) === null) {
                     document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
-                    window.localStorage.setItem("00" + correctName, relative);
-                    window.location.reload();
+                    window.localStorage.setItem("00" + correctName, ".." + relative);
+                    // window.location.reload();
                 } else {
                     if (window.localStorage.getItem("0" + correctName) !== null) {
                         document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
                         ReplacementWithAdoubleOfLocalStorage("0" + correctName);
-                        window.location.reload();
+                        // window.location.reload();
                     }
                     if (window.localStorage.getItem("00" + correctName) !== null) {
                         document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
-                        window.location.reload();
+                        // window.location.reload();
                     }
                 }
 
-                return relative;
+                return ".." + relative;
             };
 
             let nameDir = nameResulte.split(".");
@@ -403,6 +413,9 @@ document.getElementById("top").onchange = function () {
     ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
     window.location.reload();
 };
+
+
+
 
 
 document.onkeydown = go_key;
