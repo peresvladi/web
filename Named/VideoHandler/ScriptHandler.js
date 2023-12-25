@@ -26,13 +26,16 @@ alert(directoryPath);
 ar = [];
 ar = directoryPath.split("/");
 alert(ar);
-let i = 0;
-do {
+let i = 2;
+while (ar[ar.length - i] !== "EDUCATION"){
+    alert(ar[ar.length - i]);
     startDirectory = startDirectory + startDir;
     alert(startDirectory);
     i++;
 }
-while (ar[ar.length - i] !== "EDUCATION");
+
+
+
 
 
 listNamberOne();
@@ -313,7 +316,7 @@ function inputVideo() {
 
                 if (window.localStorage.getItem("0" + correctName) === null && window.localStorage.getItem("00" + correctName) === null) {
                     document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
-                    window.localStorage.setItem("00" + correctName, relative);
+                    window.localStorage.setItem("00" + correctName, relative.slice(1));
                     window.location.reload();
                 } else {
                     if (window.localStorage.getItem("0" + correctName) !== null) {
@@ -327,11 +330,12 @@ function inputVideo() {
                     }
                 }
 
-                return relative;
+                return relative.slice(1);
             };
 
             let nameDir = nameResulte.split(".");
-            window.localStorage.setItem("0" + nameDir[0], relativePath);
+            if(window.localStorage.getItem("00" + nameDir[0]) === null ){
+            window.localStorage.setItem("0" + nameDir[0], relativePath);}
 
             vid.src = url;
             document.getElementById('inputfile1').value = "";
