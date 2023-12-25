@@ -16,30 +16,11 @@ var d = 2;
 var MP = 0.1;
 var vid = document.getElementById("myVideo");
 var source = document.createElement('source');
-let startDir = "../"
-let startDirectory = ""
-//var loc = window.location.pathname;    
-// let directoryPath = loc.substring(0, loc.lastIndexOf("/")+1);
-
-let directoryPath = window.location.pathname;
-alert(directoryPath);
-ar = [];
-ar = directoryPath.split("/");
-alert(ar);
-let i = 0;
-do {
-    startDirectory = startDirectory + startDir;
-    alert(startDirectory);
-    i++;
-}
-while (ar[ar.length - i] !== "EDUCATION");
-
-
 listNamberOne();
 var menyTopItem = document.getElementById("top").value
 ///alert("Значение выбранного пункта меню:      "+menyTopItem);
-var pathURL = startDirectory + window.localStorage.getItem(menyTopItem);
-alert(pathURL);
+var pathURL = "../../../"+window.localStorage.getItem(menyTopItem);
+///prompt(pathURL,);
 if (pathURL === null) {
     pathURL = "";
 
