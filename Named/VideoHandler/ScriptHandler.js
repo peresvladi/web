@@ -1,22 +1,12 @@
 var p_url = location.search.substring(1);
 var parametr = p_url.split("&");
 var s = parametr[0];
-alert("var s = parametr[0]; = " + s)
+//alert("var s = parametr[0]; = " + s)
 var f = parametr[1];
-alert("var f = parametr[1]; = " + f)
 var ee = parametr[2];
-
-alert("var ee = parametr[2]; = " + ee)
-
 const namePartVCatalog = parametr[3];
-
-
-alert("parametr[3].:" + parametr[3]);
-
-
+// alert("namePartVCatalog...:" + namePartVCatalog);
 //alert(s + "||" + f + "||" + e + "||" + nameVCatalog);
-
-
 var g = 1;
 var b = 1;
 var pos1 = 0;
@@ -26,15 +16,37 @@ var d = 2;
 var MP = 0.1;
 var vid = document.getElementById("myVideo");
 var source = document.createElement('source');
-//var menyItem = documtnt.getElementById("top").value
-var pathURL = window.localStorage.getItem('C_7LAT5TG_func1')
+let startDir = "../"
+let startDirectory = ""
+//var loc = window.location.pathname;    
+// let directoryPath = loc.substring(0, loc.lastIndexOf("/")+1);
+
+let directoryPath = window.location.pathname;
+alert(directoryPath);
+ar = [];
+ar = directoryPath.split("/");
+alert(ar);
+let i = 0;
+do {
+    startDirectory = startDirectory + startDir;
+    alert(startDirectory);
+    i++;
+}
+while (ar[ar.length - i] !== "EDUCATION");
+
+
+listNamberOne();
+var menyTopItem = document.getElementById("top").value
+///alert("Значение выбранного пункта меню:      "+menyTopItem);
+var pathURL = startDirectory + window.localStorage.getItem(menyTopItem);
+alert(pathURL);
 if (pathURL === null) {
-    pathURL = ""
+    pathURL = "";
 
 }
-var pathName = window.localStorage.getItem('C_7LAT5TG_func2')
-if (pathName === null) {
-    pathName = ee
+ 
+if (ee !== "undefined") {
+    var pathName = "";
 
 }
 var pathURLName = (pathURL + pathName)
@@ -53,7 +65,7 @@ if (pathURLName !== "undefined") {
     vid.addEventListener("timeupdate", getCurTime);
 
 }
-listNamberOne();
+// listNamberOne();
 
 
 
@@ -190,7 +202,7 @@ function inputLocStorage(e, u) {
 function inputFile() {
     const elemInput = document.querySelector('[type="file"]');
     const typeResulte = elemInput.files[0].type;
-    alert(typeResulte);
+    // alert(typeResulte);
     switch (typeResulte) {
         case "video/mp4":
             alert("Выбрана загрузка видеофайла")
@@ -287,7 +299,7 @@ function inputVideo() {
                     relative = '/' + section + relative;
                     i++;
 
-                    alert(".." + relative);
+                    //alert(relative);
                 }
 
                 const correctName = correctedName();
@@ -297,25 +309,25 @@ function inputVideo() {
                     //return nameResulte[1];
                 }
 
-                alert(correctName);
+                //alert(correctName);
 
                 if (window.localStorage.getItem("0" + correctName) === null && window.localStorage.getItem("00" + correctName) === null) {
                     document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
-                    window.localStorage.setItem("00" + correctName, ".." + relative);
-                    // window.location.reload();
+                    window.localStorage.setItem("00" + correctName, relative);
+                    window.location.reload();
                 } else {
                     if (window.localStorage.getItem("0" + correctName) !== null) {
                         document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
                         ReplacementWithAdoubleOfLocalStorage("0" + correctName);
-                        // window.location.reload();
+                        window.location.reload();
                     }
                     if (window.localStorage.getItem("00" + correctName) !== null) {
                         document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
-                        // window.location.reload();
+                        window.location.reload();
                     }
                 }
 
-                return ".." + relative;
+                return relative;
             };
 
             let nameDir = nameResulte.split(".");
@@ -413,9 +425,6 @@ document.getElementById("top").onchange = function () {
     ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
     window.location.reload();
 };
-
-
-
 
 
 document.onkeydown = go_key;
