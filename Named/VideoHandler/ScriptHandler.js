@@ -40,9 +40,6 @@ while (ar[ar.length - i] !== "EDUCATION"){
 listNamberOne();
 
 
-//if(typeof f.values === "undefined"){
-    // f = document.getElementById("topic").value.split(",")[1];
-//};
 
 
 if(typeof s.values === "undefined"){
@@ -366,8 +363,6 @@ function inputVideo() {
 
 }
 
-
-
 function listNamberOne() {
     let nameSelectedMeny1 = meny1();
     let selectedNameMeny1 = nameSelectedMeny1.substr(1);
@@ -439,6 +434,21 @@ document.getElementById("top").onchange = function () {
     ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("topic").name);
     ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
     window.location.reload();
+};
+
+function scrollThroughTheOldKey(a){
+a = ReplacingItWithAsingleOneInThelocalStorage(a);
+let i = 0;
+while (undefined !== window.localStorage.getItem(++i + a.slice(1))) {
+ alert(window.localStorage.getItem(i + a.slice(1)));   
+}
+
+}
+
+document.getElementById("topic").onchange = function () {
+    scrollThroughTheOldKey(document.getElementById("topic").name);
+    // ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
+    // window.location.reload();
 };
 
 
