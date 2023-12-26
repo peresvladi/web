@@ -21,24 +21,35 @@ let startDirectory = ""
 //var loc = window.location.pathname;    
 // let directoryPath = loc.substring(0, loc.lastIndexOf("/")+1);
 
+
+
+
 let directoryPath = window.location.pathname;
-alert(directoryPath);
+//alert(directoryPath);
 ar = [];
 ar = directoryPath.split("/");
-alert(ar);
+//alert(ar);
 let i = 2;
 while (ar[ar.length - i] !== "EDUCATION"){
-    alert(ar[ar.length - i]);
+    //alert(ar[ar.length - i]);
     startDirectory = startDirectory + startDir;
-    alert(startDirectory);
+    //alert(startDirectory);
     i++;
 }
 
-
-
-
-
 listNamberOne();
+
+
+//if(typeof f.values === "undefined"){
+    // f = document.getElementById("topic").value.split(",")[1];
+//};
+
+
+if(typeof s.values === "undefined"){
+    s = document.getElementById("topic").value.split(",")[0];
+    f = document.getElementById("topic").value.split(",")[1];
+};
+
 var menyTopItem = document.getElementById("top").value
 ///alert("Значение выбранного пункта меню:      "+menyTopItem);
 var pathURL = startDirectory + window.localStorage.getItem(menyTopItem);
