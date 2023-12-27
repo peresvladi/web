@@ -30,7 +30,7 @@ ar = [];
 ar = directoryPath.split("/");
 //alert(ar);
 let i = 2;
-while (ar[ar.length - i] !== "EDUCATION"){
+while (ar[ar.length - i] !== "EDUCATION") {
     //alert(ar[ar.length - i]);
     startDirectory = startDirectory + startDir;
     //alert(startDirectory);
@@ -42,7 +42,7 @@ listNamberOne();
 
 
 
-if(typeof s.values === "undefined"){
+if (typeof s.values === "undefined") {
     s = document.getElementById("topic").value.split(",")[0];
     f = document.getElementById("topic").value.split(",")[1];
 };
@@ -55,7 +55,7 @@ if (pathURL === null) {
     pathURL = "";
 
 }
- 
+
 if (ee !== "undefined") {
     var pathName = "";
 
@@ -342,8 +342,9 @@ function inputVideo() {
             };
 
             let nameDir = nameResulte.split(".");
-            if(window.localStorage.getItem("00" + nameDir[0]) === null ){
-            window.localStorage.setItem("0" + nameDir[0], relativePath);}
+            if (window.localStorage.getItem("00" + nameDir[0]) === null) {
+                window.localStorage.setItem("0" + nameDir[0], relativePath);
+            }
 
             vid.src = url;
             document.getElementById('inputfile1').value = "";
@@ -371,10 +372,16 @@ function listNamberOne() {
     let i = 1;
     while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
         let nameВutton = selectedNameMeny1.replace("0", i);
-        i++;
-        let nameValueВutton = window.localStorage.getItem(nameВutton);
+        if (window.localStorage.getItem(nameВutton).charAt(0) !== "-") {
+            var nameValueВut = i + ",  " + window.localStorage.getItem(nameВutton);
+        } else {
+            nameValueВut = "-" + i + ",  " + window.localStorage.getItem(nameВutton).slice(1);
+        }
 
-        document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);
+
+
+        i++;
+        document.write(`<option value='${nameValueВut}'>'${nameValueВut}'</option>`);
 
         // alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
 
@@ -436,17 +443,35 @@ document.getElementById("top").onchange = function () {
     window.location.reload();
 };
 
-function scrollThroughTheOldKey(a){
-a = ReplacingItWithAsingleOneInThelocalStorage(a);
-let i = 0;
-while (undefined !== window.localStorage.getItem(++i + a.slice(1))) {
- alert(window.localStorage.getItem(i + a.slice(1)));   
-}
+function scrollThroughTheOldKey(a) {
+    a = a.slice(1);
+
+    let i = 0;
+    while (null !== window.localStorage.getItem(++i + a.slice(1))) {
+        if (window.localStorage.getItem(i + a.slice(1)).charAt(0) === "-") {
+            delDash(i + a.slice(1));
+        };
+
+    }
 
 }
+function delDash(a) {
+    let tempValueItemLocalStorage = window.localStorage.getItem(a);
+    window.localStorage.removeItem(a);
+    window.localStorage.setItem(a, tempValueItemLocalStorage.slice(1));
+}
+
+function addDash(a, e) {
+    let tempValueItemLocalStorage = a.split(",");
+    alert(tempValueItemLocalStorage[0] + e.slice(1));
+    window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
+    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "-" + a);
+}
+
 
 document.getElementById("topic").onchange = function () {
     scrollThroughTheOldKey(document.getElementById("topic").name);
+    addDash(document.getElementById("topic").value, document.getElementById("topic").name.slice(1));
     // ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
     // window.location.reload();
 };
