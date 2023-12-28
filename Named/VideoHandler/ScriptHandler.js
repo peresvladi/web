@@ -43,8 +43,8 @@ listNamberOne();
 
 
 if (typeof s.values === "undefined") {
-    s = document.getElementById("topic").value.split(",")[0];
-    f = document.getElementById("topic").value.split(",")[1];
+    s = document.getElementById("topic").value.split(",")[1];
+    f = document.getElementById("topic").value.split(",")[2];
 };
 
 var menyTopItem = document.getElementById("top").value
@@ -372,10 +372,12 @@ function listNamberOne() {
     let i = 1;
     while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
         let nameВutton = selectedNameMeny1.replace("0", i);
-        if (window.localStorage.getItem(nameВutton).charAt(0) !== "-") {
+        if (window.localStorage.getItem(nameВutton).charAt(0) !== "*") {
             var nameValueВut = i + ",  " + window.localStorage.getItem(nameВutton);
         } else {
-            nameValueВut = "-" + i + ",  " + window.localStorage.getItem(nameВutton).slice(1);
+            nameValueВut = "*" + i + ",  " + window.localStorage.getItem(nameВutton).slice(1);
+
+
         }
 
 
@@ -414,6 +416,8 @@ function meny1() {
 
     return document.querySelector("#top").value;
 }
+
+
 function ReplacementWithAdoubleOfLocalStorage(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
     if (a.charAt(1) === "0") {
@@ -445,10 +449,9 @@ document.getElementById("top").onchange = function () {
 
 function scrollThroughTheOldKey(a) {
     a = a.slice(1);
-
     let i = 0;
     while (null !== window.localStorage.getItem(++i + a.slice(1))) {
-        if (window.localStorage.getItem(i + a.slice(1)).charAt(0) === "-") {
+        if (window.localStorage.getItem(i + a.slice(1)).charAt(0) === "*") {
             delDash(i + a.slice(1));
         };
 
@@ -465,7 +468,10 @@ function addDash(a, e) {
     let tempValueItemLocalStorage = a.split(",");
     alert(tempValueItemLocalStorage[0] + e.slice(1));
     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
-    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "-" + a);
+    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + a);
+    a = "*" + a;
+
+
 }
 
 
