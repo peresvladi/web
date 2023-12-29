@@ -376,14 +376,15 @@ function listNamberOne() {
             var nameValueВut = i + ",  " + window.localStorage.getItem(nameВutton);
         } else {
             nameValueВut = "*" + i + ",  " + window.localStorage.getItem(nameВutton).slice(1);
+            var nameValueВuty = nameValueВut;
         }
-
         i++;
         document.write(`<option value='${nameValueВut}'>'${nameValueВut}'</option>`);
 
         // alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
     }
     document.write(`</select>`);
+    document.getElementById("topic").value = nameValueВuty;
 }
 
 function meny1() {
@@ -454,20 +455,27 @@ function delStar(a) {
     window.localStorage.setItem(a, tempValueItemLocalStorage.slice(1));
 }
 
-function addStar(a, e) {
+function addStarlocalStorage(a, e) {
     let tempValueItemLocalStorage = a.split(",");
     alert(tempValueItemLocalStorage[0] + e.slice(1));
     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
     window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + "," + tempValueItemLocalStorage[2] + "," + tempValueItemLocalStorage[3]);
-    a = "*" + a;
+    return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + "," + tempValueItemLocalStorage[2] + "," + tempValueItemLocalStorage[3];
 }
+
+// function updateMeny2(a) {
+//     a = "*" + a;
+
+// }
 
 
 document.getElementById("topic").onchange = function () {
     scrollThroughTheOldKey(document.getElementById("topic").name);
-    addStar(document.getElementById("topic").value, document.getElementById("topic").name.slice(1));
+    addStarlocalStorage(document.getElementById("topic").value, document.getElementById("topic").name.slice(1));
     // ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
-    // window.location.reload();
+    window.location.reload();
+    //updateMeny2(document.getElementById("topic").value);
+
 };
 
 
