@@ -50,7 +50,7 @@ if (typeof s.values === "undefined") {
 var menyTopItem = document.getElementById("top").value
 ///alert("Значение выбранного пункта меню:      "+menyTopItem);
 var pathURL = startDirectory + window.localStorage.getItem(menyTopItem);
-alert(pathURL);
+//////////alert(pathURL);
 if (pathURL === null) {
     pathURL = "";
 
@@ -457,7 +457,7 @@ function delStar(a) {
 
 function addStarlocalStorage(a, e) {
     let tempValueItemLocalStorage = a.split(",");
-    alert(tempValueItemLocalStorage[0] + e.slice(1));
+    //////////alert(tempValueItemLocalStorage[0] + e.slice(1));
     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
     window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + "," + tempValueItemLocalStorage[2] + "," + tempValueItemLocalStorage[3]);
     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + "," + tempValueItemLocalStorage[2] + "," + tempValueItemLocalStorage[3];
