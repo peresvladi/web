@@ -376,22 +376,15 @@ function listNamberOne() {
             var nameValueВut = i + ",  " + window.localStorage.getItem(nameВutton);
         } else {
             nameValueВut = "*" + i + ",  " + window.localStorage.getItem(nameВutton).slice(1);
-
-
         }
-
-
 
         i++;
         document.write(`<option value='${nameValueВut}'>'${nameValueВut}'</option>`);
 
         // alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
-
     }
     document.write(`</select>`);
-
 }
-
 
 function meny1() {
     document.write(`<select name="top" id="top">`);
@@ -402,7 +395,6 @@ function meny1() {
             if (nameValueВutton.charAt(1) === "0") {
                 document.getElementById("top").value = nameValueВutton;
             }
-
         }
     }
     document.write(`</select>`);
@@ -452,32 +444,28 @@ function scrollThroughTheOldKey(a) {
     let i = 0;
     while (null !== window.localStorage.getItem(++i + a.slice(1))) {
         if (window.localStorage.getItem(i + a.slice(1)).charAt(0) === "*") {
-            delDash(i + a.slice(1));
+            delStar(i + a.slice(1));
         };
-
     }
-
 }
-function delDash(a) {
+function delStar(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
     window.localStorage.removeItem(a);
     window.localStorage.setItem(a, tempValueItemLocalStorage.slice(1));
 }
 
-function addDash(a, e) {
+function addStar(a, e) {
     let tempValueItemLocalStorage = a.split(",");
     alert(tempValueItemLocalStorage[0] + e.slice(1));
     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
-    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + a);
+    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + "," + tempValueItemLocalStorage[2] + "," + tempValueItemLocalStorage[3]);
     a = "*" + a;
-
-
 }
 
 
 document.getElementById("topic").onchange = function () {
     scrollThroughTheOldKey(document.getElementById("topic").name);
-    addDash(document.getElementById("topic").value, document.getElementById("topic").name.slice(1));
+    addStar(document.getElementById("topic").value, document.getElementById("topic").name.slice(1));
     // ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
     // window.location.reload();
 };
