@@ -382,11 +382,11 @@ function listNamberOne() {
 
 
 
-        i++;
+        
         document.write(`<option value='${nameValueВut}'>'${nameValueВut}'</option>`);
 
         // alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
-
+        i++;
     }
     document.write(`</select>`);
 
