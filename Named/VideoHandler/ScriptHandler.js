@@ -157,11 +157,11 @@ function handlerInputNow(a, e, u, z) {
         }
     }
 
-    textSave(inputLocStorage(e, u));
+    textSave(inputLocStorage(e, u),u);
 }
 
-function textSave(e) {
-    const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel'; a.click();
+function textSave(e,u) {
+    const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel'+u; a.click();
 }
 
 // (arr, window.localStorage, namePartVCatalog);
