@@ -160,6 +160,7 @@ function handlerInputNow(a, e, u, z) {
     textSave(inputLocStorage(e, u),u);
 }
 
+
 function textSave(e,u) {
     const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel'+u; a.click();
 }
@@ -206,7 +207,7 @@ function inputLocStorage(e, u) {
         element = element + e.getItem(iSt + u) + u + ",";
     }
     // alert(element);
-    return (element);
+    return element;
 }
 
 function inputFile() {
@@ -323,9 +324,16 @@ function inputVideo() {
 
                 if (window.localStorage.getItem("0" + correctName) === null && window.localStorage.getItem("00" + correctName) === null) {
                     let theDesiredValue = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
+
+                    alert("theDesiredValue = "+theDesiredValue);
+
                     document.getElementById("top").value = theDesiredValue;
                     window.localStorage.setItem("00" + correctName, relative.slice(1));
-                    //addlistNamberOne()
+
+                    let vidDuration = vid.duration;
+                    let arrForMenyTwo = ["0", vidDuration, "All", correctName] 
+                    // (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
+                    handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);
                     window.location.reload();
                 } else {
                     if (window.localStorage.getItem("0" + correctName) !== null) {
