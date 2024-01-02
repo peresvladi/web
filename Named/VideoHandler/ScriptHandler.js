@@ -108,7 +108,7 @@ function arrPopDel(a) {
 // (arr, window.localStorage, namePartVCatalog);
 function inputNow(a, e, u) {
     let vvalue = "";
-    if (checkingConditions(e, u) === 0) { handlerInputNow(a, e, u, z = 0) } else {
+    if (checkingConditions(e, u) === 0) {handlerInputNow(a, e, u, z = 0) } else {
         switch (vvalue = prompt(`В хранилище (LocalStorage) уже имеются записи фрагментов с ключом по шаблону - ${u} в количестве - ${keySearchAorASimilar(e, u)} для продолжение  предыдущей сессии (выполненой по шаблону ключа - ${u}) нажмите 1, для перезаписи указанной сессии нажмите 2, для перезаписи с определенного фрагмента нажмите 3, для вставки перед определенным фрагментов нажмите 4`)) {
             case "1": handlerInputNow(a, e, u, z = (keySearchAorASimilar(e, u))); break;
             case "2": handlerInputNow(a, e, u, z = 0); break;
@@ -205,7 +205,6 @@ function inputLocStorage(e, u) {
     for (let iSt = 0; iSt < e.length; iSt++) {
         element = element + e.getItem(iSt + u) + u + ",";
     }
-
     // alert(element);
     return (element);
 }
@@ -323,8 +322,10 @@ function inputVideo() {
                 //alert(correctName);
 
                 if (window.localStorage.getItem("0" + correctName) === null && window.localStorage.getItem("00" + correctName) === null) {
-                    document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
+                    let theDesiredValue = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
+                    document.getElementById("top").value = theDesiredValue;
                     window.localStorage.setItem("00" + correctName, relative.slice(1));
+                    //addlistNamberOne()
                     window.location.reload();
                 } else {
                     if (window.localStorage.getItem("0" + correctName) !== null) {
@@ -364,8 +365,8 @@ function inputVideo() {
 
 }
 
-function listNamberOne() {
-    let nameSelectedMeny1 = meny1();
+function listNamberOne(a = meny1()) {
+    let nameSelectedMeny1 = a;
     let selectedNameMeny1 = nameSelectedMeny1.substr(1);
     document.write(`<select name='${nameSelectedMeny1}' id="topic">`);
     // alert(window.localStorage.length);
@@ -378,6 +379,7 @@ function listNamberOne() {
             nameValueВut = "*" + i + ",  " + window.localStorage.getItem(nameВutton).slice(1);
             var nameValueВuty = nameValueВut;
         }
+        
         i++;
         document.write(`<option value='${nameValueВut}'>'${nameValueВut}'</option>`);
 
@@ -420,6 +422,7 @@ function ReplacementWithAdoubleOfLocalStorage(a) {
         window.localStorage.setItem('0' + a, tempValueItemLocalStorage);
     }
 }
+
 function ReplacingItWithAsingleOneInThelocalStorage(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
     while (a.charAt(1) === "0") {
@@ -429,10 +432,10 @@ function ReplacingItWithAsingleOneInThelocalStorage(a) {
     }
 
 }
+
 function ReplacementWithAdoubleOfMeny(a) {
     a = '0' + a;
 }
-
 
 document.getElementById("top").onchange = function () {
     ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("topic").name);
@@ -449,6 +452,7 @@ function scrollThroughTheOldKey(a) {
         };
     }
 }
+
 function delStar(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
     window.localStorage.removeItem(a);
