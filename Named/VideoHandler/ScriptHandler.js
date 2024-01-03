@@ -74,11 +74,7 @@ if (pathURLName !== "undefined") {
     });
 
     vid.addEventListener("timeupdate", getCurTime);
-
 }
-// listNamberOne();
-
-
 
 let arr = new Array();
 var sess = "";
@@ -102,7 +98,6 @@ function keySave(whatKey) {
 //  (arr, window.localStorage, namePartVCatalog);
 function arrPopDel(a) {
     a.length === 0 ? alert("Длина массива: 0, - нет элементов для удаления") : alert("элемент: " + a.pop() + "удален");
-
 }
 
 // (arr, window.localStorage, namePartVCatalog);
@@ -116,11 +111,8 @@ function inputNow(a, e, u) {
             // (arr, window.localStorage, namePartVCatalog);
             case "4": handlerInputNow(a, e, u, z = parseInt(nameOftheСontrFragm(a, e, u))); break;
         }
-
     }
-
 }
-
 
 // (arr, window.localStorage, namePartVCatalog);
 function nameOftheСontrFragm(a, e, u) {
@@ -137,11 +129,8 @@ function nameOftheСontrFragm(a, e, u) {
         nameOftheСontrolFragment2 = (keySearchForS - s) + u;
         s++
     } while (nameOftheСontrolFragment1 !== nameOftheСontrolFragment2);
-
     return keyNumber;
-
 }
-
 // (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
 function handlerInputNow(a, e, u, z) {
     let BodyLocStorage = "";
@@ -152,14 +141,13 @@ function handlerInputNow(a, e, u, z) {
             BodyLocStorage = BodyLocStorage + ifKeyLocStorage + ",";
         } else {
             e.setItem((y + z) + u, BodyLocStorage);
+            //document.getElementById("topic").value = BodyLocStorage; (не стабилизирует пункт All меню 2 надо протестировать и разобраться почему)
             BodyLocStorage = "";
             y++;
         }
     }
-
     textSave(inputLocStorage(e, u),u);
 }
-
 
 function textSave(e,u) {
     const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel'+u; a.click();
@@ -196,17 +184,47 @@ function inputMsg(msg) {
 }
 
 // (arr, window.localStorage, namePartVCatalog);
-function availabilityOfaKeys(e, u) {
+function availabilityOfaKeys(e) {
     // alert(`Общее количество элементов LocalStorage ${e.length}`);
     return e.length;
 }
 
 function inputLocStorage(e, u) {
-    let element = "";
-    for (let iSt = 0; iSt < e.length; iSt++) {
-        element = element + e.getItem(iSt + u) + u + ",";
+    alert(e.getItem("00" + u));
+    if(e.getItem("00" + u)!==null){
+    let element = e.getItem("00" + u)  + "," + u + ",";
+        return element + addInputLocStorage(e,u);
+    }else{
+        alert(e.getItem("0" + u));
+        if(e.getItem("0" + u)!==null){
+        let element = e.getItem("0" + u)  + "," + u + ",";
+        return element + addInputLocStorage(e,u);
+        }
+        else{
+         alert("выполнение кода прекращается т.к. в хранилище отсутствуют данные по запросу к хранилищу(local.Storage): 0" + u + " либо по запросу: " + "00" + u);
+        }
     }
-    // alert(element);
+}
+
+// function addInputLocStorage(e,u){
+//     let element = "";
+//     for (let iSt = 1; iSt < e.length; iSt++) {
+//         alert(e.getItem(iSt + u));
+//         if(e.getItem(iSt + u)!==null){
+//         element = element + e.getItem(iSt + u)  +  u + ",";
+//     };
+//     }
+//     return element;
+// }
+
+
+function addInputLocStorage(e,u){
+    let element = "";
+    let iSt =1;
+    while ((e.getItem(iSt + u)!==null)) {
+    element = element + e.getItem(iSt + u)  +  u + ",";  
+    iSt++;  
+    };
     return element;
 }
 
