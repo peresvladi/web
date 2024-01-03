@@ -18,11 +18,6 @@ var vid = document.getElementById("myVideo");
 var source = document.createElement('source');
 let startDir = "../"
 let startDirectory = ""
-//var loc = window.location.pathname;    
-// let directoryPath = loc.substring(0, loc.lastIndexOf("/")+1);
-
-
-
 
 let directoryPath = window.location.pathname;
 //alert(directoryPath);
@@ -39,9 +34,6 @@ while (ar[ar.length - i] !== "EDUCATION") {
 
 listNamberOne();
 
-
-
-
 if (typeof s.values === "undefined") {
     s = document.getElementById("topic").value.split(",")[1];
     f = document.getElementById("topic").value.split(",")[2];
@@ -53,12 +45,10 @@ var pathURL = startDirectory + window.localStorage.getItem(menyTopItem);
 //////////alert(pathURL);
 if (pathURL === null) {
     pathURL = "";
-
 }
 
 if (ee !== "undefined") {
     var pathName = "";
-
 }
 var pathURLName = (pathURL + pathName)
 
@@ -190,12 +180,12 @@ function availabilityOfaKeys(e) {
 }
 
 function inputLocStorage(e, u) {
-    alert(e.getItem("00" + u));
+    // alert(e.getItem("00" + u));
     if(e.getItem("00" + u)!==null){
     let element = e.getItem("00" + u)  + "," + u + ",";
         return element + addInputLocStorage(e,u);
     }else{
-        alert(e.getItem("0" + u));
+        // alert(e.getItem("0" + u));
         if(e.getItem("0" + u)!==null){
         let element = e.getItem("0" + u)  + "," + u + ",";
         return element + addInputLocStorage(e,u);
@@ -205,18 +195,6 @@ function inputLocStorage(e, u) {
         }
     }
 }
-
-// function addInputLocStorage(e,u){
-//     let element = "";
-//     for (let iSt = 1; iSt < e.length; iSt++) {
-//         alert(e.getItem(iSt + u));
-//         if(e.getItem(iSt + u)!==null){
-//         element = element + e.getItem(iSt + u)  +  u + ",";
-//     };
-//     }
-//     return element;
-// }
-
 
 function addInputLocStorage(e,u){
     let element = "";
@@ -245,7 +223,6 @@ function inputFile() {
             alert('Формат файла неприемлем для загрузки программой "TimeCode For TheVideo"');
             break;
     }
-
 }
 
 function inputText() {
@@ -260,7 +237,6 @@ function inputText() {
         alert('Не выбран файл!');
         return;
     } else {
-
         // присваиваем переменной selectedFile ссылку на выбранный файл
         const selectedFile = files[0];
         const reader = new FileReader();
@@ -275,19 +251,14 @@ function inputText() {
             //document.getElementById('inputfile2').value="";
             //document.getElementById('example').value=''
         };
-
         reader.onerror = function (selectedFile) {
 
             selectedFile.error(
                 "Файл не может быть прочитан! код " + selectedFile.target.error.code);
         };
-
         reader.readAsText(selectedFile);
-
     }
-
 }
-
 
 function inputVideo() {
     // получим элемент, используя селектор [type="file"]
@@ -300,14 +271,12 @@ function inputVideo() {
     if (!countFiles) {
         alert('Не выбран файл!');
     } else {
-
         //-//присваиваем переменной selectedFile ссылку на выбранный файл
         const selectedFile = files[0];
         const nameResulte = selectedFile.name;
         //-// const reader = new FileReader();
         let reader = new FileReader();
         reader.readAsArrayBuffer(selectedFile);
-
         reader.onload = function (selectedFile) {
             let buffer = selectedFile.target.result;
             let tempDateBlob = new Blob([new Uint8Array(buffer)], { type: 'video/mp4' });
@@ -327,25 +296,20 @@ function inputVideo() {
                     section = divided[divided.length - i];
                     relative = '/' + section + relative;
                     i++;
-
-                    //alert(relative);
                 }
 
                 const correctName = correctedName();
 
                 function correctedName() {
                     return nameResulte.split(".")[0];
-                    //return nameResulte[1];
                 }
 
-                //alert(correctName);
-
                 if (window.localStorage.getItem("0" + correctName) === null && window.localStorage.getItem("00" + correctName) === null) {
-                    let theDesiredValue = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
 
-                    alert("theDesiredValue = "+theDesiredValue);
+                    // let theDesiredValue = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
+                    // document.getElementById("top").value = theDesiredValue;
+                    // alert("theDesiredValue = "+theDesiredValue); закомментировал 04-01-24, вроде бесполезный код, через alert постоянно выдает  неопределенное значение.
 
-                    document.getElementById("top").value = theDesiredValue;
                     window.localStorage.setItem("00" + correctName, relative.slice(1));
 
                     let vidDuration = vid.duration;
@@ -367,16 +331,13 @@ function inputVideo() {
 
                 return relative.slice(1);
             };
-
             let nameDir = nameResulte.split(".");
             if (window.localStorage.getItem("00" + nameDir[0]) === null) {
                 window.localStorage.setItem("0" + nameDir[0], relativePath);
             }
-
             vid.src = url;
             document.getElementById('inputfile1').value = "";
             return url;
-
         };
 
         reader.onerror = function (selectedFile) {
@@ -384,18 +345,13 @@ function inputVideo() {
             selectedFile.error(
                 "Файл не может быть прочитан! код " + selectedFile.target.error.code);
         };
-
-        //reader.readAsText(selectedFile);
-
     }
-
 }
 
 function listNamberOne(a = meny1()) {
     let nameSelectedMeny1 = a;
     let selectedNameMeny1 = nameSelectedMeny1.substr(1);
     document.write(`<select name='${nameSelectedMeny1}' id="topic">`);
-    // alert(window.localStorage.length);
     let i = 1;
     while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
         let nameВutton = selectedNameMeny1.replace("0", i);
@@ -405,9 +361,8 @@ function listNamberOne(a = meny1()) {
             nameValueВut = "*" + i + ",  " + window.localStorage.getItem(nameВutton).slice(1);
             var nameValueВuty = nameValueВut;
         }
-        
         i++;
-        document.write(`<option value='${nameValueВut}'>'${nameValueВut}'</option>`);
+        document.write(`<option value='${nameValueВut}'>'${nameValueВut.split(", ")[0]+") "+nameValueВut.split(",")[3]}'</option>`);
 
         // alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
     }
