@@ -362,7 +362,7 @@ function listNamberOne(a = meny1()) {
             var nameValueВuty = nameValueВut;
         }
         i++;
-        document.write(`<option value='${nameValueВut}'>'${nameValueВut.split(", ")[0]+") "+nameValueВut.split(",")[3]}'</option>`);
+        document.write(`<option value='${nameValueВut}'>'${nameValueВut.split(", ")[0].replace("*","  *  ")+") "+nameValueВut.split(",")[3]}'</option>`);
 
         // alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
     }
@@ -375,7 +375,7 @@ function meny1() {
     for (let i = 0; i < window.localStorage.length; i++) {
         if (window.localStorage.key(i).charAt(0) === "0") {
             let nameValueВutton = window.localStorage.key(i);
-            document.write(`<option value='${nameValueВutton}'>'${nameValueВutton}'</option>`);
+           document.write(`<option value='${nameValueВutton}'>'${nameValueВutton.slice(1).replace("0", " * ")}'</option>`);
             if (nameValueВutton.charAt(1) === "0") {
                 document.getElementById("top").value = nameValueВutton;
             }
@@ -448,12 +448,6 @@ function addStarlocalStorage(a, e) {
     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + "," + tempValueItemLocalStorage[2] + "," + tempValueItemLocalStorage[3];
 }
 
-// function updateMeny2(a) {
-//     a = "*" + a;
-
-// }
-
-
 document.getElementById("topic").onchange = function () {
     scrollThroughTheOldKey(document.getElementById("topic").name);
     addStarlocalStorage(document.getElementById("topic").value, document.getElementById("topic").name.slice(1));
@@ -462,7 +456,6 @@ document.getElementById("topic").onchange = function () {
     //updateMeny2(document.getElementById("topic").value);
 
 };
-
 
 document.onkeydown = go_key;
 function go_key(event) {
