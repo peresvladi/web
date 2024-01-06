@@ -4,7 +4,7 @@ var s = parametr[0];
 //alert("var s = parametr[0]; = " + s)
 var f = parametr[1];
 var ee = parametr[2];
-const namePartVCatalog = parametr[3];
+var namePartVCatalog = parametr[3];
 // alert("namePartVCatalog...:" + namePartVCatalog);
 //alert(s + "||" + f + "||" + e + "||" + nameVCatalog);
 var g = 1;
@@ -37,6 +37,8 @@ listNamberOne();
 if (typeof s.values === "undefined") {
     s = document.getElementById("topic").value.split(",")[1];
     f = document.getElementById("topic").value.split(",")[2];
+    namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
+    // alert(namePartVCatalog);
 };
 
 var menyTopItem = document.getElementById("top").value
@@ -454,8 +456,15 @@ document.getElementById("topic").onchange = function () {
     // ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
     window.location.reload();
     //updateMeny2(document.getElementById("topic").value);
-
 };
+
+function removingTheZerosOfTheKeyNumber(a) {
+let new_value = a;
+while (new_value.charAt(0)==="0") {
+    new_value = new_value.slice(1);   
+}
+return new_value;
+}
 
 document.onkeydown = go_key;
 function go_key(event) {
