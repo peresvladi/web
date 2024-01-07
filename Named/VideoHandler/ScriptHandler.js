@@ -128,9 +128,11 @@ function handlerInputNow(a, e, u, z) {
     let BodyLocStorage = "";
     let y = 0;
     for (let x = 0; x < a.length; x++) {
-        let ifKeyLocStorage = a[x];
-        if (ifKeyLocStorage !== u) {
-            BodyLocStorage = BodyLocStorage + ifKeyLocStorage + ",";
+        if (a[x]!== u) {
+            BodyLocStorage = BodyLocStorage + a[x];
+        if (a[x+1]!== u) {
+            BodyLocStorage = BodyLocStorage + ",";
+        };
         } else {
             e.setItem((y + z) + u, BodyLocStorage);
             //document.getElementById("topic").value = BodyLocStorage; (не стабилизирует пункт All меню 2 надо протестировать и разобраться почему)
@@ -202,7 +204,7 @@ function addInputLocStorage(e,u){
     let element = "";
     let iSt =1;
     while ((e.getItem(iSt + u)!==null)) {
-    element = element + e.getItem(iSt + u)  +  u + ",";  
+    element = element + e.getItem(iSt + u)+ ","  +  u + ",";  
     iSt++;  
     };
     return element;
