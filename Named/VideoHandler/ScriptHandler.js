@@ -1,9 +1,4 @@
-var p_url = location.search.substring(1);
-var parametr = p_url.split("&");
-var s = parametr[0];
-var f = parametr[1];
-var ee = parametr[2];
-var namePartVCatalog = parametr[3];
+
 var g = 1;
 var b = 1;
 var pos1 = 0;
@@ -13,6 +8,15 @@ var d = 2;
 var MP = 0.1;
 var vid = document.getElementById("myVideo");
 var source = document.createElement('source');
+var p_url = location.search.substring(1);
+
+var parametr = p_url.split("&");
+var s = parametr[0];
+var f = parametr[1];
+var ee = parametr[2];
+var namePartVCatalog = parametr[3];
+
+
 
 function definingTheHierarchicalLeveloftheDirectory() {
     let startDirectory = ""
@@ -30,6 +34,7 @@ function definingTheHierarchicalLeveloftheDirectory() {
 
 listNamberOne();
 
+// function calculatingThePathToTheVideo(){
 if (typeof s.values === "undefined") {
     s = document.getElementById("topic").value.split(",")[1];
     f = document.getElementById("topic").value.split(",")[2];
@@ -37,22 +42,20 @@ if (typeof s.values === "undefined") {
 };
 
 var menyTopItem = document.getElementById("top").value
-///alert("Значение выбранного пункта меню:      "+menyTopItem);
 var pathURL = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
-//////////alert(pathURL);
 if (pathURL === null) {
     pathURL = "";
 }
-
 if (ee !== "undefined") {
     var pathName = "";
 }
-var pathURLName = (pathURL + pathName)
+let pathURLName = (pathURL + pathName)
+// return pathURLName;
+// }
 
 if (pathURLName !== "undefined") {
     source.setAttribute('src', pathURLName);
     source.setAttribute('type', 'video/mp4');
-
     vid.appendChild(source);
     vid.play();
     console.log({
