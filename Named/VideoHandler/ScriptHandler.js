@@ -1,12 +1,9 @@
 var p_url = location.search.substring(1);
 var parametr = p_url.split("&");
 var s = parametr[0];
-//alert("var s = parametr[0]; = " + s)
 var f = parametr[1];
 var ee = parametr[2];
 var namePartVCatalog = parametr[3];
-// alert("namePartVCatalog...:" + namePartVCatalog);
-//alert(s + "||" + f + "||" + e + "||" + nameVCatalog);
 var g = 1;
 var b = 1;
 var pos1 = 0;
@@ -16,20 +13,19 @@ var d = 2;
 var MP = 0.1;
 var vid = document.getElementById("myVideo");
 var source = document.createElement('source');
-let startDir = "../"
-let startDirectory = ""
 
-let directoryPath = window.location.pathname;
-//alert(directoryPath);
-ar = [];
-ar = directoryPath.split("/");
-//alert(ar);
-let i = 2;
-while (ar[ar.length - i] !== "EDUCATION") {
-    //alert(ar[ar.length - i]);
-    startDirectory = startDirectory + startDir;
-    //alert(startDirectory);
-    i++;
+function definingTheHierarchicalLeveloftheDirectory() {
+    let startDirectory = ""
+    let startDir = "../"
+    let directoryPath = window.location.pathname;
+    ar = [];
+    ar = directoryPath.split("/");
+    let i = 2;
+    while (ar[ar.length - i] !== "EDUCATION") {
+        startDirectory = startDirectory + startDir;
+        i++;
+    }
+    return startDirectory;
 }
 
 listNamberOne();
@@ -38,12 +34,11 @@ if (typeof s.values === "undefined") {
     s = document.getElementById("topic").value.split(",")[1];
     f = document.getElementById("topic").value.split(",")[2];
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
-    // alert(namePartVCatalog);
 };
 
 var menyTopItem = document.getElementById("top").value
 ///alert("Значение выбранного пункта меню:      "+menyTopItem);
-var pathURL = startDirectory + window.localStorage.getItem(menyTopItem);
+var pathURL = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
 //////////alert(pathURL);
 if (pathURL === null) {
     pathURL = "";
