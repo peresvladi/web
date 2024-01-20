@@ -1,12 +1,4 @@
-var p_url = location.search.substring(1);
-var parametr = p_url.split("&");
-var s = parametr[0];
-//alert("var s = parametr[0]; = " + s)
-var f = parametr[1];
-var ee = parametr[2];
-var namePartVCatalog = parametr[3];
-// alert("namePartVCatalog...:" + namePartVCatalog);
-//alert(s + "||" + f + "||" + e + "||" + nameVCatalog);
+
 var g = 1;
 var b = 1;
 var pos1 = 0;
@@ -16,48 +8,54 @@ var d = 2;
 var MP = 0.1;
 var vid = document.getElementById("myVideo");
 var source = document.createElement('source');
-let startDir = "../"
-let startDirectory = ""
+var p_url = location.search.substring(1);
 
-let directoryPath = window.location.pathname;
-//alert(directoryPath);
-ar = [];
-ar = directoryPath.split("/");
-//alert(ar);
-let i = 2;
-while (ar[ar.length - i] !== "EDUCATION") {
-    //alert(ar[ar.length - i]);
-    startDirectory = startDirectory + startDir;
-    //alert(startDirectory);
-    i++;
+var parametr = p_url.split("&");
+var s = parametr[0];
+var f = parametr[1];
+var ee = parametr[2];
+var namePartVCatalog = parametr[3];
+
+
+
+function definingTheHierarchicalLeveloftheDirectory() {
+    let startDirectory = ""
+    let startDir = "../"
+    let directoryPath = window.location.pathname;
+    ar = [];
+    ar = directoryPath.split("/");
+    let i = 2;
+    while (ar[ar.length - i] !== "EDUCATION") {
+        startDirectory = startDirectory + startDir;
+        i++;
+    }
+    return startDirectory;
 }
 
 listNamberOne();
 
+// function calculatingThePathToTheVideo(){
 if (typeof s.values === "undefined") {
     s = document.getElementById("topic").value.split(",")[1];
     f = document.getElementById("topic").value.split(",")[2];
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
-    // alert(namePartVCatalog);
 };
 
 var menyTopItem = document.getElementById("top").value
-///alert("Значение выбранного пункта меню:      "+menyTopItem);
-var pathURL = startDirectory + window.localStorage.getItem(menyTopItem);
-//////////alert(pathURL);
+var pathURL = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
 if (pathURL === null) {
     pathURL = "";
 }
-
 if (ee !== "undefined") {
     var pathName = "";
 }
-var pathURLName = (pathURL + pathName)
+let pathURLName = (pathURL + pathName)
+// return pathURLName;
+// }
 
 if (pathURLName !== "undefined") {
     source.setAttribute('src', pathURLName);
     source.setAttribute('type', 'video/mp4');
-
     vid.appendChild(source);
     vid.play();
     console.log({
@@ -95,7 +93,7 @@ function arrPopDel(a) {
 // (arr, window.localStorage, namePartVCatalog);
 function inputNow(a, e, u) {
     let vvalue = "";
-    if (checkingConditions(e, u) === 0) {handlerInputNow(a, e, u, z = 0) } else {
+    if (checkingConditions(e, u) === 0) { handlerInputNow(a, e, u, z = 0) } else {
         switch (vvalue = prompt(`В хранилище (LocalStorage) уже имеются записи фрагментов с ключом по шаблону - ${u} в количестве - ${keySearchAorASimilar(e, u)} для продолжение  предыдущей сессии (выполненой по шаблону ключа - ${u}) нажмите 1, для перезаписи указанной сессии нажмите 2, для перезаписи с определенного фрагмента нажмите 3, для вставки перед определенным фрагментов нажмите 4`)) {
             case "1": handlerInputNow(a, e, u, z = (keySearchAorASimilar(e, u))); break;
             case "2": handlerInputNow(a, e, u, z = 0); break;
@@ -128,11 +126,11 @@ function handlerInputNow(a, e, u, z) {
     let BodyLocStorage = "";
     let y = 0;
     for (let x = 0; x < a.length; x++) {
-        if (a[x]!== u) {
+        if (a[x] !== u) {
             BodyLocStorage = BodyLocStorage + a[x];
-        if (a[x+1]!== u) {
-            BodyLocStorage = BodyLocStorage + ",";
-        };
+            if (a[x + 1] !== u) {
+                BodyLocStorage = BodyLocStorage + ",";
+            };
         } else {
             e.setItem((y + z) + u, BodyLocStorage);
             //document.getElementById("topic").value = BodyLocStorage; (не стабилизирует пункт All меню 2 надо протестировать и разобраться почему)
@@ -140,11 +138,11 @@ function handlerInputNow(a, e, u, z) {
             y++;
         }
     }
-    textSave(inputLocStorage(e, u),u);
+    textSave(inputLocStorage(e, u), u);
 }
 
-function textSave(e,u) {
-    const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel'+u; a.click();
+function textSave(e, u) {
+    const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel' + u; a.click();
 }
 
 // (arr, window.localStorage, namePartVCatalog);
@@ -185,27 +183,27 @@ function availabilityOfaKeys(e) {
 
 function inputLocStorage(e, u) {
     // alert(e.getItem("00" + u));
-    if(e.getItem("00" + u)!==null){
-    let element = e.getItem("00" + u)  + "," + u + ",";
-        return element + addInputLocStorage(e,u);
-    }else{
+    if (e.getItem("00" + u) !== null) {
+        let element = e.getItem("00" + u) + "," + u + ",";
+        return element + addInputLocStorage(e, u);
+    } else {
         // alert(e.getItem("0" + u));
-        if(e.getItem("0" + u)!==null){
-        let element = e.getItem("0" + u)  + "," + u + ",";
-        return element + addInputLocStorage(e,u);
+        if (e.getItem("0" + u) !== null) {
+            let element = e.getItem("0" + u) + "," + u + ",";
+            return element + addInputLocStorage(e, u);
         }
-        else{
-         alert("выполнение кода прекращается т.к. в хранилище отсутствуют данные по запросу к хранилищу(local.Storage): 0" + u + " либо по запросу: " + "00" + u);
+        else {
+            alert("выполнение кода прекращается т.к. в хранилище отсутствуют данные по запросу к хранилищу(local.Storage): 0" + u + " либо по запросу: " + "00" + u);
         }
     }
 }
 
-function addInputLocStorage(e,u){
+function addInputLocStorage(e, u) {
     let element = "";
-    let iSt =1;
-    while ((e.getItem(iSt + u)!==null)) {
-    element = element + e.getItem(iSt + u)+ ","  +  u + ",";  
-    iSt++;  
+    let iSt = 1;
+    while ((e.getItem(iSt + u) !== null)) {
+        element = element + e.getItem(iSt + u) + "," + u + ",";
+        iSt++;
     };
     return element;
 }
@@ -317,7 +315,7 @@ function inputVideo() {
                     window.localStorage.setItem("00" + correctName, relative.slice(1));
 
                     let vidDuration = vid.duration;
-                    let arrForMenyTwo = ["0", vidDuration, "All", correctName] 
+                    let arrForMenyTwo = ["0", vidDuration, "All", correctName]
                     // (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
                     handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);
                     window.location.reload();
@@ -366,7 +364,7 @@ function listNamberOne(a = meny1()) {
             var nameValueВuty = nameValueВut;
         }
         i++;
-        document.write(`<option value='${nameValueВut}'>'${nameValueВut.split(", ")[0].replace("*","  *  ")+") "+nameValueВut.split(",")[3]}'</option>`);
+        document.write(`<option value='${nameValueВut}'>'${nameValueВut.split(", ")[0].replace("*", "  *  ") + ") " + nameValueВut.split(",")[3]}'</option>`);
 
         // alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
     }
@@ -380,7 +378,7 @@ function meny1() {
         if (window.localStorage.key(i).charAt(0) === "0") {
             alert(window.localStorage.key(i));
             let nameValueВutton = window.localStorage.key(i);
-           document.write(`<option value='${nameValueВutton}'>'${nameValueВutton.slice(1).replace("0", " * ")}'</option>`);
+            document.write(`<option value='${nameValueВutton}'>'${nameValueВutton.slice(1).replace("0", " * ")}'</option>`);
             if (nameValueВutton.charAt(1) === "0") {
                 document.getElementById("top").value = nameValueВutton;
             }
@@ -418,7 +416,7 @@ function ReplacingItWithAsingleOneInThelocalStorage(a) {
         a = a.slice(1);
         window.localStorage.setItem(a, tempValueItemLocalStorage);
     }
-
+    return a;
 }
 
 function ReplacementWithAdoubleOfMeny(a) {
@@ -464,11 +462,11 @@ document.getElementById("topic").onchange = function () {
 };
 
 function removingTheZerosOfTheKeyNumber(a) {
-let new_value = a;
-while (new_value.charAt(0)==="0") {
-    new_value = new_value.slice(1);   
-}
-return new_value;
+    let new_value = a;
+    while (new_value.charAt(0) === "0") {
+        new_value = new_value.slice(1);
+    }
+    return new_value;
 }
 
 document.onkeydown = go_key;
