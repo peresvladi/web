@@ -1,4 +1,3 @@
-
 var g = 1;
 var b = 1;
 var pos1 = 0;
@@ -10,11 +9,15 @@ var vid = document.getElementById("myVideo");
 var source = document.createElement('source');
 var p_url = location.search.substring(1);
 
+if (typeof p_url.values === "undefined") {
+    p_url = "";
+}else{
 var parametr = p_url.split("&");
 var s = parametr[0];
 var f = parametr[1];
 var ee = parametr[2];
 var namePartVCatalog = parametr[3];
+}
 
 
 
@@ -35,25 +38,16 @@ function definingTheHierarchicalLeveloftheDirectory() {
 listNamberOne();
 
 // function calculatingThePathToTheVideo(){
-if (typeof s.values === "undefined") {
+if (p_url === "") {
     s = document.getElementById("topic").value.split(",")[1];
     f = document.getElementById("topic").value.split(",")[2];
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
-};
+    var menyTopItem = document.getElementById("top").value;
+    var pathURLName = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
+    }else{
+        pathURLName = ee;
+    };
 
-var menyTopItem = document.getElementById("top").value
-var pathURL = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
-if (pathURL === null) {
-    pathURL = "";
-}
-if (ee !== "undefined") {
-    var pathName = "";
-}
-let pathURLName = (pathURL + pathName)
-// return pathURLName;
-// }
-
-if (pathURLName !== "undefined") {
     source.setAttribute('src', pathURLName);
     source.setAttribute('type', 'video/mp4');
     vid.appendChild(source);
@@ -62,9 +56,8 @@ if (pathURLName !== "undefined") {
         src: source.getAttribute('src'),
         type: source.getAttribute('type'),
     });
-
     vid.addEventListener("timeupdate", getCurTime);
-}
+
 
 let arr = new Array();
 var sess = "";
