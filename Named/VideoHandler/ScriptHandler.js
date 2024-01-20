@@ -27,11 +27,12 @@ if (p_url === "") {
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
     var menyTopItem = document.getElementById("top").value;
     var pathURLName = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
+        startVideo(pathURLName);
     }else{
-        pathURLName = ee;
+        startVideo(ee);
     };
-
-    source.setAttribute('src', pathURLName);
+function startVideo(path){
+    source.setAttribute('src', path);
     source.setAttribute('type', 'video/mp4');
     vid.appendChild(source);
     vid.play();
@@ -40,8 +41,8 @@ if (p_url === "") {
         type: source.getAttribute('type'),
     });
     vid.addEventListener("timeupdate", getCurTime);
-
-
+}
+    
 let arr = new Array();
 var sess = "";
 
@@ -371,7 +372,6 @@ function meny1() {
 
     return document.querySelector("#top").value;
 }
-
 
 function ReplacementWithAdoubleOfLocalStorage(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
