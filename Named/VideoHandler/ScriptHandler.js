@@ -19,25 +19,8 @@ var ee = parametr[2];
 var namePartVCatalog = parametr[3];
 }
 
-
-
-function definingTheHierarchicalLeveloftheDirectory() {
-    let startDirectory = ""
-    let startDir = "../"
-    let directoryPath = window.location.pathname;
-    ar = [];
-    ar = directoryPath.split("/");
-    let i = 2;
-    while (ar[ar.length - i] !== "EDUCATION") {
-        startDirectory = startDirectory + startDir;
-        i++;
-    }
-    return startDirectory;
-}
-
 listNamberOne();
 
-// function calculatingThePathToTheVideo(){
 if (p_url === "") {
     s = document.getElementById("topic").value.split(",")[1];
     f = document.getElementById("topic").value.split(",")[2];
@@ -61,6 +44,7 @@ if (p_url === "") {
 
 let arr = new Array();
 var sess = "";
+
 function keySave(whatKey) {
     let timePart = Math.floor(vid.currentTime);
 
@@ -437,7 +421,6 @@ function delStar(a) {
 
 function addStarlocalStorage(a, e) {
     let tempValueItemLocalStorage = a.split(",");
-    //////////alert(tempValueItemLocalStorage[0] + e.slice(1));
     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
     window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + "," + tempValueItemLocalStorage[2] + "," + tempValueItemLocalStorage[3]);
     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + "," + tempValueItemLocalStorage[2] + "," + tempValueItemLocalStorage[3];
@@ -446,10 +429,22 @@ function addStarlocalStorage(a, e) {
 document.getElementById("topic").onchange = function () {
     scrollThroughTheOldKey(document.getElementById("topic").name);
     addStarlocalStorage(document.getElementById("topic").value, document.getElementById("topic").name.slice(1));
-    // ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
     window.location.reload();
-    //updateMeny2(document.getElementById("topic").value);
 };
+
+function definingTheHierarchicalLeveloftheDirectory() {
+    let startDirectory = ""
+    let startDir = "../"
+    let directoryPath = window.location.pathname;
+    ar = [];
+    ar = directoryPath.split("/");
+    let i = 2;
+    while (ar[ar.length - i] !== "EDUCATION") {
+        startDirectory = startDirectory + startDir;
+        i++;
+    }
+    return startDirectory;
+}
 
 function removingTheZerosOfTheKeyNumber(a) {
     let new_value = a;
