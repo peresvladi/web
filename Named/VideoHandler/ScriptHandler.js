@@ -378,6 +378,7 @@ function meny1() {
     document.write(`<select name="top" id="top">`);
     for (let i = 0; i < window.localStorage.length; i++) {
         if (window.localStorage.key(i).charAt(0) === "0") {
+            alert(window.localStorage.key(i));
             let nameValueВutton = window.localStorage.key(i);
            document.write(`<option value='${nameValueВutton}'>'${nameValueВutton.slice(1).replace("0", " * ")}'</option>`);
             if (nameValueВutton.charAt(1) === "0") {
@@ -409,6 +410,8 @@ function ReplacementWithAdoubleOfLocalStorage(a) {
 }
 
 function ReplacingItWithAsingleOneInThelocalStorage(a) {
+    alert("413  :"+a);
+    alert("414  :"+window.localStorage.getItem(a));
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
     while (a.charAt(1) === "0") {
         window.localStorage.removeItem(a);
