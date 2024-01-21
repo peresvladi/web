@@ -254,7 +254,6 @@ function inputVideo() {
         //-//присваиваем переменной selectedFile ссылку на выбранный файл
         const selectedFile = files[0];
         const nameResulte = selectedFile.name;
-        //-// const reader = new FileReader();
         let reader = new FileReader();
         reader.readAsArrayBuffer(selectedFile);
         reader.onload = function (selectedFile) {
@@ -263,9 +262,7 @@ function inputVideo() {
             let url = window.URL.createObjectURL(tempDateBlob);
             let path = prompt("вставьте скопированный путь к файлу");
             let correctedPath = path.replace(/\\/g, '/') + '/';
-
             let generalPath = correctedPath + nameResulte;
-            // alert(generalPath);
             const relativePath = CreateArelativePath(generalPath);
             function CreateArelativePath(gP) {
                 const divided = gP.split('/');
@@ -292,14 +289,14 @@ function inputVideo() {
 
                     window.localStorage.setItem("00" + correctName, relative.slice(1));
 
-                    let vidDuration = vid.duration;
-                    let arrForMenyTwo = ["0", vidDuration, "All", correctName]
+                   
+                    let arrForMenyTwo = ["0", "0", "All", correctName]; 
                     // (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
                     handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);
                     window.location.reload();
                 } else {
                     if (window.localStorage.getItem("0" + correctName) !== null) {
-                        document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
+                        document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value); 
                         ReplacementWithAdoubleOfLocalStorage("0" + correctName);
                         window.location.reload();
                     }
@@ -472,25 +469,20 @@ function go_key(event) {
         case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
         case 90: httpGetAsync();
 
-
             //         var videoTags = document.getElementsByTagName('video')
             //         for( var i = 0; i < videoTags.length; i++){
             //         alert( videoTags.item(i).currentSrc);
             // }
 
-
             ///confirm("Очистить arr ?") ? arr.length = 0 : alert(arr); 
             break;
-
 
         case 88: if (true === confirm('Очистить LocalStorage ?')) {
             if (true === confirm('Вы действительно желаете удалить данные LocalStorage, без возможности их востановления ?')) {
                 window.localStorage.clear(); alert("очищено " + window.localStorage.length);
             };
         };
-
-
-            break;
+        break;
     }
 
 }
@@ -513,6 +505,7 @@ function setBeginningSoundOn() {
 }
 
 function setCurTime() {
+    if(f === "0"){f = vid.duration;};
     if (vid.currentTime < s || vid.currentTime > f) {
         vid.currentTime = s;
     }
