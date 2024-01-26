@@ -11,12 +11,12 @@ var p_url = location.search.substring(1);
 
 if (typeof p_url.values === "undefined") {
     p_url = "";
-}else{
-var parametr = p_url.split("&");
-var s = parametr[0];
-var f = parametr[1];
-var ee = parametr[2];
-var namePartVCatalog = parametr[3];
+} else {
+    var parametr = p_url.split("&");
+    var s = parametr[0];
+    var f = parametr[1];
+    var ee = parametr[2];
+    var namePartVCatalog = parametr[3];
 }
 
 listNamberOne();
@@ -27,11 +27,11 @@ if (p_url === "") {
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
     var menyTopItem = document.getElementById("top").value;
     var pathURLName = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
-        startVideo(pathURLName);
-    }else{
-        startVideo(ee);
-    };
-function startVideo(path){
+    startVideo(pathURLName);
+} else {
+    startVideo(ee);
+};
+function startVideo(path) {
     source.setAttribute('src', path);
     source.setAttribute('type', 'video/mp4');
     vid.appendChild(source);
@@ -42,7 +42,7 @@ function startVideo(path){
     });
     vid.addEventListener("timeupdate", getCurTime);
 }
-    
+
 let arr = new Array();
 var sess = "";
 
@@ -289,14 +289,14 @@ function inputVideo() {
 
                     window.localStorage.setItem("00" + correctName, relative.slice(1));
 
-                   
-                    let arrForMenyTwo = ["0", "0", "All", correctName]; 
+
+                    let arrForMenyTwo = ["0", "0", "All", correctName];
                     // (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
                     handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);
                     window.location.reload();
                 } else {
                     if (window.localStorage.getItem("0" + correctName) !== null) {
-                        document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value); 
+                        document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
                         ReplacementWithAdoubleOfLocalStorage("0" + correctName);
                         window.location.reload();
                     }
@@ -374,6 +374,7 @@ function ReplacementWithAdoubleOfLocalStorage(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
     if (a.charAt(1) === "0") {
         window.localStorage.setItem('0' + ReplacingItWithAsingleOneInThelocalStorage(a), tempValueItemLocalStorage);
+        window.localStorage.removeItem(a);
     } else {
         window.localStorage.removeItem(a);
         window.localStorage.setItem('0' + a, tempValueItemLocalStorage);
@@ -482,7 +483,7 @@ function go_key(event) {
                 window.localStorage.clear(); alert("очищено " + window.localStorage.length);
             };
         };
-        break;
+            break;
     }
 
 }
@@ -505,7 +506,7 @@ function setBeginningSoundOn() {
 }
 
 function setCurTime() {
-    if(f === "0"){f = vid.duration;};
+    if (f === "0") { f = vid.duration; };
     if (vid.currentTime < s || vid.currentTime > f) {
         vid.currentTime = s;
     }
