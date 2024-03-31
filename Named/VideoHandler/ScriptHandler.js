@@ -72,12 +72,13 @@ function arrPopDel(a) {
 function inputNow(a, e, u) {
     let vvalue = "";
     if (checkingConditions(e, u) === 0) { handlerInputNow(a, e, u, z = 0) } else {
-        switch (vvalue = prompt(`В хранилище (LocalStorage) уже имеются записи фрагментов с ключом по шаблону - ${u} в количестве - ${keySearchAorASimilar(e, u)} для продолжение  предыдущей сессии (выполненой по шаблону ключа - ${u}) нажмите 1, для перезаписи указанной сессии нажмите 2, для перезаписи с определенного фрагмента нажмите 3, для вставки перед определенным фрагментов нажмите 4`)) {
+        switch (vvalue = prompt(`В хранилище (LocalStorage) уже имеются записи фрагментов с ключом по шаблону - ${u} в количестве - ${keySearchAorASimilar(e, u)} для продолжение  предыдущей сессии (выполненой по шаблону ключа - ${u}) нажмите 1, для перезаписи указанной сессии нажмите 2, для перезаписи с определенного фрагмента нажмите 3, для вставки перед определенным фрагментов нажмите 4, ДЛЯ ОТМЕНЫ НАЖИМИТЕ ИНОЙ СИМВОЛ КРОМЕ УКАЗАННЫХ ВЫШЕ, НАПРИМЕР - 0`)) {
             case "1": handlerInputNow(a, e, u, z = (keySearchAorASimilar(e, u))); break;
             case "2": handlerInputNow(a, e, u, z = 0); break;
             case "3": handlerInputNow(a, e, u, z = parseInt(inputMsg("Введите номер фрагмента с которого начнется перезапись"))); break;
             // (arr, window.localStorage, namePartVCatalog);
             case "4": handlerInputNow(a, e, u, z = parseInt(nameOftheСontrFragm(a, e, u))); break;
+            default: alert("выбран символ не предусматриивающий какое-либо действие, вставка отменена, что обозначает откат на позиции перед нажатием - f4");break;
         }
     }
 }
@@ -117,6 +118,7 @@ function handlerInputNow(a, e, u, z) {
         }
     }
     textSave(addInputLocStorage(e, u), u);
+    arr.length = 0;
 }
 
 function textSave(e, u) {
@@ -451,7 +453,7 @@ function go_key(event) {
         case 40: setSoundMinus(); break;
         case 119: vid.pause(); arr.push((keySave(119))); break;
         case 120: vid.pause(); arr.push((keySave(1201))); arr.push((keySave(1202))); arr.push(namePartVCatalog); confirm("Начать следующий фрагмент") === true ? arr.push((keySave(1203))) : arr; break;
-        case 115: inputNow(arr, window.localStorage, namePartVCatalog); arr.length = 0; break;
+        case 115: inputNow(arr, window.localStorage, namePartVCatalog); break;
         case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
         case 90: httpGetAsync();
 
