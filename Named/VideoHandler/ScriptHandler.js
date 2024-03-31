@@ -116,7 +116,7 @@ function handlerInputNow(a, e, u, z) {
             y++;
         }
     }
-    textSave(inputLocStorage(e, u), u);
+    textSave(addInputLocStorage(e, u), u);
 }
 
 function textSave(e, u) {
@@ -159,26 +159,11 @@ function availabilityOfaKeys(e) {
     return e.length;
 }
 
-function inputLocStorage(e, u) {
-    // alert(e.getItem("00" + u));
-    if (e.getItem("00" + u) !== null) {
-        let element = e.getItem("00" + u) + "," + u + ",";
-        return element + addInputLocStorage(e, u);
-    } else {
-        // alert(e.getItem("0" + u));
-        if (e.getItem("0" + u) !== null) {
-            let element = e.getItem("0" + u) + "," + u + ",";
-            return element + addInputLocStorage(e, u);
-        }
-        else {
-            alert("выполнение кода прекращается т.к. в хранилище отсутствуют данные по запросу к хранилищу(local.Storage): 0" + u + " либо по запросу: " + "00" + u);
-        }
-    }
-}
+
 
 function addInputLocStorage(e, u) {
     let element = "";
-    let iSt = 1;
+    let iSt = 2;
     while ((e.getItem(iSt + u) !== null)) {
         element = element + e.getItem(iSt + u) + "," + u + ",";
         iSt++;
@@ -186,7 +171,7 @@ function addInputLocStorage(e, u) {
     return element;
 }
 
-function inputFile() {
+function inputFile() {  
     const elemInput = document.querySelector('[type="file"]');
     const typeResulte = elemInput.files[0].type;
     // alert(typeResulte);
