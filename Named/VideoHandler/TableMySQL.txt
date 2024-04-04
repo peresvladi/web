@@ -1,0 +1,28 @@
+
+
+
+
+
+
+
+CREATE TABLE subject (
+id INT NOT NULL AUTO_INCREMENT,
+PRIMARY KEY(id),
+name_v VARCHAR(10) NOT NULL,
+platform_id INT NOT NULL,
+INDEX platf_id (platform_id),
+FOREIGN KEY (platform_id)
+    REFERENCES platform(id)
+    ON DELETE RESTRICT,
+type_id INT NOT NULL,
+INDEX typ_id (type_id),
+FOREIGN KEY (type_id)
+    REFERENCES type(id)
+    ON DELETE RESTRICT,
+number INT NOT NULL,
+environment_id INT NOT NULL,
+INDEX envir_id (environment_id),
+FOREIGN KEY (environment_id)
+    REFERENCES environment(id)
+    ON DELETE RESTRICT,
+) ENGINE=INNODB;
