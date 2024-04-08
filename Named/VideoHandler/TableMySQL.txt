@@ -57,5 +57,35 @@ PRIMARY KEY (id)
 CREATE TABLE teacher (
 id INT NOT NULL,
 PRIMARY KEY (id),
-email 
-)
+email VARCHAR(30),
+subject_id INT NOT NULL,
+INDEX subj_teach (subject_id),
+FOREIGN KEY (subject_id)
+    REFERENCES subject(id)
+    ON DELETE RECTRICT,
+last_name VARCHAR (30),
+name_id INT NOT NULL,
+INDEX teach_teachn (name_id),
+FOREIGN KEY (name_id),
+    REFERENCES teachern (id)
+    ON DELETE RECTRICT,
+patronymic_id INT NOT NULL,
+INDEX teach_teachn (patronymic_id),
+FOREIGN KEY (patronymic_id),
+    REFERENCES teacherp (id)
+    ON DELETE RECTRICT,
+    phone VARCHAR(15)
+) ENGINE=INNODB;
+
+CREATE TABLE teachern (
+id INT NOT NULL,
+PRIMARY KEY (id),
+value VARCHAR(30),
+) ENGINE=INNODB;
+
+CREATE TABLE teacherp (
+id INT NOT NULL,
+PRIMARY KEY (id),
+value VARCHAR(30),
+) ENGINE=INNODB;
+
