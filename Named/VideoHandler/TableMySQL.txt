@@ -1,4 +1,4 @@
-CREATE TABLE items (
+5+CREATE TABLE items (
 id INT NOT NULL AUTO_INCREMENT,
 PRIMARY KEY(id),
 start TIME NOT NULL,
@@ -7,54 +7,54 @@ topic_id INT NOT NULL,
 INDEX item_top (topic_id),
 FOREIGN KEY (topic_id)
     REFERENCES topic(id)
-    ON RESTRICT CASCADE,
+    ON DELETE RESTRICT,
 name VARCHAR(30) NOT NULL,
 subject_id INT NOT NULL,
-INDEX name_subj (subject_id)
+INDEX name_subj (subject_id),
 FOREIGN KEY (subject_id)
     REFERENCES subject(id)
-    ON RESTRICT CASCADE,
+    ON DELETE RESTRICT,
 settings BOOL NOT NULL,
 interview BOOL NOT NULL,
 snippets BOOL NOT NULL,
 environment_id INT NOT NULL,
-INDEX env_envir (environment_id)
+INDEX env_envir (environment_id),
 FOREIGN KEY (environment_id)
     REFERENCES environment(id)
-    ON RECTRICT CASCADE
+    ON DELETE RESTRICT
 )ENGINE=INNODB;
 
-CREATE TABLE topic (
+1+CREATE TABLE topic (
 id INT NOT NULL AUTO_INCREMENT,
 PRIMARY KEY(id),
 name VARCHAR(30) NOT NULL
 )ENGINE=INNODB;
 
-CREATE TABLE environment (
+4+CREATE TABLE environment (
 id INT NOT NULL AUTO_INCREMENT,
 PRIMARY KEY(id),
-value VARCHAR(20) NOT NULL,
+value VARCHAR(20) NOT NULL
 ) ENGINE=INNODB;
 
-CREATE TABLE subject (
+3+CREATE TABLE subject (
 id INT NOT NULL AUTO_INCREMENT,
 PRIMARY KEY(id),
 name_v VARCHAR(10) NOT NULL,
-platform VARCHR(20) NOT NULL,
+platform VARCHAR(20) NOT NULL,
 type_id INT NOT NULL,
 INDEX typ_id (type_id),
 FOREIGN KEY (type_id)
     REFERENCES type(id)
     ON DELETE RESTRICT,
-number INT NOT NULL,
+number INT NOT NULL
 ) ENGINE=INNODB;
 
-CREATE TABLE type (
+2+CREATE TABLE type (
 id INT NOT NULL,
 PRIMARY KEY (id)
 ) ENGINE=INNODB;
 
-CREATE TABLE teacher (
+8+CREATE TABLE teacher (
 id INT NOT NULL,
 PRIMARY KEY (id),
 email VARCHAR(30),
@@ -62,30 +62,30 @@ subject_id INT NOT NULL,
 INDEX subj_teach (subject_id),
 FOREIGN KEY (subject_id)
     REFERENCES subject(id)
-    ON DELETE RECTRICT,
+    ON DELETE RESTRICT,
 last_name VARCHAR (30),
 name_id INT NOT NULL,
 INDEX teach_teachn (name_id),
-FOREIGN KEY (name_id),
+FOREIGN KEY (name_id)
     REFERENCES teachern (id)
-    ON DELETE RECTRICT,
+    ON DELETE RESTRICT,
 patronymic_id INT NOT NULL,
-INDEX teach_teachn (patronymic_id),
-FOREIGN KEY (patronymic_id),
+INDEX teach_teachp (patronymic_id),
+FOREIGN KEY (patronymic_id)
     REFERENCES teacherp (id)
-    ON DELETE RECTRICT,
+    ON DELETE RESTRICT,
     phone VARCHAR(15)
 ) ENGINE=INNODB;
 
-CREATE TABLE teachern (
+6+CREATE TABLE teachern (
 id INT NOT NULL,
 PRIMARY KEY (id),
-value VARCHAR(30),
+value VARCHAR(30)
 ) ENGINE=INNODB;
 
-CREATE TABLE teacherp (
+7+CREATE TABLE teacherp (
 id INT NOT NULL,
 PRIMARY KEY (id),
-value VARCHAR(30),
+value VARCHAR(30)
 ) ENGINE=INNODB;
 
