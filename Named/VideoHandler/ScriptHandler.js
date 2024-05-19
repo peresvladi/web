@@ -122,7 +122,7 @@ function handlerInputNow(a, e, u, z) {
 }
 
 function textSave(e, u) {
-    const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel' + u; a.click();
+    const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'C:/fuel' + u; a.click();
 }
 
 // (arr, window.localStorage, namePartVCatalog);
