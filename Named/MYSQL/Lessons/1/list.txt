@@ -1,0 +1,28 @@
+I type
+II subject
+III enveroment
+IV  items
+V teacherp
+VI teachern
+VII teacher
+
+INSERT INTO type (id, name_) VALUES
+(1,'Lesson'),
+(2,'Seminar');
+
+SHOW COLUMNS FROM subject;
+
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int         | NO   | PRI | NULL    | auto_increment |
+| name_v   | varchar(10) | NO   |     | NULL    |                |
+| platform | varchar(20) | NO   |     | NULL    |                |
+| type_id  | int         | NO   | MUL | NULL    |                |
+| number   | int         | NO   |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+
+ALTER TABLE subject MODIFY COLUMN name_v VARCHAR(20) NOT NULL;
+
+INSERT INTO subject (name_v, platform, type_id, number) VALUES
+(MYSQL_L1.mp4, 
