@@ -25,4 +25,34 @@ SHOW COLUMNS FROM subject;
 ALTER TABLE subject MODIFY COLUMN name_v VARCHAR(20) NOT NULL;
 
 INSERT INTO subject (name_v, platform, type_id, number) VALUES
-(MYSQL_L1.mp4, 
+('MYSQL_L1.mp4', 'GB', 1, 1);
+
++----+--------------+----------+---------+--------+
+| id | name_v       | platform | type_id | number |
++----+--------------+----------+---------+--------+
+|  1 | MYSQL_L1.mp4 | GB       |       1 |      1 |
++----+--------------+----------+---------+--------+
+
+ALTER TABLE subject ALTER COLUMN platform SET DEFAULT "GB";
+
+INSERT INTO items (start, end, 
+
+
+ALTER TABLE subject MODIFY COLUMN name_v VARCHAR(20) NOT NULL;
+
+
+CREATE TABLE topic (
+id INT NOT NULL AUTO_INCREMENT,
+PRIMARY KEY(id),
+name TINYTEXT NOT NULL
+)ENGINE=INNODB;
+
+ALTER TABLE items RENAME COLUMN topic TO topic_id; /изменили имя столбца
+
+ALTER TABLE items
+ADD CONSTRAINT items_topicfk FOREIGN KEY (`topic_id`) REFERENCES topic(`id`); /добавили связь между таблицами
+
+
+
+
+
