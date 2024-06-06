@@ -35,7 +35,6 @@ INSERT INTO subject (name_v, platform, type_id, number) VALUES
 
 ALTER TABLE subject ALTER COLUMN platform SET DEFAULT "GB";
 
-INSERT INTO items (start, end, 
 
 
 ALTER TABLE subject MODIFY COLUMN name_v VARCHAR(20) NOT NULL;
