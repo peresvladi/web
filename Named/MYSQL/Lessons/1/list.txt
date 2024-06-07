@@ -51,7 +51,11 @@ ALTER TABLE items RENAME COLUMN topic TO topic_id; /изменили имя ст
 ALTER TABLE items
 ADD CONSTRAINT items_topicfk FOREIGN KEY (`topic_id`) REFERENCES topic(`id`); /добавили связь между таблицами
 
+RENAME TABLE teachern TO teacherf; /переименование таблицы
 
+ALTER TABLE teacher RENAME COLUMN name_id TO fname_id; /переименование столбца
+
+SELECT t.*, f.* FROM teacher t RIGHT JOIN teacherf f ON f.id = t.fname_id; /RIGHT JOIN с выводом всех столбцов обеих таблиц
 
 
 
