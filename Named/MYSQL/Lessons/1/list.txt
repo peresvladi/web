@@ -57,5 +57,9 @@ ALTER TABLE teacher RENAME COLUMN name_id TO fname_id; /переименован
 
 SELECT t.*, f.* FROM teacher t RIGHT JOIN teacherf f ON f.id = t.fname_id; /RIGHT JOIN с выводом всех столбцов обеих таблиц
 
+INSERT INTO topic (id) VALUES (null); /внесение в таблицу установленных по умолчанию данных одновременно во все поля (проверено, что работает только при установлении primary key значения auto incriment);
+
+ALTER TABLE teacher MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT; /установка свойства AUTO_INCREMENT
+
 
 
