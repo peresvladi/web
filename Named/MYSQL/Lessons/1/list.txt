@@ -62,4 +62,72 @@ INSERT INTO topic (id) VALUES (null); /внесение в таблицу уст
 ALTER TABLE teacher MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT; /установка свойства AUTO_INCREMENT
 
 
+SELECT ProductName, ProductCount,                   /ПРИМЕР ИСПОЛЬЗОВАНИЕ CASE
+    -> CASE
+    -> WHEN ProductCount = 1
+    -> THEN 'Товар заканчивается'
+    -> WHEN ProductCount = 2
+    -> THEN 'Мало товара'
+    -> WHEN ProductCount = 3
+    -> THEN 'Есть в наличии'
+    -> ELSE 'Много товара'
+    -> END AS Category
+    -> FROM Products;
++-------------+--------------+---------------------+
+| ProductName | ProductCount | Category            |
++-------------+--------------+---------------------+
+| iPhoneX     |            3 | Есть в наличии      |
+| iPhone8     |            2 | Мало товара         |
+| Galaxv S9   |            2 | Мало товара         |
+| GalaxvS8    |            1 | Товар заканчивается |
+| P20Pro      |            5 | Много товара        |
++-------------+--------------+---------------------+
+5 rows in set (0.00 sec)
 
+
+ SELECT ProductName, Manufacturer,							/ПРИМЕР ИСПОЛЬЗОВАНИЯ IF
+    -> If(ProductCount > 3, 'Много товара', 'Мало товара')
+    -> FROM Products;
++-------------+--------------+-----------------------------------------------------+
+| ProductName | Manufacturer | If(ProductCount > 3, 'Много товара', 'Мало товара') |
++-------------+--------------+-----------------------------------------------------+
+| iPhoneX     | Aool         | Мало товара                                         |
+| iPhone8     | Aoole        | Мало товара                                         |
+| Galaxv S9   | Samsuno      | Мало товара                                         |
+| GalaxvS8    | Samsuno      | Мало товара                                         |
+| P20Pro      | Huawei       | Много товара                                        |
++-------------+--------------+-----------------------------------------------------+
+5 rows in set (0.00 sec)
+
+UPDATE Products										/ПРИМЕР ИСЕОЛЬЗОВАНИЯ UPDATE (УВЕЛИЧИЛИ ЗНАЧЕНИЕ ПОЛЯ Price на 3000)
+    -> SET Price = Price + 3000;
+Query OK, 5 rows affected (0.00 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT * FROM Products;
++----+-------------+--------------+--------------+-------+
+| Id | ProductName | Manufacturer | ProductCount | Price |
++----+-------------+--------------+--------------+-------+
+|  1 | iPhoneX     | Aool         |            3 | 79000 |
+|  2 | iPhone8     | Aoole        |            2 | 54000 |
+|  3 | Galaxv S9   | Samsuno      |            2 | 59000 |
+|  4 | GalaxvS8    | Samsuno      |            1 | 44000 |
+|  5 | P20Pro      | Huawei       |            5 | 39000 |
++----+-------------+--------------+--------------+-------+
+5 rows in set (0.00 sec)
+
+													/ПРИМЕР УДАЛЕНИЯ ЗАПИСЕЙ ИМЕЮЩИХ ЗНАЧЕНИЕ 'Aool' в поле Manufacturer
+ DELETE FROM products
+    -> WHERE Manufacturer = 'Aool';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM Products;
++----+-------------+--------------+--------------+-------+
+| Id | ProductName | Manufacturer | ProductCount | Price |
++----+-------------+--------------+--------------+-------+
+|  2 | iPhone8     | Aoole        |            2 | 54000 |
+|  3 | Galaxv S9   | Samsuno      |            2 | 59000 |
+|  4 | GalaxvS8    | Samsuno      |            1 | 44000 |
+|  5 | P20Pro      | Huawei       |            5 | 39000 |
++----+-------------+--------------+--------------+-------+
+4 rows in set (0.00 sec)
