@@ -131,3 +131,35 @@ mysql> SELECT * FROM Products;
 |  5 | P20Pro      | Huawei       |            5 | 39000 |
 +----+-------------+--------------+--------------+-------+
 4 rows in set (0.00 sec)
+
+
+UPDATE Products SET Manufacturer = 'Apple' WHERE Manufacturer = 'Aoole'; /обновили значение поля
+
+
+
+
+
+mysql> SELECT * FROM Products
+    -> WHERE NOT Manufacturer = 'Samsung'; / ИСПОЛЬЗОВАНИЕ В ЗАПРОСЕ ОТРИЦАНИЯ - NOT (ВЫВОД ВСЕХ МАРОК КРОМЕ САМСУТГ)
++----+-------------+--------------+--------------+-------+
+| Id | ProductName | Manufacturer | ProductCount | Price |
++----+-------------+--------------+--------------+-------+
+|  2 | iPhone8     | Apple        |            2 | 54000 |
+|  5 | P20Pro      | Huawei       |            5 | 39000 |
+|  6 | iPhone X    | Apple        |            3 | 76000 |
++----+-------------+--------------+--------------+-------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> SELECT * FROM Products
+    -> WHERE Manufacturer IN ('Apple', 'Samsung'); / ПРИМЕР ИСПОЛЬЗОВАНИЯ IN
++----+-------------+--------------+--------------+-------+
+| Id | ProductName | Manufacturer | ProductCount | Price |
++----+-------------+--------------+--------------+-------+
+|  2 | iPhone8     | Apple        |            2 | 54000 |
+|  3 | Galaxv S9   | Samsung      |            2 | 59000 |
+|  4 | GalaxvS8    | Samsung      |            1 | 44000 |
+|  6 | iPhone X    | Apple        |            3 | 76000 |
++----+-------------+--------------+--------------+-------+
+4 rows in set (0.00 sec)
