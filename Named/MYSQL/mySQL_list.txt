@@ -167,3 +167,8 @@ mysql> SELECT * FROM Products
 ALTER TABLE movies ADD language VARCHAR(20); /ДОБАВИТЬ СТОЛБЕЦ
 
 ALTER TABLE movies DROP COLUMN language; /УДАЛИТЬ СТОЛБЕЦ
+
+ALTER TABLE movies ADD FOREIGN KEY (id_director) REFERENCES directors (id); /ДОБАВИТЬ СВЯЗЬ МЕЖДУ ИМЕЮЩИМИСЯ УЖЕ СТОЛБЦАМИ ТАБЛИЦ (ТАБЛИ1А 1 СТОЛБЕЦ - id_directors, ТАБЛИЦА 2 СТОЛБЕЦ id) id (тип int) - ЯВЛЯЕСЯ ПЕРВИЧНЫМ КЛЮЧОМ ТАБЛИЦИ movies, а id_director (имеет тип int) является полем таблицы derectors
+
+SELECT title AS TITLE, time AS TIME, CASE WHEN time >= 160 AND time 
+< 170 THEN "CENTER" END AS timer FROM movies LEFT JOIN directors ON id_director = directors.id;
