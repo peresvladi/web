@@ -171,4 +171,78 @@ ALTER TABLE movies DROP COLUMN language; /УДАЛИТЬ СТОЛБЕЦ
 ALTER TABLE movies ADD FOREIGN KEY (id_director) REFERENCES directors (id); /ДОБАВИТЬ СВЯЗЬ МЕЖДУ ИМЕЮЩИМИСЯ УЖЕ СТОЛБЦАМИ ТАБЛИЦ (ТАБЛИ1А 1 СТОЛБЕЦ - id_directors, ТАБЛИЦА 2 СТОЛБЕЦ id) id (тип int) - ЯВЛЯЕСЯ ПЕРВИЧНЫМ КЛЮЧОМ ТАБЛИЦИ movies, а id_director (имеет тип int) является полем таблицы derectors
 
 SELECT title AS TITLE, time AS TIME, CASE WHEN time >= 160 AND time 
-< 170 THEN "CENTER" END AS timer FROM movies LEFT JOIN directors ON id_director = directors.id;
+< 170 THEN "CENTER" END AS timer FROM movies LEFT JOIN directors ON id_director = directors.id; /ИСПОЛЬЗОВАНИЕ CASE
+
+
+SELECT title AS TITLE, time AS TIME, CASE WHEN time >= 160 AND time < 170 THEN "CENTER" WHEN time >= 142 AND time < 160 THEN "MIN" WHEN time > 170 THEN "BIG" END AS timer FROM movies LEFT JOIN directors ON id_director = directors.id;
++-----------------------------------------+------+--------+
+| TITLE                                   | TIME | timer  |
++-----------------------------------------+------+--------+
+| Harry Potter and the Philosophers Stone |  152 | MIN    |
+| Harry Potter and the Chamber of Secrets |  162 | CENTER |
+| The Green Mile                          |  188 | BIG    |
+| Forrest Gump                            |  142 | MIN    |
++-----------------------------------------+------+--------+
+4 rows in set (0.00 sec)                                     /ИСПОЛЬЗОВАНИЕ CASE
+
+
+SELECT title AS TITLE, time AS TIME, CASE WHEN time >= 160 AND time
+    -> < 170 THEN time *1.2 WHEN time >= 142 AND time < 160 THEN time * 1.1 WHEN time > 170 THEN time * 1.3 END AS timer FROM movies LEFT JOIN directors ON id_director = directors.id;
++-----------------------------------------+------+-------+
+| TITLE                                   | TIME | timer |
++-----------------------------------------+------+-------+
+| Harry Potter and the Philosophers Stone |  152 | 167.2 |
+| Harry Potter and the Chamber of Secrets |  162 | 194.4 |
+| The Green Mile                          |  188 | 244.4 |
+| Forrest Gump                            |  142 | 156.2 |
++-----------------------------------------+------+-------+
+4 rows in set (0.00 sec)  /ЕЩЕ ПРИМЕР ИСПОЛЬЗОВАНИЯ CASE
+
+
+mysql> SELECT title, time, if (time < 160, 'yes', 'no') FROM movies LEFT JOIN directors ON id_director = directors.id;
++-----------------------------------------+------+------------------------------+
+| title                                   | time | if (time < 160, 'yes', 'no') |
++-----------------------------------------+------+------------------------------+
+| Harry Potter and the Philosophers Stone |  152 | yes                          |
+| Harry Potter and the Chamber of Secrets |  162 | no                           |
+| The Green Mile                          |  188 | no                           |
+| Forrest Gump                            |  142 | yes                          |
++-----------------------------------------+------+------------------------------+
+4 rows in set (0.00 sec)  /ПРИМЕР ИСПОЛЬЗОВАНИЯ IF
+
+ SELECT title, time, if (time < 160, 'yes', 'no') AS 'RESULT' FROM movies LEFT JOIN directors ON id_director = directors.id;
++-----------------------------------------+------+--------+
+| title                                   | time | RESULT |
++-----------------------------------------+------+--------+
+| Harry Potter and the Philosophers Stone |  152 | yes    |
+| Harry Potter and the Chamber of Secrets |  162 | no     |
+| The Green Mile                          |  188 | no     |
+| Forrest Gump                            |  142 | yes    |
++-----------------------------------------+------+--------+
+4 rows in set (0.00 sec) /ПРИМЕР ИСПОЛЬЗОВАНИЯ IF С ПЕРЕИМЕНОВАНИЕ РЕЗУЛЬТИРУЮЩЕГО СТОЛБЦА В 'RESULT'
+mysql> SELECT * FROM products ORDER BY Price;
++----+-------------+--------------+--------------+-------+
+| Id | ProductName | Manufacturer | ProductCount | Price |
++----+-------------+--------------+--------------+-------+
+|  5 | P20Pro      | Huawei       |            5 | 39000 |
+|  4 | GalaxvS8    | Samsung      |            1 | 44000 |
+|  2 | iPhone8     | Apple        |            2 | 54000 |
+|  3 | Galaxv S9   | Samsung      |            2 | 59000 |
+|  6 | iPhone X    | Apple        |            3 | 76000 |
++----+-------------+--------------+--------------+-------+
+5 rows in set (0.00 sec) / ПРИМЕР СОРТИРОВКИ С ПОМОЩЬЮ ОПЕРАТОРА ORDER BY
+
+
+ SELECT ProductName, ProductCount * Price AS SUM FROM puoducts ORDER BY SUM;
+ERROR 1146 (42S02): Table 'proba.puoducts' doesn't exist
+mysql> SELECT ProductName, ProductCount * Price AS SUM FROM products ORDER BY SUM;
++-------------+--------+
+| ProductName | SUM    |
++-------------+--------+
+| GalaxvS8    |  44000 |
+| iPhone8     | 108000 |
+| Galaxv S9   | 118000 |
+| P20Pro      | 195000 |
+| iPhone X    | 228000 |
++-------------+--------+
+5 rows in set (0.00 sec) / ПРИМЕР СОРТИРОВКИ С ПРЕДВАРИТЕЛЬНЫМ ДЕЙСТВИЕМ УМНОЖЕНИЯ ПРИ ИСПОЛЬЗОВАНИИ ПСЕВДОНИМОВ
