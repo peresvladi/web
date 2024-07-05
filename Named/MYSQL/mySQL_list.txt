@@ -246,3 +246,101 @@ mysql> SELECT ProductName, ProductCount * Price AS SUM FROM products ORDER BY SU
 | iPhone X    | 228000 |
 +-------------+--------+
 5 rows in set (0.00 sec) / ПРИМЕР СОРТИРОВКИ С ПРЕДВАРИТЕЛЬНЫМ ДЕЙСТВИЕМ УМНОЖЕНИЯ ПРИ ИСПОЛЬЗОВАНИИ ПСЕВДОНИМОВ
+
+mysql> SELECT * FROM products LIMIT 2;
++----+-------------+--------------+--------------+-------+
+| Id | ProductName | Manufacturer | ProductCount | Price |
++----+-------------+--------------+--------------+-------+
+|  2 | iPhone8     | Apple        |            2 | 54000 |
+|  3 | Galaxv S9   | Samsung      |            2 | 59000 |
++----+-------------+--------------+--------------+-------+
+2 rows in set (0.00 sec) /пример использования LIMIT 2 для вывода только первых 2 строк таблицы products
+
+mysql> SELECT * FROM products ORDER BY Price LIMIT 2;
++----+-------------+--------------+--------------+-------+
+| Id | ProductName | Manufacturer | ProductCount | Price |
++----+-------------+--------------+--------------+-------+
+|  5 | P20Pro      | Huawei       |            5 | 39000 |
+|  4 | GalaxvS8    | Samsung      |            1 | 44000 |
++----+-------------+--------------+--------------+-------+
+2 rows in set (0.00 sec) /пример использования ORDER BY ДЛЯ СОРТИРОВКИ ПО УБЫВАНИЮ И ОДНОВРЕМЕННО LIMIT 2 для вывода только первых 2 строк таблицы products
+
+mysql> SELECT * FROM products ORDER BY Price LIMIT 2, 2;
++----+-------------+--------------+--------------+-------+
+| Id | ProductName | Manufacturer | ProductCount | Price |
++----+-------------+--------------+--------------+-------+
+|  2 | iPhone8     | Apple        |            2 | 54000 |
+|  3 | Galaxv S9   | Samsung      |            2 | 59000 |
++----+-------------+--------------+--------------+-------+
+2 rows in set (0.00 sec) /пример использования ORDER BY ДЛЯ СОРТИРОВКИ ПО УБЫВАНИЮ И ОДНОВРЕМЕННО LIMIT 2, 2 для вывода только двух строк начиная со второй строки таблицы products
+
+UPDATE products SET Price = CASE ProductName WHEN 'iPhone 7' THEN 32000 WHEN 'iPhone8' THEN 51000 WHEN "Galaxv S9" THEN 56000 WHEN 'GalaxvS8' THEN 46000 END WHERE ProductName IN ('iPhone 7','iPhone8',"Galaxv S9",'GalaxvS8'); /ЗАПРОС НА ИЗМЕНЕНИЕ ДАННЫХ В ЗАВИСИМОСТИ ОТ ЗНАЧЕНИЯ НАИМЕНОВАНИЯ ТОВАРА
+
+SELECT Manufacturer, COUNT(*) AS CountModels FROM Products GROUP BY Manufacturer;
++--------------+-------------+
+| Manufacturer | CountModels |
++--------------+-------------+
+| Apple        |           3 |
+| Samsung      |           2 |
+| Huawei       |           2 |
+| HMD Global   |           1 |
++--------------+-------------+
+4 rows in set (0.00 sec)        /использования функции COUNT для подсчета количества товара каждой модели и использование оператора GROUP BY для групировки по полю Manufacturer, с выводом результата в созднном поле CountModel
+
+
+ SELECT AVG(Price) AS Average_Price FROM Products;
++---------------+
+| Average_Price |
++---------------+
+|    45750.0000 |
++---------------+
+1 row in set (0.00 sec) /использование агрегатной функции AVG ДЛЯ ВЫВОДА СРЕДНЕГО ЗНАЧЕНИЯ СТОЛБЦА Price в созданном дополнительном столбце Average_Price
+
+SELECT AVG(Price) AS Average_Price FROM Products WHERE Manufacturer = 'Apple' ;
++---------------+
+| Average_Price |
++---------------+
+|    53000.0000 |
++---------------+
+1 row in set (0.00 sec) /пример использования предыдущих операторов с дополнением фильтрации (WHERE Manufacturer = 'Apple') и получение таким образом среднего значения для определенной модели (в данном случа 'Apple')
+
+
+SELECT COUNT(*) FROM products;
++----------+
+| COUNT(*) |
++----------+
+|        8 |
++----------+
+1 row in set (0.01 sec) /использование агрегатной функции COUNT(*) для подсчета строк в таблице.
+
+SELECT Manufacturer, COUNT(*) AS ModelsCount FROM Products GROUP BY Manufacturer HAVING COUNT(*) > 1;
++--------------+-------------+ 
+| Manufacturer | ModelsCount |
++--------------+-------------+
+| Apple        |           3 |
+| Samsung      |           2 |
+| Huawei       |           2 |
++--------------+-------------+
+3 rows in set (0.00 sec) / ЗАПРОС ВЫВОДИТ ТОВАРЫ ВСЕХ ПРОИЗВОДИТЕЛЕЙ ДЛЯ КОТОРЫХ ОПРЕДЕЛЕНО БОЛЕЕ ОДНОЙ МОДЕЛИ ДЛЯ ЭТОГО В ЗАПРОСЕ 1. ОБРАЩАЕМСЯ К ТАБЛИЦЕ - FROM Products 2. выбираем поле SELECT Manufacturer 3. ПОДСЧИТЫВАЕМ КОЛЛИЧЕСТВО МОДЕЛЕЙ COUNT(*) 4. СОЗДАЕМ ДОПОЛИТЕЛЬНЫЙ СТОЛБЕЦ AS ModelsCount 5. ГРУПИРУЕМ ПО ПОЛЮ Manufacturer 6. ЗАДАЕМ УСЛОВИЕ ФИЛЬТРАЦИИ HAVING COUNT(*) > 1 (КОЛИЧЕСТВО СТРОК УДОВЛЕТВОРЯЮЩИХ УСЛОВИЯМ ФИЛЬТРАЦИИ БОЛЬШЕ ОДНОЙ СТРОКИ)
+
+SELECT Manufacturer, COUNT(*) AS ModelsCount FROM Products WHERE Price * ProductCount > 80000 GROUP BY Manufacturer HAVING COUNT(*) > 1;
++--------------+-------------+
+| Manufacturer | ModelsCount |
++--------------+-------------+
+| Apple        |           3 |
+| Huawei       |           2 |
++--------------+-------------+
+2 rows in set (0.00 sec)  /В данном случае сначала фильтруются строки: выбираются те товары, общая	стоимость которых больше 80000. Затем выбранные товары группируются	по производителям. И далее фильтруются сами группы -выбираются те	группы, которые
+содержат больше 1 моделию
+
+ SELECT Manufacturer, COUNT(*) AS Models, SUM(ProductCount) AS Units FROM Products WHERE Price * ProductCount > 80000 GROUP BY Manufacturer HAVING SUM(ProductCount) > 2 ORDER BY Units DESC;
++--------------+--------+-------+
+| Manufacturer | Models | Units |
++--------------+--------+-------+
+| Apple        |      3 |    10 |
+| Huawei       |      2 |    10 |
+| HMD Global   |      1 |     6 |
++--------------+--------+-------+
+3 rows in set (0.00 sec) /Обращаемся к таблице Products задаем условие в котором просит отоблазить товар с ценой 80000 и выше. Групируем по колличеству. Нас интересует поле ProductCount и оно должно быть больше двух. Сортировка Order by происходит по убыванию (сверху наибольшее, снизу наименьшее). Поле Units отвечает за колличество телефонов. Происходим суммирование по полю ProductCount для конкретного производителяб Общее колличество Айфонов завезенных на склад равно 10 и имеется 3 модели, т.е. нам удовлетворяют 3 строчки.  Имеется одна Нокиа. Т.е. модель одна а колличество телефонов 6. Тоже самое происходит с Хуавэем. Имеется одна модель, а  количества моделей равно 5. Таким образом мы отсортировали все имеющиеся группы по убыванию (от большего к меньшему).
+
+
