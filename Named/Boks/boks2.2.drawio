@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="DBkkNv5Ln0pKRbw7ggTA" name="Страница 1">
-        <mxGraphModel dx="348" dy="261" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="615" dy="184" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -53,19 +53,19 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="19" value="" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1">
+                <mxCell id="19" value="" style="endArrow=none;dashed=1;html=1;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint y="100" as="sourcePoint"/>
                         <mxPoint x="70" y="100" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="20" value="" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1">
+                <mxCell id="20" value="" style="endArrow=none;dashed=1;html=1;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint y="170" as="sourcePoint"/>
                         <mxPoint x="50" y="170" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="21" value="" style="endArrow=none;dashed=1;html=1;entryX=0.855;entryY=-0.009;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
+                <mxCell id="21" value="" style="endArrow=none;dashed=1;html=1;entryX=0.855;entryY=-0.009;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="29" y="100" as="sourcePoint"/>
                         <mxPoint x="28.700000000000045" y="60.54000000000002" as="targetPoint"/>
