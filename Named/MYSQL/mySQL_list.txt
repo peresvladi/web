@@ -348,5 +348,56 @@ ctName LIKE '%Phone%';
 Query OK, 2 rows affected (0.01 sec)
 Rows matched: 2  Changed: 2  Warnings: 0 /ПРИМЕР ИСПОЛЬЗОВАНИЕ ОПЕРАТОРА LIKE '%Phone%' в условии WHERE для поиска в строке сочетания символов (в данном случае сочетания: Phone) и использования функции CONCAT ДЛЯ ДОБАВЛЕНИЯ СТРОЧНЫХ СИМВОЛОВ: "i " к значению поля ProductName соответственно имеющего тип VARCHAR.
 
+SELECT AVG(Price) AS Average_Price FROM Products;
++---------------+
+| Average_Price |
++---------------+
+|    45750.0000 |
++---------------+
+1 row in set (0.00 sec) /ИСПОЛЬЗОВАНИЕ АГРЕГАТНОЙ ФУНКЦИИ AVG. ПОЛУЧАЕМ СРЕДНЕЕ ЗНАЧЕНИЕ СТОЛБЦА
 
+SELECT AVG(Price) FROM products WHERE Manufacturer = 'Apple';
++------------+
+| AVG(Price) |
++------------+
+| 53000.0000 |
++------------+
+1 row in set (0.00 sec) /ИСПОЛЬЗОВАНИЕ AVG C ФИЛЬТРОМ WHERE
+
+mysql> SELECT COUNT(*) FROM products;
++----------+
+| COUNT(*) |
++----------+
+|        8 |
++----------+
+1 row in set (0.01 sec) /ИСПОЛЬЗОВАНИЕ АГРЕГАТНОЙ ФУНКЦИИ COUNT ДЛЯ ПОДСЧЕТА КОЛЛИЧЕСТВА СТРОК.
+
+SELECT MIN(Price), MAX(Price) FROM products;
++------------+------------+
+| MIN(Price) | MAX(Price) |
++------------+------------+
+|      28000 |      76000 |
++------------+------------+
+1 row in set (0.00 sec) / ПРИМЕР ИСПОЛЬЗОВАНИЯ АГРЕГАТНЫХ ФУНКЦИЙ MIN, MAX;
+
+
+SELECT Manufacturer, COUNT(*) AS ModelsCount FROM Products GROUP BY Manufacturer;
++--------------+-------------+
+| Manufacturer | ModelsCount |
++--------------+-------------+
+| Apple        |           3 |
+| Samsung      |           2 |
+| Huawei       |           2 |
+| HMD Global   |           1 |
++--------------+-------------+
+4 rows in set (0.00 sec) /пример использования групировки (GROUP BY)
+SELECT Manufacturer, COUNT(*) AS Models, SUM(ProductCount) AS Units FROM Products WHERE Price * ProductCount > 80000 GROUP BY Manufacturer HAVING SUM(ProductCount) > 2 ORDER BY Units DESC;
++--------------+--------+-------+
+| Manufacturer | Models | Units |
++--------------+--------+-------+
+| Apple        |      3 |    10 |
+| Huawei       |      2 |    10 |
+| HMD Global   |      1 |     6 |
++--------------+--------+-------+
+3 rows in set (0.00 sec) /использование HAVING
 
