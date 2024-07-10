@@ -401,3 +401,11 @@ SELECT Manufacturer, COUNT(*) AS Models, SUM(ProductCount) AS Units FROM Product
 +--------------+--------+-------+
 3 rows in set (0.00 sec) /использование HAVING
 
+CREATE TABLE orders (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(ID), product_name VARCHAR(99) NOT NULL, price INT, total_price INT, coun INT); /СОЗДАЛИ ТАБЛИЦУ orders
+
+CREATE TABLE sales (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, art VARCHAR(10), name VARCHAR(20), count INT DEFAULT 0,  price DECIMAL(8.2) DEFAULT 0); /СОЗДАЛИ ТАБЛИЦУ sales
+
+ALTER TABLE sales ADD CONSTRAINT ord_sales FOREIGN KEY (`id_order`) REFERENCES orders(`id`); /создали связь между таблицами
+
+
+
