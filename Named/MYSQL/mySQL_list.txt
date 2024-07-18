@@ -409,3 +409,12 @@ ALTER TABLE sales ADD CONSTRAINT ord_sales FOREIGN KEY (`id_order`) REFERENCES o
 
 
 
+SET FOREIGN_KEY_CHECKS=0; /Отключает ограничение в БД по внешнему ключу.
+
+SET FOREIGN_KEY_CHECKS=1; / Возвращает ограничение в БД по внешнему ключу.
+
+SET FOREIGN_KEY_CHECKS=0; DROP TABLE orders;
+Query OK, 0 rows affected (0.00 sec) /отключили ограничения в БД и удалили связанную таблицу, после чего при необходимости можно подключить связи в БД обратно вот так: SET FOREIGN_KEY_CHECKS=1;
+
+CREATE TABLE orders (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, customer VARCHAR(50) NOT NULL, phone VARCHAR (15), mail VARCHAR(15), isinstock INT DEFAULT 0, accepted BOOL DEFAULT FALSE);
+Query OK, 0 rows affected (0.03 sec) / создали новую таблицу orders
