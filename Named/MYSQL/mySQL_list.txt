@@ -418,3 +418,7 @@ Query OK, 0 rows affected (0.00 sec) /отключили ограничения 
 
 CREATE TABLE orders (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, customer VARCHAR(50) NOT NULL, phone VARCHAR (15), mail VARCHAR(15), isinstock INT DEFAULT 0, accepted BOOL DEFAULT FALSE);
 Query OK, 0 rows affected (0.03 sec) / создали новую таблицу orders
+
+
+ CREATE TABLE ssssss (id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, art VARCHAR(10) NOT NULL, name VARCHAR(150), count INT, price INT, id_order INT);
+Query OK, 0 rows affected (0.03 sec) /СОЗДАНИЕ ТАБЛИЦЫ ssssss
