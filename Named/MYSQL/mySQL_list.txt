@@ -434,3 +434,6 @@ SELECT * FROM orders INNER JOIN ssssss ON orders.id = ssssss.id_order;
 |  4 | IP Conev     | +79213176711 | conev@mail.ru |        22 |        1 |        0 |   513.70 |           0 |           0 | 23.35 |  4 | 7642757 | Велосипед 26 дюйм Progress Ingrid Low RUS, цвет фисташковый, размер 17 дюйм 7642757 |     1 | 19107 |        4 |
 +----+--------------+--------------+---------------+-----------+----------+----------+----------+-------------+-------------+-------+----+---------+-------------------------------------------------------------------------------------+-------+-------+----------+
 4 rows in set (0.00 sec) / INNER JOIN ТАБЛИЦ orders И sales (по полям orders.id и sales.id_order)
+
+
+SELECT name, count < 100 AS MINI, count >= 100 or count <= 300 AS CENTER, count > 300 AS MAXI FROM ssssss JOIN orders ON ssssss.id_order = orders.id; /NEW
