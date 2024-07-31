@@ -437,3 +437,11 @@ SELECT * FROM orders INNER JOIN ssssss ON orders.id = ssssss.id_order;
 
 
 SELECT name, count < 100 AS MINI, count >= 100 or count <= 300 AS CENTER, count > 300 AS MAXI FROM ssssss JOIN orders ON ssssss.id_order = orders.id; /NEW
+
+
+CREATE TABLE sales LIKE ssssss;
+Query OK, 0 rows affected (0.03 sec) /создание пустой таблицы sales как клон таблицы ssssss
+
+INSERT INTO sales SELECT * FROM ssssss;
+Query OK, 174 rows affected (0.01 sec)
+Records: 174  Duplicates: 0  Warnings: 0 /копирование данных из таблицы ssssss в таблицу sales, в итоге 2-х предыдущих действий (создание пустой таблицы и ее заполнения) таким образом создается клон таблицы ssssss с именем sales
