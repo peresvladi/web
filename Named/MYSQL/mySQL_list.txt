@@ -409,3 +409,39 @@ ALTER TABLE sales ADD CONSTRAINT ord_sales FOREIGN KEY (`id_order`) REFERENCES o
 
 
 
+SET FOREIGN_KEY_CHECKS=0; /Отключает ограничение в БД по внешнему ключу.
+
+SET FOREIGN_KEY_CHECKS=1; / Возвращает ограничение в БД по внешнему ключу.
+
+SET FOREIGN_KEY_CHECKS=0; DROP TABLE orders;
+Query OK, 0 rows affected (0.00 sec) /отключили ограничения в БД и удалили связанную таблицу, после чего при необходимости можно подключить связи в БД обратно вот так: SET FOREIGN_KEY_CHECKS=1;
+
+CREATE TABLE orders (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, customer VARCHAR(50) NOT NULL, phone VARCHAR (15), mail VARCHAR(15), isinstock INT DEFAULT 0, accepted BOOL DEFAULT FALSE);
+Query OK, 0 rows affected (0.03 sec) / создали новую таблицу orders
+
+
+ CREATE TABLE ssssss (id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, art VARCHAR(10) NOT NULL, name VARCHAR(150), count INT, price INT, id_order INT);
+Query OK, 0 rows affected (0.03 sec) /СОЗДАНИЕ ТАБЛИЦЫ ssssss
+
+
+SELECT * FROM orders INNER JOIN ssssss ON orders.id = ssssss.id_order;
++----+--------------+--------------+---------------+-----------+----------+----------+----------+-------------+-------------+-------+----+---------+-------------------------------------------------------------------------------------+-------+-------+----------+
+| id | customer     | phone        | mail          | isinstock | accepted | contract | paid_for | transmitted | implemented | price | id | art     | name                                                                                | count | price | id_order |
++----+--------------+--------------+---------------+-----------+----------+----------+----------+-------------+-------------+-------+----+---------+-------------------------------------------------------------------------------------+-------+-------+----------+
+|  1 | OOO Copez    | +79113176711 | copez@mail.ru |        51 |        1 |        0 |  1048.05 |           0 |           0 | 20.55 |  1 | 7642754 | Велосипед 26 дюйм Progress Ingrid Low RUS, цвет розовый, размер 15 дюйм 7642754     |     1 | 19107 |        1 |
+|  2 | IP Conev     | +79213176711 | conev@mail.ru |        22 |        1 |        0 |   513.70 |           0 |           0 | 23.35 |  2 | 7642755 | Велосипед 26 дюйм Progress Ingrid Low RUS, цвет розовый, размер 17 дюйм 7642755     |     1 | 19107 |        2 |
+|  3 | IP Petryshin | +79223176722 | pety@mail.ru  |        17 |        1 |        1 |  1139.00 |           1 |           1 | 67.00 |  3 | 7642756 | Велосипед 26 дюйм Progress Ingrid Low RUS, цвет фисташковый, размер 15 дюйм 7642756 |     1 | 19107 |        3 |
+|  4 | IP Conev     | +79213176711 | conev@mail.ru |        22 |        1 |        0 |   513.70 |           0 |           0 | 23.35 |  4 | 7642757 | Велосипед 26 дюйм Progress Ingrid Low RUS, цвет фисташковый, размер 17 дюйм 7642757 |     1 | 19107 |        4 |
++----+--------------+--------------+---------------+-----------+----------+----------+----------+-------------+-------------+-------+----+---------+-------------------------------------------------------------------------------------+-------+-------+----------+
+4 rows in set (0.00 sec) / INNER JOIN ТАБЛИЦ orders И sales (по полям orders.id и sales.id_order)
+
+
+SELECT name, count < 100 AS MINI, count >= 100 or count <= 300 AS CENTER, count > 300 AS MAXI FROM ssssss JOIN orders ON ssssss.id_order = orders.id; /NEW
+
+
+CREATE TABLE sales LIKE ssssss;
+Query OK, 0 rows affected (0.03 sec) /создание пустой таблицы sales как клон таблицы ssssss
+
+INSERT INTO sales SELECT * FROM ssssss;
+Query OK, 174 rows affected (0.01 sec)
+Records: 174  Duplicates: 0  Warnings: 0 /копирование данных из таблицы ssssss в таблицу sales, в итоге 2-х предыдущих действий (создание пустой таблицы и ее заполнения) таким образом создается клон таблицы ssssss с именем sales
