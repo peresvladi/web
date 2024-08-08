@@ -445,3 +445,36 @@ Query OK, 0 rows affected (0.03 sec) /создание пустой таблиц
 INSERT INTO sales SELECT * FROM ssssss;
 Query OK, 174 rows affected (0.01 sec)
 Records: 174  Duplicates: 0  Warnings: 0 /копирование данных из таблицы ssssss в таблицу sales, в итоге 2-х предыдущих действий (создание пустой таблицы и ее заполнения) таким образом создается клон таблицы ssssss с именем sales
+
+
+SELECT FirstName, LastName FROM customers UNION SELECT FirstName, LastName FROM Employees;
++-----------+----------+
+| FirstName | LastName |
++-----------+----------+
+| Tom       | Smith    |
+| Sam       | Brown    |
+| Mark      | Adams    |
+| Paul      | Ins      |
+| John      | Sminth   |
+| Tim       | Cook     |
+| Homer     | Simpson  |
+| Nick      | Svensson |
++-----------+----------+ /СОЕДИНЕНИЕ ВЫБОРОК С РАЗНЫХ ТАБЛИЦ С ПОМОЩЬЮ UNION;
+
+
+ SELECT FirstName, LastName FROM customers UNION ALL SELECT FirstName, LastName FROM Employees;
++-----------+----------+
+| FirstName | LastName |
++-----------+----------+
+| Tom       | Smith    |
+| Sam       | Brown    |
+| Mark      | Adams    |
+| Paul      | Ins      |
+| John      | Sminth   |
+| Tim       | Cook     |
+| Homer     | Simpson  |
+| Tom       | Smith    |
+| Mark      | Adams    |
+| Nick      | Svensson |
++-----------+----------+
+10 rows in set (0.00 sec)  /СОЕДИНЕНИЕ ВЫБОРОК С РАЗНЫХ ТАБЛИЦ С ПОМОЩЬЮ UNION ALL;
