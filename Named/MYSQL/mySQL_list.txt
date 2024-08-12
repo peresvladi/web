@@ -478,3 +478,28 @@ SELECT FirstName, LastName FROM customers UNION SELECT FirstName, LastName FROM 
 | Nick      | Svensson |
 +-----------+----------+
 10 rows in set (0.00 sec)  /СОЕДИНЕНИЕ ВЫБОРОК С РАЗНЫХ ТАБЛИЦ С ПОМОЩЬЮ UNION ALL;
+
+ SELECT customer, isinstock, CASE WHEN 101 > isinstock THEN '1 (менее 100)' WHEN 300 < isinstock THEN '3 (более 300)' WHEN 301 < isinstock OR isinstock > 101 THEN '2 (от 100 до 300)' END AS ANALISIS FROM orders ORDER BY ANALISIS, customer, isinstock;
++--------------+-----------+-------------------+
+| customer     | isinstock | ANALISIS          |
++--------------+-----------+-------------------+
+| IP Conev     |        22 | 1 (менее 100)     |
+| IP Conev     |        22 | 1 (менее 100)     |
+| IP Klim      |        30 | 1 (менее 100)     |
+| IP Klon      |        32 | 1 (менее 100)     |
+| IP Petryshin |        17 | 1 (менее 100)     |
+| OAO Kvir     |        50 | 1 (менее 100)     |
+| OAO Mir      |        50 | 1 (менее 100)     |
+| OAO Pituny   |        50 | 1 (менее 100)     |
+| OAO Rr       |       100 | 1 (менее 100)     |
+| OAO Shar     |       100 | 1 (менее 100)     |
+| OOO Copez    |        51 | 1 (менее 100)     |
+| OOO Kisa     |        40 | 1 (менее 100)     |
+| IP Morkovkin |       170 | 2 (от 100 до 300) |
+| IP Shygyev   |       150 | 2 (от 100 до 300) |
+| OAO Rsss     |       300 | 2 (от 100 до 300) |
+| OOO Moksura  |       200 | 2 (от 100 до 300) |
+| OOO Mura     |       296 | 2 (от 100 до 300) |
+| OOO Mura     |      2969 | 3 (более 300)     |
++--------------+-----------+-------------------+
+18 rows in set (0.00 sec) /Task2
