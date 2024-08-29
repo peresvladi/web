@@ -529,3 +529,68 @@ SELECT isinstock, customer, sales.name, sales.price, CASE WHEN 101 > isinstock T
 +-----------+--------------+-------------------------------------------------------------------------------------------+-------+--------------------+
 18 rows in set (0.00 sec) /task 2 (с использованиеm JOIN)
 
+SELECT customer, sales.name, accepted, contract, transmitted, implemented FROM orders JOIN sales ON orders.id = sales.id_order WHERE accepted = 1 AND contract = 1 AND transmitted = 1 AND implemented = 1;
++--------------+-------------------------------------------------------------------------------------------+----------+----------+-------------+-------------+
+| customer     | name                                                                                      | accepted | contract | transmitted | implemented |
++--------------+-------------------------------------------------------------------------------------------+----------+----------+-------------+-------------+
+| IP Petryshin | Велосипед 26 дюйм Progress Ingrid Low RUS, цвет фисташковый, размер 15 дюйм 7642756       |        1 |        1 |           1 |           1 |
+| IP Shygyev   | Велосипед 26 дюйм Progress Ingrid Pro RUS, цвет кораловый, размер 15 дюйм 7642779         |        1 |        1 |           1 |           1 |
+| IP Morkovkin | Велосипед 26 дюйм Progress Ingrid Pro RUS, цвет кораловый, размер 17 дюйм 7642780         |        1 |        1 |           1 |           1 |
+| OOO Moksura  | Велосипед 26 дюйм Progress Lira MD RUS, цвет персиковый, размер 15 дюйм 7642781           |        1 |        1 |           1 |           1 |
+| OOO Mura     | Велосипед 26 дюйм Progress Lira MD RUS, цвет персиковый, размер 17 дюйм 7642782           |        1 |        1 |           1 |           1 |
+| OOO Kisa     | Велосипед 26 дюйм Progress Lira RUS, цвет мятный, размер 15 дюйм 7642783                  |        1 |        1 |           1 |           1 |
+| OOO Mura     | Велосипед 26 дюйм Progress Lira RUS, цвет мятный, размер 17 дюйм 7642784                  |        1 |        1 |           1 |           1 |
+| OAO Kvir     | Велосипед 28 дюйм Forward Talica 3.0, 2022, цвет черный-бронзовый, размер 19 дюйм 7998044 |        1 |        1 |           1 |           1 |
+| OAO Mir      | Велосипед 20 дюйм Progress Sierra FS RUS, цвет серый, размер 13 дюйм 7642712              |        1 |        1 |           1 |           1 |
++--------------+-------------------------------------------------------------------------------------------+----------+----------+-------------+-------------+
+9 rows in set (0.00 sec) /TASK2 ( ВЫВОДИМ В ЗАПРОСЕ ПОЛНЫЙ СТАТУС ЗАКАЗА)
+
+mysql> SELECT TRIM('H' FROM 'HMD Global');
++-----------------------------+
+| TRIM('H' FROM 'HMD Global') |
++-----------------------------+
+| MD Global                   |
++-----------------------------+
+1 row in set (0.00 sec) /удаление символов
+
+ LOAD DATA LOCAL INFILE 'C:/Users/Public/PC-NVR/EDUCATION/Named/MYSQL/fuel/testMYSQL_L4.txt' INTO TABLE test COLUMNS TERMINATED BY ",";
+Query OK, 26 rows affected, 51 warnings (0.01 sec)
+Records: 26  Deleted: 0  Skipped: 0  Warnings: 51 \вставка данный из текстового файла в таблицу test;
+
+
+ ALTER TABLE test ADD COLUMN id INT PRIMARY KEY AUTO_INCREMENT;
+Query OK, 0 rows affected (0.06 sec) /добавили в таблицу test новый столбец id;
+
+ALTER TABLE test ADD COLUMN one VARCHAR(5),ADD COLUMN two VARCHAR(5),ADD COLUMN three VARCHAR(5);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0 /добавили несколько столбцов одновременно
+
+
+ПРИМЕР ФАЙЛА ДЛЯ СКАЧИВАНИЯ В ТАБЛИЦУ СТОЛБЦЫ РАЗДЕЛЕТЫ ОДНИМ ТАБ (табуляцией), а строки переноса невидимыми символами переноса на следующу строку (для документов Виндовс это: '\r\n', для других ОС иначе)
+
+179	193	ОПЕРАТОР	testMYSQL_	0	0
+168	18	ОПЕРАТОР UNION	testMYSQL_	0	1
+157	171	ОПЕРАТОР UNION И	testMYSQL_	1	0
+14	160	ОПЕРАТОР UNION И ЕГО	testMYSQL_	1	1
+136	159	ОПЕРАТОР UNION И ЕГО СИНТАКСИС	testMYSQL_	0	1
+125	14	ОПЕРАТОР	testMYSQL_	1	0
+114	133	ОПЕРАТОР UNION	testMYSQL_	1	1
+
+
+mysql> LOAD DATA LOCAL INFILE 'C:/Users/Public/PC-NVR/EDUCATION/Named/MYSQL/fuel/testMYSQL2_L4.txt' INTO TABLE test FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n' (@col1,@col2,@col3,@col4,@col5,@col6) set start=@col1, end=@col2, name=@col3, name_id=@col4, one=@col5,two=@col6;
+Query OK, 7 rows affected (0.00 sec)
+Records: 7  Deleted: 0  Skipped: 0  Warnings: 0 \ скачиваем в таблицу test данные из документа 'C:/Users/Public/PC-NVR/EDUCATION/Named/MYSQL/fuel/testMYSQL2_L4.txt'. Столбцы документа по порядку вносятся в выбранные столбцы таблицы БД 
+
+mysql> SELECT * FROM test;
++-------+------+--------------------------------+------------+-----+------+------+-------+
+| start | end  | name                           | name_id    | id  | one  | two  | three |
++-------+------+--------------------------------+------------+-----+------+------+-------+
+| 179   | 193  | ОПЕРАТОР                       | testMYSQL_ | 110 | 0    | 0    | NULL  |
+| 168   | 18   | ОПЕРАТОР UNION                 | testMYSQL_ | 111 | 0    | 1    | NULL  |
+| 157   | 171  | ОПЕРАТОР UNION И               | testMYSQL_ | 112 | 1    | 0    | NULL  |
+| 14    | 160  | ОПЕРАТОР UNION И ЕГО           | testMYSQL_ | 113 | 1    | 1    | NULL  |
+| 136   | 159  | ОПЕРАТОР UNION И ЕГО СИНТАКСИС | testMYSQL_ | 114 | 0    | 1    | NULL  |
+| 125   | 14   | ОПЕРАТОР                       | testMYSQL_ | 115 | 1    | 0    | NULL  |
+| 114   | 133  | ОПЕРАТОР UNION                 | testMYSQL_ | 116 | 1    | 1    | NULL  |
++-------+------+--------------------------------+------------+-----+------+------+-------+
+7 rows in set (0.00 sec)
