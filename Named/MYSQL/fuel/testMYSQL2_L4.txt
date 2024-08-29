@@ -1,0 +1,7 @@
+179	193	ОПЕРАТОР	testMYSQL_	0	0
+168	18	ОПЕРАТОР UNION	testMYSQL_	0	1
+157	171	ОПЕРАТОР UNION И	testMYSQL_	1	0
+14	160	ОПЕРАТОР UNION И ЕГО	testMYSQL_	1	1
+136	159	ОПЕРАТОР UNION И ЕГО СИНТАКСИС	testMYSQL_	0	1
+125	14	ОПЕРАТОР	testMYSQL_	1	0
+114	133	ОПЕРАТОР UNION	testMYSQL_	1	1
