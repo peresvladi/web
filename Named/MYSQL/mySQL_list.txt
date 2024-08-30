@@ -579,7 +579,7 @@ Records: 0  Duplicates: 0  Warnings: 0 /добавили несколько ст
 
 mysql> LOAD DATA LOCAL INFILE 'C:/Users/Public/PC-NVR/EDUCATION/Named/MYSQL/fuel/testMYSQL2_L4.txt' INTO TABLE test FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n' (@col1,@col2,@col3,@col4,@col5,@col6) set start=@col1, end=@col2, name=@col3, name_id=@col4, one=@col5,two=@col6;
 Query OK, 7 rows affected (0.00 sec)
-Records: 7  Deleted: 0  Skipped: 0  Warnings: 0 \ скачиваем в таблицу test данные из документа 'C:/Users/Public/PC-NVR/EDUCATION/Named/MYSQL/fuel/testMYSQL2_L4.txt'. Столбцы документа по порядку вносятся в выбранные столбцы таблицы БД 
+Records: 7  Deleted: 0  Skipped: 0  Warnings: 0 \ скачиваем в таблицу test данные из документа 'C:/Users/Public/PC-NVR/EDUCATION/Named/MYSQL/fuel/testMYSQL2_L4.txt'. Столбцы документа по порядку вносятся в выбранные столбцы таблицы БД (разделитель столбцов знак табуляции: 1 таб, разделитель строк не видимый символ переноса строки для документов созданных в Windows это обозначение '\r\n') 
 
 mysql> SELECT * FROM test;
 +-------+------+--------------------------------+------------+-----+------+------+-------+
@@ -594,3 +594,10 @@ mysql> SELECT * FROM test;
 | 114   | 133  | ОПЕРАТОР UNION                 | testMYSQL_ | 116 | 1    | 1    | NULL  |
 +-------+------+--------------------------------+------------+-----+------+------+-------+
 7 rows in set (0.00 sec)
+
+
+
+LOAD DATA LOCAL INFILE 'C:/Users/Public/PC-NVR/EDUCATION/Named/MYSQL/fuel/testMYSQL0_L4.txt' INTO TABLE  test FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' (@col1, @col2, @col3, @col4) set start = @col1, end = @col2, name = @col3, name_id = @col4;
+
+Query OK, 26 rows affected, 26 warnings (0.00 sec)
+Records: 26  Deleted: 0  Skipped: 0  Warnings: 26  /Столбцы документа по порядку вносятся в выбранные столбцы таблицы БД (разделитель столбцов запятая: ',', разделитель строк не видимый символ переноса строки для документов созданных в Windows это обозначение: '\r\n') 
