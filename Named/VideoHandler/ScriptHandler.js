@@ -22,8 +22,8 @@ if (typeof p_url.values === "undefined") {
 listNamberOne();
 
 if (p_url === "") {
-    s = document.getElementById("topic").value.split(",")[1];
-    f = document.getElementById("topic").value.split(",")[2];
+    s = document.getElementById("topic").value.split(";")[1];
+    f = document.getElementById("topic").value.split(";")[2];
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
     var menyTopItem = document.getElementById("top").value;
     var pathURLName = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
@@ -53,17 +53,40 @@ function keySave(whatKey) {
         sess = prompt("Стартуем фрагмент видеозаписи ?  Старт от начала(сек):", timePart);
         return sess;
     } else if (whatKey === 1201) {
-        sess = prompt("Финиш от начала(сек):", timePart);
+        sess =  prompt("Финиш от начала(сек):", timePart);
         return sess;
     } else if (whatKey === 1202) {
         sess = prompt("", "Введите тему созданного фрагмента");
-        return sess;
+        if (/;/.test(sess)){
+            let study = sess.slice(sess.indexOf(';')).toUpperCase();
+            sess = sess.replace(study, creatingPortionForTheDB(study));
+            return sess;
+        } else {
+            sess = sess + creatingPortionForTheDB(study=';'+ prompt('ДЛЯ ОПРЕДЕЛЕНИЯ ОТНОШЕНИЯ ФРАГМЕНТА ВИДЕО К НАСТРОЙКАМ (SETTING), ВВЕДИТЕ: "H", К ЧАСТЫМ ВОПРОСАМ СОБЕСЕДОВАНИЙ (INTERVIEWS), ВВЕДИТЕ:"И", К ИСПОЛЬЗОВАНИЮ СНИППЕТОВ (SNIPPETS), ВВЕДИТЕ: "С", К БАЗОВОЙ ИНФОРМАЦИИ ВВЕДИТЕ: "Б", ЛИБО ВВЕДИТЕ ИНОЙ ЗНАЧАНИЕ ИЛИ ОТМЕНИТЕ ВВОД ЕСЛИ ФРАГМЕНТ НЕ ИМЕЕТ ТАКОЙ ПРИНАДЛЕЖНОСТИ'));
+            return sess; 
+        }
+        
     } else if (whatKey === 1203) {
         sess = prompt("Стартуем фрагмент видеозаписи ?  Старт от начала(сек):", timePart);
+
         return sess;
     }
 }
-//  (arr, window.localStorage, namePartVCatalog);
+
+function creatingPortionForTheDB(implementationStudy){
+
+    let study_basics = "0", study_interviews = "0", study_settings = "0", study_snippets = "0", study_full = "0"; 
+    if (implementationStudy.includes("Б")) {study_basics = "1"}; 
+    if (implementationStudy.includes("И")) {study_interviews = "1"};
+    if (implementationStudy.includes("Н")) {study_settings = "1"};
+    if (implementationStudy.includes("С")) {study_snippets = "1"};
+   
+    study_full = ";" + study_settings + ";" + study_interviews + ";" + study_snippets + ";" + study_basics;
+
+    return study_full
+}
+
+//(arr, window.localStorage, namePartVCatalog);
 function arrPopDel(a) {
     a.length === 0 ? alert("Длина массива: 0, - нет элементов для удаления") : alert("элемент: " + a.pop() + "удален");
 }
@@ -108,7 +131,7 @@ function handlerInputNow(a, e, u, z) {
         if (a[x] !== u) {
             BodyLocStorage = BodyLocStorage + a[x];
             if (a[x + 1] !== u) {
-                BodyLocStorage = BodyLocStorage + ",";
+                BodyLocStorage = BodyLocStorage + ";";
             };
         } else {
             e.setItem((y + z) + u, BodyLocStorage);
@@ -320,13 +343,13 @@ function listNamberOne(a = meny1()) {
     while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
         let nameВutton = selectedNameMeny1.replace("0", i);
         if (window.localStorage.getItem(nameВutton).charAt(0) !== "*") {
-            var nameValueВut = i + ",  " + window.localStorage.getItem(nameВutton);
+            var nameValueВut = i + ";  " + window.localStorage.getItem(nameВutton);
         } else {
-            nameValueВut = "*" + i + ",  " + window.localStorage.getItem(nameВutton).slice(1);
+            nameValueВut = "*" + i + ";  " + window.localStorage.getItem(nameВutton).slice(1);
             var nameValueВuty = nameValueВut;
         }
         i++;
-        document.write(`<option value='${nameValueВut}'>'${nameValueВut.split(", ")[0].replace("*", "  *  ") + ") " + nameValueВut.split(",")[3]}'</option>`);
+        document.write(`<option value='${nameValueВut}'>'${nameValueВut.split("; ")[0].replace("*", "  *  ") + ") " + nameValueВut.split(";")[3]}'</option>`);
 
         // alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
     }
@@ -405,10 +428,10 @@ function delStar(a) {
 }
 
 function addStarlocalStorage(a, e) {
-    let tempValueItemLocalStorage = a.split(",");
+    let tempValueItemLocalStorage = a.split(";");
     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
-    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + "," + tempValueItemLocalStorage[2] + "," + tempValueItemLocalStorage[3]);
-    return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + "," + tempValueItemLocalStorage[2] + "," + tempValueItemLocalStorage[3];
+    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + ";" + tempValueItemLocalStorage[2] + ";" + tempValueItemLocalStorage[3]);
+    return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + ";" + tempValueItemLocalStorage[2] + ";" + tempValueItemLocalStorage[3];
 }
 
 document.getElementById("topic").onchange = function () {
@@ -453,8 +476,8 @@ function go_key(event) {
         case 40: setSoundMinus(); break;
         case 119: vid.pause(); arr.push((keySave(119))); break;
         case 120: vid.pause(); arr.push((keySave(1201))); arr.push((keySave(1202))); arr.push(namePartVCatalog); confirm("Начать следующий фрагмент") === true ? arr.push((keySave(1203))) : arr; break;
-        case 115: inputNow(arr, window.localStorage, namePartVCatalog); break;
-        case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
+        case 115: inputNow(arr, window.localStorage, namePartVCatalog); window.location.reload(); break;
+        case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;        
         case 90: httpGetAsync();
 
             //         var videoTags = document.getElementsByTagName('video')
