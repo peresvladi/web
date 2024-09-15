@@ -555,7 +555,7 @@ mysql> SELECT TRIM('H' FROM 'HMD Global');
 
  LOAD DATA LOCAL INFILE 'C:/Users/Public/PC-NVR/EDUCATION/Named/MYSQL/fuel/testMYSQL_L4.txt' INTO TABLE test COLUMNS TERMINATED BY ",";
 Query OK, 26 rows affected, 51 warnings (0.01 sec)
-Records: 26  Deleted: 0  Skipped: 0  Warnings: 51 \вставка данный из текстового файла в таблицу test;
+Records: 26  Deleted: 0  Skipped: 0  Warnings: 51 \вставка данный из  стового файла в таблицу test;
 
 
  ALTER TABLE test ADD COLUMN id INT PRIMARY KEY AUTO_INCREMENT;
@@ -603,7 +603,31 @@ Query OK, 26 rows affected, 26 warnings (0.00 sec)
 Records: 26  Deleted: 0  Skipped: 0  Warnings: 26  /Столбцы документа по порядку вносятся в выбранные столбцы таблицы БД (разделитель столбцов запятая: ',', разделитель строк не видимый символ переноса строки для документов созданных в Windows это обозначение: '\r\n') 
 
 
-mysql> LOAD DATA LOCAL INFILE 'C:/Users/Vladi/EDUCATION/web/Named/MYSQL/fuel1/fuelMYSQL_L2(d).txt' INTO TABLE test FIELDS TERMINATED BY ',' LINES TERMINATED BY 'MYSQL_L2,' (@col1, @col2, @col3, @col4, @col5, @
-col6) set start = @col1, finish = @col2, name = @col3, one = @col4, two = @col5, three = @col6;
+mysql> LOAD DATA LOCAL INFILE 'C:/Users/Vladi/EDUCATION/web/Named/MYSQL/fuel1/fuelMYSQL_L2(d).txt' INTO TABLE test FIELDS TERMINATED BY ',' LINES TERMINATED BY 'MYSQL_L2,' (@col1, @col2, @col3, @col4, @col5, @col6) set start = @col1, finish = @col2, name = @col3, one = @col4, two = @col5, three = @col6;
 Query OK, 48 rows affected (0.01 sec)
 Records: 48  Deleted: 0  Skipped: 0  Warnings: 0
+
+
+mysql> LOAD DATA LOCAL INFILE "C:/Users/Vladi/EDUCATION/Named/Vimdiff/titles/fuel/fuelVim43text(25).txt" INTO TABLE items COLUMNS TERMINATED BY ";" LINES TERMINATED BY ",Vim43text," (@col1, @col2, @col3, @col4, @col5, @col6, @col7) SET start = @col1, end = @col2, name = @col3, settings = @col4, interview = @col5, snippets = @col6, basics = @col7;
+Query OK, 19 rows affected (0.01 sec)
+Records: 19  Deleted: 0  Skipped: 0  Warnings: 0
+
+
+
+ ALTER TABLE subject ALTER platform DROP DEFAULT;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0 /отменить атрибут DEFAULT (НЕ ИЗМЕНИТЬ ЗАНЧЕНИЕ, А ОТМЕНИТЬ НАЛИЧИЕ САМОГО АТРИБУТА)
+
+
+UPDATE subject SET name_v = 'Vim43text';
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0 // изменить имеющиеся значения столбца во все записях (строках)
+
+UPDATE subject SET name_v = 'MYSQL_L1' WHERE id = 3; // изменили имеющиеся значение столбца в записи (строке) в которой поле id = 3;
+
+DELETE FROM teacherp; // удалить все записи из таблицы teacher;
+
+
+SET FOREIGN_KEY_CHECKS=0; ALTER TABLE teacherp MODIFY id INT NOT NULL AUTO_INCREMENT; SET FOREIGN_KEY_CHECKS=1; // ДОБАВИТЬ СВОЙСТВО ИНКРЕМЕНТА В ПОЛЕ ТАБЛИЦЫ ИМЕЮЩЕЙ СВЯЗЬ, КОТОРАЯ НЕ ДАЕТ ЭТО СДЕЛАТЬ БЕЗ ЕЕ ОТКЛЮЧЕНИЯ (НАПРИМЕР ТАК: SET FOREIGN_KEY_CHECKS=0;)
+
+
