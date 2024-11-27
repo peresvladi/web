@@ -1,3 +1,36 @@
+'        Access.Application.RefreshDatabaseWindow
+
+'                                                                                                           20:55 17.ll.2024 Dim MyRst As Recordset
+'                                                                                                                            Set MyRst = dbs.OpenRecordset(NameTable, dbOpenDynaset)
+'                                                                                                                            With MyRst
+'                                                                                                                                .AddNew
+'                                                                                                                                !P1 = MyArray(0)
+'                                                                                                                            '    !P2 = MyArray(1)
+'                                                                                                                                .Update
+'                                                                                                                            End With
+'
+'                                                                                                                            MyRst.Close
+'
+
+        
+  Dim DB As DAO.Database
+  Dim MyRst As DAO.Recordset
+  Set DB = CurrentDb
+  Set MyRst = DB.OpenRecordset(NameTable, dbOpenDynaset)
+    With MyRst
+   .AddNew
+   !P1 = MyArray(0)
+                                                                                                                            '    !P2 = MyArray(1)
+  .Update
+  End With
+  MyRst.Close
+  
+dbs.Close
+
+
+
+
+
 Проверено: 
 '23:28 16.ll.2024 Set rngDocGeneral = rngDocGeneral.GoToNext(wdGoToLine) ' Перейти на новую строку (где: rngDocGeneral ссылка на объект Range)
 'rngDocGeneral.Select ' Выделить диапазон Range (где: rngDocGeneral ссылка на объект Range)
