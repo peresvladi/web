@@ -233,7 +233,7 @@ function inputText() {
         reader.onload = function (selectedFile) {
             var contents = selectedFile.target.result;
             alert("Содержимое файла: " + contents);
-            Array.prototype.push.apply(arr, contents.split(","));
+            Array.prototype.push.apply(arr, contents.split(";"));
             //alert(arr);
             inputNow(arr, window.localStorage, namePartVCatalog);
             arr.length = 0;
