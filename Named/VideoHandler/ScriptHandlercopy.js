@@ -78,7 +78,7 @@ function keySave(whatKey) {
 
 function creatingPortionForTheDB(implementationStudy) {
 
-    let study_basics = "0", study_interviews = "0", study_settings = "0", study_snippets = "0", study_full = "0";
+    let study_basics = "0", study_interviews = "0", study_settings = "0", study_snippets = "0", study_record = "0", study_theory = "0", study_full = "0";
     if (implementationStudy.toLowerCase().includes("б")) { study_basics = "1" };
     if (implementationStudy.toLowerCase().includes("b")) { study_basics = "1" };
     if (implementationStudy.toLowerCase().includes("и")) { study_interviews = "1" };
@@ -87,9 +87,13 @@ function creatingPortionForTheDB(implementationStudy) {
     if (implementationStudy.toLowerCase().includes("s" && "n")) { study_snippets = "1"; implementationStudy = implementationStudy.toLowerCase().replace(/sn/g, "")};
     if (implementationStudy.toLowerCase().includes("н")) { study_settings = "1" };
     if (implementationStudy.toLowerCase().includes("s") && (implementationStudy.toLowerCase().includes("n")) === false) { study_settings = "1" };
+    if (implementationStudy.toLowerCase().includes("r")) { study_record = "1" };
+    if (implementationStudy.toLowerCase().includes("з")) { study_record = "1" };
+    if (implementationStudy.toLowerCase().includes("t")) { study_theory = "1" };
+    if (implementationStudy.toLowerCase().includes("т")) { study_theory = "1" };
    
     
-    study_full = valueSepar + study_settings + valueSepar + study_interviews + valueSepar + study_snippets + valueSepar + study_basics;
+    study_full = valueSepar + study_settings + valueSepar + study_interviews + valueSepar + study_snippets + valueSepar + study_basics + valueSepar + study_record + valueSepar + study_theory;
 
     return study_full
 }
