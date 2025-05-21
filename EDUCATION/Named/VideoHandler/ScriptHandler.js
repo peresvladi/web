@@ -317,7 +317,7 @@ function inputVideo() {
                     window.localStorage.setItem("00" + correctName, relative.slice(1));
 
 
-                    let arrForMenyTwo = ["0", "0", "All~0~0~0~0~0~0", correctName];
+                    let arrForMenyTwo = ["0", "0", "All~0~0~0~0", correctName];
                     // (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
                     handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);
                     window.location.reload();
@@ -450,6 +450,13 @@ function delStar(a) {
     window.localStorage.setItem(a, tempValueItemLocalStorage.slice(1));
 }
 
+// function addStarlocalStorage(a, e) {
+//     let tempValueItemLocalStorage = a.split(valueSepar);
+//     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
+//     window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + valueSepar + tempValueItemLocalStorage[3]);
+//     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + valueSepar + tempValueItemLocalStorage[3];
+// }
+
 function addStarlocalStorage(a, e) { // функция добавляет звезду строке меню, что-бы она была оформлена как выбранная
     let tempValueItemLocalStorage = a.split(valueSepar); // разбивает строку (по разделителю - значению содержащемуся в переменной valueSepar) формируя массив, которые присваевается переменной tempValueItemLocalStorage
     let tempValuePartEndItemLocalStorage = addStarEnd(valueSepar, tempValueItemLocalStorage); // передает значение разделителя из переменной - valueSepar, и переменную tempValueItemLocalStorage содержащуя массив созданный в предыдущей строке, в качестве аргументов функции addStarEnd, которая возвращает значение из последних элементов переданного массива обратно и присваивает его переменной - tempValuePartEndItemLocalStorage
@@ -459,7 +466,7 @@ function addStarlocalStorage(a, e) { // функция добавляет зве
 
     // alert("функция - currentStart_or_defaultStart возвращает: " + defaultStart_or_currentStart());
 
-    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);//вставляет аналогичную запись но с добавлением звездочки
+    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);//вставляет аналогичную запись но с добавлением звездочки, и кроме того вызывает функцию (во так: defaultStart_or_currentStart(tempValueItemLocalStorage)) которая для пункта меню All предлагает стартовое время с текущего отрезка времени (который возвращается из функции и получается в указанной функции с помощью выражения: vid.currentTime) или предлагает запуск с 0, (т.е. с начала всей записи).
     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage; // возвращает вызвавшей функции запись с добавлением взездочки
 }
 
