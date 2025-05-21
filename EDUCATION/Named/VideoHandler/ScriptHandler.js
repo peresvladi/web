@@ -13,23 +13,24 @@ if (typeof p_url.values === "undefined") {
     p_url = "";
 } else {
     var parametr = p_url.split("&");
-    var s = parametr[0];
-    var f = parametr[1];
-    var ee = parametr[2];
+    var sss = parametr[0];
+ var fff = parametr[1];
+    var eee = parametr[2];
     var namePartVCatalog = parametr[3];
 }
-
+const defaultSepar = defaultSeparator();
+const whitespace = " "; // создается переменая пустового символа строки для использования в создании строк далее
 listNamberOne();
-
+let valueSepar = valueSeparator();
 if (p_url === "") {
-    s = document.getElementById("topic").value.split(";")[1];
-    f = document.getElementById("topic").value.split(";")[2];
+    sss = document.getElementById("topic").value.split(valueSepar)[1];
+    fff = document.getElementById("topic").value.split(valueSepar)[2];
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
     var menyTopItem = document.getElementById("top").value;
     var pathURLName = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
     startVideo(pathURLName);
 } else {
-    startVideo(ee);
+startVideo(eee);
 };
 function startVideo(path) {
     source.setAttribute('src', path);
@@ -57,12 +58,14 @@ function keySave(whatKey) {
         return sess;
     } else if (whatKey === 1202) {
         sess = prompt("", "Введите тему созданного фрагмента");
-        if (/;/.test(sess)) {
-            let study = sess.slice(sess.indexOf(';')).toUpperCase();
-            sess = sess.replace(study, creatingPortionForTheDB(study));
-            return sess;
+    if (/;;/.test(sess)){ // ;; - разделитель используемый затем для дальнейшей обработки, зарезервированных в программе имен используемых для определения отношения к настойкам, сниппетам, вопросам собеседований или значимой базовой информации. Строка  /;;/.test(sess) - определяет наличие разделителя: ;; (если он был введен в ручную). Если были после разделителя введена зарезервированные имена (Н И С Б на рус., S I SN на англ.) то далее  програмно сформирована комбинация символов для возможности автоматического внесения информации в базу данных по шаблону о соответствующих отношениях фрагмента к перечисленным выше четырем вопросам. Если после разделителя не внести указанные имена, будет присвоена информация о нулевом отношении. Если разделитель не был внесен в ручную при создании врагмента программа перейдет к выполнению кода после else.
+    
+            let study = sess.slice(sess.indexOf(";;") + 2); // возвращает количество символов с права (зарезервированные имена (имя), расположенных после: ;; и присваивает их переменной study
+
+            sess = sess.replace(";;" + study, creatingPortionForTheDB(study)); // вызывает функцию обработки символов (или их отсутствие), внесенных вручную при создании фрагмента после ;;. Заменяем с помощью .replsce символы зарезервированных имен после ;; или пробел после этого символа на шаблон из 0 и 1 для автомат. внесение в БД 
+            return sess; //возвращает сформированный ( в виде строкии из 0 и 1) шаблон для присваиванию записи фрагмента, которую в дальнейшем возможно использовать для автоматического внесения в базу данных
         } else {
-            sess = sess + creatingPortionForTheDB(study = ';' + prompt('ДЛЯ ОПРЕДЕЛЕНИЯ ОТНОШЕНИЯ ФРАГМЕНТА ВИДЕО К НАСТРОЙКАМ (SETTING), ВВЕДИТЕ: "H", К ЧАСТЫМ ВОПРОСАМ СОБЕСЕДОВАНИЙ (INTERVIEWS), ВВЕДИТЕ:"И", К ИСПОЛЬЗОВАНИЮ СНИППЕТОВ (SNIPPETS), ВВЕДИТЕ: "С", К БАЗОВОЙ ИНФОРМАЦИИ ВВЕДИТЕ: "Б", ЛИБО ВВЕДИТЕ ИНОЙ ЗНАЧАНИЕ ИЛИ ОТМЕНИТЕ ВВОД ЕСЛИ ФРАГМЕНТ НЕ ИМЕЕТ ТАКОЙ ПРИНАДЛЕЖНОСТИ'));
+            sess = sess + creatingPortionForTheDB(study = ";;" + prompt('ДЛЯ ОПРЕДЕЛЕНИЯ ОТНОШЕНИЯ ФРАГМЕНТА ВИДЕО К НАСТРОЙКАМ (SETTING), ВВЕДИТЕ: "H"(РУССКАЯ РАСКЛАДКА) ИЛИ "S"(АНГЛИЙСКАЯ РАСКЛАДКА), К ЧАСТЫМ ВОПРОСАМ СОБЕСЕДОВАНИЙ (INTERVIEWS), ВВЕДИТЕ:"И"(РУССКАЯ РАСКЛАДКА) ИЛИ "I"(АНГЛИЙСКАЯ РАСКЛАДКА), К ИСПОЛЬЗОВАНИЮ СНИППЕТОВ (SNIPPETS), ВВЕДИТЕ: "С"(РУССКАЯ РАСКЛАДКА) ИЛИ "SN"(АНГЛИЙСКАЯ РАСКЛАДКА), К БАЗОВОЙ ИНФОРМАЦИИ ВВЕДИТЕ: "Б"(РУССКАЯ РАСКЛАДКА) ИЛИ "B" (АНГЛИЙСКАЯ РАСКЛАДКА), ЛИБО ВВЕДИТЕ ИНОЙ ЗНАЧАНИЕ ИЛИ ОТМЕНИТЕ ВВОД ЕСЛИ ФРАГМЕНТ НЕ ИМЕЕТ ТАКОЙ ПРИНАДЛЕЖНОСТИ'));
             return sess;
         }
 
@@ -76,12 +79,17 @@ function keySave(whatKey) {
 function creatingPortionForTheDB(implementationStudy) {
 
     let study_basics = "0", study_interviews = "0", study_settings = "0", study_snippets = "0", study_full = "0";
-    if (implementationStudy.includes("Б")) { study_basics = "1" };
-    if (implementationStudy.includes("И")) { study_interviews = "1" };
-    if (implementationStudy.includes("Н")) { study_settings = "1" };
-    if (implementationStudy.includes("С")) { study_snippets = "1" };
-
-    study_full = ";" + study_settings + ";" + study_interviews + ";" + study_snippets + ";" + study_basics;
+    if (implementationStudy.toLowerCase().includes("б")) { study_basics = "1" };
+    if (implementationStudy.toLowerCase().includes("b")) { study_basics = "1" };
+    if (implementationStudy.toLowerCase().includes("и")) { study_interviews = "1" };
+    if (implementationStudy.toLowerCase().includes("i")) { study_interviews = "1" };
+    if (implementationStudy.toLowerCase().includes("с")) { study_snippets = "1" };
+    if (implementationStudy.toLowerCase().includes("s" && "n")) { study_snippets = "1"; implementationStudy = implementationStudy.toLowerCase().replace(/sn/g, "")};
+    if (implementationStudy.toLowerCase().includes("н")) { study_settings = "1" };
+    if (implementationStudy.toLowerCase().includes("s") && (implementationStudy.toLowerCase().includes("n")) === false) { study_settings = "1" };
+   
+    
+    study_full = valueSepar + study_settings + valueSepar + study_interviews + valueSepar + study_snippets + valueSepar + study_basics;
 
     return study_full
 }
@@ -131,7 +139,10 @@ function handlerInputNow(a, e, u, z) {
         if (a[x] !== u) {
             BodyLocStorage = BodyLocStorage + a[x];
             if (a[x + 1] !== u) {
-                BodyLocStorage = BodyLocStorage + ";";
+                try{BodyLocStorage = BodyLocStorage + valueSepar}catch{ // 03.04.25 добавил блок try, что бы обходить ошибку отсутствия инициализации переменной valueSepar, в случае когда у функции которая ей присваивает значение, еще несоздан источник данных (инфа в locakStorage или в меню, надо посмотреть где именно, т.к. сейчас не помню)
+                    BodyLocStorage = BodyLocStorage + defaultSeparator()
+                }
+                
             };
         } else {
             e.setItem((y + z) + u, BodyLocStorage);
@@ -140,8 +151,13 @@ function handlerInputNow(a, e, u, z) {
             y++;
         }
     }
+    try{
+    arr.length = 0; 
+    textSave(addInputLocStorage(e, u), u);}
+    catch{
     textSave(addInputLocStorage(e, u), u);
-    arr.length = 0;
+    }
+    
 }
 
 function textSave(e, u) {
@@ -238,18 +254,14 @@ function inputText() {
             inputNow(arr, window.localStorage, namePartVCatalog);
             arr.length = 0;
             document.getElementById('inputfile1').value = "";
-            //document.getElementById('inputfile2').value="";
-            //document.getElementById('example').value=''
         };
         reader.onerror = function (selectedFile) {
-
             selectedFile.error(
                 "Файл не может быть прочитан! код " + selectedFile.target.error.code);
         };
         reader.readAsText(selectedFile);
     }
 }
-
 function inputVideo() {
     // получим элемент, используя селектор [type="file"]
     const elemInput = document.querySelector('[type="file"]');
@@ -300,7 +312,7 @@ function inputVideo() {
                     window.localStorage.setItem("00" + correctName, relative.slice(1));
 
 
-                    let arrForMenyTwo = ["0", "0", "All", correctName];
+                    let arrForMenyTwo = ["0", "0", "All~0~0~0~0", correctName];
                     // (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
                     handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);
                     window.location.reload();
@@ -336,28 +348,33 @@ function inputVideo() {
 }
 
 function listNamberOne(a = meny1()) {
-    let nameSelectedMeny1 = a;
-    let selectedNameMeny1 = nameSelectedMeny1.substr(1);
-    document.write(`<select name='${nameSelectedMeny1}' id="topic">`);
-    let i = 1;
+   
+    let nameSelectedMeny1 = a; // присваивается значение ключа возвращенного вызовом функции meny1() выше
+    let selectedNameMeny1 = nameSelectedMeny1.substr(1); // убирает лишний символ ключа с левой стороны для использования ниже
+    document.write(`<select name='${nameSelectedMeny1}' id="topic">`); // записывает тег в подменю веб документа
+    let i = 1; // создает переменную со значением для использование ниже
     while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
         let nameВutton = selectedNameMeny1.replace("0", i);
         if (window.localStorage.getItem(nameВutton).charAt(0) !== "*") {
-            var nameValueВut = i + ";  " + window.localStorage.getItem(nameВutton);
+            var nameValueВut = i + valueSeparator() + whitespace + window.localStorage.getItem(nameВutton);
         } else {
-            nameValueВut = "*" + i + ";  " + window.localStorage.getItem(nameВutton).slice(1);
+            nameValueВut = "*" + i + valueSeparator() + whitespace + window.localStorage.getItem(nameВutton).slice(1);
             var nameValueВuty = nameValueВut;
         }
         i++;
-        document.write(`<option value='${nameValueВut}'>'${nameValueВut.split("; ")[0].replace("*", "  *  ") + ") " + nameValueВut.split(";")[3]}'</option>`);
+        document.write(`<option value='${nameValueВut}'>'${nameValueВut.split(valueSeparator())[0].replace("*", "  *  ") + ") " + nameValueВut.split(valueSeparator())[3]}'</option>`);
 
-        // alert(" key:    " + nameВutton + "   value:   " + nameValueВutton);
-    }
+   }
     document.write(`</select>`);
     document.getElementById("topic").value = nameValueВuty;
 }
 
 function meny1() {
+    if (window.localStorage.length === 0){
+                    alert('В ТЕКУЩЕМ АККАУНТЕ в localStorage (локальном хранилище гуглхром используемом данной программой) ОТСУТСТВУЮТ ДАНННЫЕ О ПУТИ К КАКОМУ-ЛИБО ВИДЕОФАЙЛУ И КАКИЕ-ЛИБО ТЕКСТЫ ДЛЯ ФОРМИРОВАНИЯ МЕНЮ, В СВЯЗИ С ЧЕМ МЕНЮ НЕ БУДЕТ ЗАГРУЖЕНО. ДЛЯ ПРОДОЛЖЕНИЯ РАБОТЫ ВОЙДИТЕ В НЕОБХОДИМЫЙ ВАМ АККАУНТ И ЗАПУСТИТЕ ПРОГРАММУ СНОВА, ЛИБО ДЛЯ ПРОДОЛЖЕНИЯ РАБОТЫ В ТЕКУЩЕМ АККУАНТЕ И СОЗДАНИЯ НОВОГО МЕНЮ ВОСПОЛЬЗУЙТЕ ССЫЛКОЙ ОКНА ПРОГРАММЫ: "Click to upload FILE" (для указания пути к виофайлу и создания начального меню для продолжения работы по создания нового меню )');
+    throw new Error;
+       
+     }
     document.write(`<select name="top" id="top">`);
     for (let i = 0; i < window.localStorage.length; i++) {
         if (window.localStorage.key(i).charAt(0) === "0") {
@@ -368,9 +385,10 @@ function meny1() {
             }
         }
     }
-    document.write(`</select>`);
-    let theSelectedLine = document.getElementById("top").value;
+    let theSelectedLine = document.getElementById("top").value; // 16-03-25_17-34
     const theBeginningOftheName = theSelectedLine.charAt(1);
+    document.write(`</select>`);
+    
     // alert(theBeginningOftheName);
     if (theBeginningOftheName !== '0') {
         ReplacementWithAdoubleOfLocalStorage(theSelectedLine);
@@ -427,11 +445,19 @@ function delStar(a) {
     window.localStorage.setItem(a, tempValueItemLocalStorage.slice(1));
 }
 
-function addStarlocalStorage(a, e) {
-    let tempValueItemLocalStorage = a.split(";");
-    window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
-    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + ";" + tempValueItemLocalStorage[2] + ";" + tempValueItemLocalStorage[3]);
-    return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + ";" + tempValueItemLocalStorage[2] + ";" + tempValueItemLocalStorage[3];
+// function addStarlocalStorage(a, e) {
+//     let tempValueItemLocalStorage = a.split(valueSepar);
+//     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
+//     window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + valueSepar + tempValueItemLocalStorage[3]);
+//     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + valueSepar + tempValueItemLocalStorage[3];
+// }
+
+function addStarlocalStorage(a, e) { // функция добавляет звезду строке меню, что-бы она была оформлена как выбранная
+    let tempValueItemLocalStorage = a.split(valueSepar); // разбивает строку (по разделителю - значению содержащемуся в переменной valueSepar) формируя массив, которые присваевается переменной tempValueItemLocalStorage
+    let tempValuePartEndItemLocalStorage = addStarEnd(valueSepar, tempValueItemLocalStorage); // передает значение разделителя из переменной - valueSepar, и переменную tempValueItemLocalStorage содержащуя массив созданный в предыдущей строке, в качестве аргументов функции addStarEnd, которая возвращает значение из последних элементов переданного массива обратно и присваивает его переменной - tempValuePartEndItemLocalStorage
+    window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1)); // удаляет в локальном хранилище запись без звездочки
+    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);//вставляет аналогичную запись но с добавлением звездочки
+    return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage; // возвращает вызвавшей функции запись с добавлением взездочки
 }
 
 document.getElementById("topic").onchange = function () {
@@ -503,22 +529,22 @@ function getCurTime() {
 }
 function setBeginningSoundOn() {
     if (vid.muted === true) {
-        vid.currentTime = s
+        vid.currentTime = sss
         vid.play()
         vid.muted = false;
     }
     else {
         var result = confirm("В  Е  Р  Н  У  Т  Ь  С  Я       К       Н  А  Ч  А  Л  У       ?")
         if (result === true) {
-            vid.currentTime = s
+            vid.currentTime = sss
         }
     }
 }
 
 function setCurTime() {
-    if (f === "0") { f = vid.duration; };
-    if (vid.currentTime < s || vid.currentTime > f) {
-        vid.currentTime = s;
+    if (fff === "0") { fff = vid.duration; };
+    if (vid.currentTime < sss || vid.currentTime > fff) {
+        vid.currentTime = sss;
     }
 }
 
@@ -546,8 +572,8 @@ function setPositionBack() {
     pos2 = pos1 - b;
     //alert(s);
     //alert(pos2);
-    if (s > pos2) {
-        vid.currentTime = s
+    if (sss > pos2) {
+        vid.currentTime = sss
     } else { vid.currentTime = pos2; };
 }
 
@@ -555,8 +581,8 @@ function setPositionGoo() {
     if (b != 1) { b = 1; }
     pos1 = vid.currentTime;
     pos2 = pos1 + g;
-    if (pos2 > f) {
-        vid.currentTime = f; setPausePlay()
+    if (pos2 > fff) {
+        vid.currentTime = fff; setPausePlay()
     } else { vid.currentTime = pos2 };
 }
 
