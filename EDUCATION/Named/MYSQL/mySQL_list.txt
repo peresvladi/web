@@ -656,3 +656,5 @@ Query OK, 47 rows affected (0.01 sec)
 Records: 47  Duplicates: 0  Warnings: 0
 
 SELECT subject.*, items.* FROM subject JOIN items ON items.subject_id = subject.id; -- inner join по полям: items.subject_id = subject.id
+
+mysql> SELECT e.*,s.*, t.*,i.* FROM subject s JOIN items i ON i.subject_id = s.id JOIN environment e ON i.environment_id = e.id JOIN topic t ON i.topic_id = t.id  LIMIT 3;-- inner join четырех таблиц
