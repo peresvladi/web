@@ -8,7 +8,7 @@ VII teacher
 
 INSERT INTO type (id, name_) VALUES
 (1,'Lesson'),
-(2,'Seminar');
+(2,'Seminar'); -- добавить запись
 
 SHOW COLUMNS FROM subject;
 
@@ -555,7 +555,7 @@ mysql> SELECT TRIM('H' FROM 'HMD Global');
 
  LOAD DATA LOCAL INFILE 'C:/Users/Public/PC-NVR/EDUCATION/Named/MYSQL/fuel/testMYSQL_L4.txt' INTO TABLE test COLUMNS TERMINATED BY ",";
 Query OK, 26 rows affected, 51 warnings (0.01 sec)
-Records: 26  Deleted: 0  Skipped: 0  Warnings: 51 \вставка данный из  стового файла в таблицу test;
+Records: 26  Deleted: 0  Skipped: 0  Warnings: 51 \вставка данный из  текстового файла в таблицу test;
 
 
  ALTER TABLE test ADD COLUMN id INT PRIMARY KEY AUTO_INCREMENT;
@@ -632,15 +632,11 @@ SET FOREIGN_KEY_CHECKS=0; ALTER TABLE teacherp MODIFY id INT NOT NULL AUTO_INCRE
 
 LOAD DATA LOCAL INFILE "C:/Users/Vladi/EDUCATION/Named/MYSQL/Lessons/5/fuel/fuelMYSQL_L5(4).txt" INTO TABLE ITEMS COLUMNS TERMINATED BY "~"  LINES TERMINATED BY ",MYSQL_L5,"(@col1, @col2,@col3,@col4,@col5,@col6,@col7) SET start = @col1, end = @col2, name = @col3, settings = @col4, interview = @col5, snippets = @col6, basics = @col7;
 
-mysql> LOAD DATA LOCAL INFILE "C:/Users/Vladi/EDUCATION/Named/VideoHandler/CATAPULT_ed_mysql/fuelMYSQL_L1 (26-05-25).txt" INTO TABLE TEMP COLUMNS TERMINATED BY "~"  LINES TERMINATED BY ",MYSQL_L1,"(@col1, @col2,@col3,@col4,@col5,@col6,@col7,@col8,@col9) SET start = @col1, end = @col2, name = @col3, settings = @col4, interview = @col5, snippets = @col6, basics = @col7, record = @col8, theory = @col9; --  из файла источника заполнитил таблицу TEMP (ИЗМЕНИЛИ СИНТАКСИС С УЧЕТОМ НОВЫХ ДАННЫХ ОТ 31-05-25)
+LOAD DATA LOCAL INFILE "C:/Users/Vladi/EDUCATION/Named/VideoHandler/CATAPULT_ed_mysql/fuelMYSQL_L2 (3).txt" INTO TABLE TEMP COLUMNS TERMINATED BY "~"  LINES TERMINATED BY ",MYSQL_L2,"(@col1, @col2,@col3,@col4,@col5,@col6,@col7,@col8,@col9,@col20) SET start = @col1, end = @col2, name = @col3, settings = @col4, interview = @col5, snippets = @col6, basics = @col7, record = @col8, theory = @col9, comment = @col20; --  из файла источника заполнитил таблицу TEMP
 Query OK, 47 rows affected, 7 warnings (0.01 sec)
 Records: 47  Deleted: 0  Skipped: 0  Warnings: 7
 
- CREATE TABLE TEMP SELECT ID, START, END, NAME, SETTINGS, INTERVIEW, SNIPPETS, BASICS FROM ITEMS WHERE ID = NULL; -- СОЗДАЛИ ТАБЛИЦУ TEMP ПУТЕМ КОПИРОВАНИЯ С ИМЕЮЩЕЙСЯ ТАБЛИЦЫ ITEMS
-Query OK, 0 rows affected (0.02 sec)
-Records: 0  Duplicates: 0  Warnings: 0 
-
- CREATE TABLE TEMP SELECT ID, START, END, NAME, SETTINGS, INTERVIEW, SNIPPETS, BASICS, RECORD, THEORY FROM ITEMS WHERE ID = NULL; -- СОЗДАЛИ ТАБЛИЦУ TEMP ПУТЕМ КОПИРОВАНИЯ С ИМЕЮЩЕЙСЯ ТАБЛИЦЫ ITEMS (К ПРЕДЫДУЩЕМУ ДОБАВИЛИ НОВЫЕ СТОЛБЦЫ ДОБАВЛЕННЫЕ В ТАБЛИЦУ:  RECORD, THEORY)
+CREATE TABLE TEMP SELECT ID, START, END, NAME, SETTINGS, INTERVIEW, SNIPPETS, BASICS, RECORD, THEORY, COMMENT FROM ITEMS WHERE ID = NULL;
 Query OK, 0 rows affected (0.02 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
@@ -648,13 +644,77 @@ ALTER TABLE TEMP MODIFY COLUMN ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT; -- И
 Query OK, 0 rows affected (0.03 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
-INSERT INTO ITEMS (`EX_ID`, `START`, `END`, `NAME`, `SETTINGS`, `INTERVIEW`, `SNIPPETS`, `BASICS`) SELECT `ID`, `START`, `END`, `NAME`, `SETTINGS`, `INTERVIEW`, `SNIPPETS`, `BASICS` FROM TEMP; -- КОПИРОВАТЬ ЗАПИСИ ИЗ ТАБЛИЦЫ TEMP В ТАБЛИЦУ ITEMS ИМЕНА ПОЛЕЙ КОТОРЫХ ЧАСТИЧНО НЕ СОВПАДАЮТ(А ИМЕННО: EX_ID AND ID)
-Query OK, 31 rows affected (0.01 sec)
 
-mysql> INSERT INTO ITEMS (`EX_ID`, `START`, `END`, `NAME`, `SETTINGS`, `INTERVIEW`, `SNIPPETS`, `BASICS`, `RECORD`, `THEORY`) SELECT `ID`, `START`, `END`, `NAME`, `SETTINGS`, `INTERVIEW`, `SNIPPETS`, `BASICS`, `RECORD`, `THEORY` FROM TEMP; -- КОПИРОВАТЬ ЗАПИСИ ИЗ ТАБЛИЦЫ TEMP В ТАБЛИЦУ ITEMS ИМЕНА ПОЛЕЙ КОТОРЫХ ЧАСТИЧНО НЕ СОВПАДАЮТ(А ИМЕННО: EX_ID AND ID кроме того изменен синтаксис команды с учетом изменений в таблице ITEMS от 31-05-25)
+mysql> INSERT INTO ITEMS (`EX_ID`, `START`, `END`, `NAME`, `SETTINGS`, `INTERVIEW`, `SNIPPETS`, `BASICS`, `RECORD`, `THEORY`, `COMMENT`) SELECT `ID`, `START`, `END`, `NAME`, `SETTINGS`, `INTERVIEW`, `SNIPPETS`, `BASICS`, `RECORD`, `THEORY`, `COMMENT` FROM TEMP; -- КОПИРОВАТЬ ЗАПИСИ ИЗ ТАБЛИЦЫ TEMP В ТАБЛИЦУ ITEMS ИМЕНА ПОЛЕЙ КОТОРЫХ ЧАСТИЧНО НЕ СОВПАДАЮТ(А ИМЕННО: EX_ID AND ID кроме того изменен синтаксис команды с учетом изменений в таблице ITEMS от 31-05-25)
 Query OK, 47 rows affected (0.01 sec)
 Records: 47  Duplicates: 0  Warnings: 0
 
 SELECT subject.*, items.* FROM subject JOIN items ON items.subject_id = subject.id; -- inner join по полям: items.subject_id = subject.id
 
 mysql> SELECT e.*,s.*, t.*,i.* FROM subject s JOIN items i ON i.subject_id = s.id JOIN environment e ON i.environment_id = e.id JOIN topic t ON i.topic_id = t.id  LIMIT 3;-- inner join четырех таблиц
+
+mysql> SELECT DISTINCT items.subject_id, subject.* FROM subject LEFT JOIN items ON items.subject_id = subject.id;
++------------+----+-----------+----------+
+| subject_id | id | name_v    | platform |
++------------+----+-----------+----------+
+|          3 |  3 | MYSQL_L1  | GB       |
+|       NULL |  4 | Vim43text | YourTube |
+|       NULL |  5 | MYSQL_L5  | GB       |
+|       NULL |  6 | MYSQL_L2  | GB       |
++------------+----+-----------+----------+
+4 rows in set (0.00 sec)
+
+SELECT DISTINCT items.environment_id, environment.* FROM environment LEFT JOIN items ON items.environment_id = environment.id;
++----------------+----+---------+
+| environment_id | id | value   |
++----------------+----+---------+
+|              1 |  1 | mysql   |
+|           NULL |  2 | vimdiff |
++----------------+----+---------+
+2 rows in set (0.00 sec)
+
+SELECT DISTINCT items.topic_id, topic.* FROM topic LEFT JOIN items ON items.topic_id = topic.id;
++----------+----+---------------------------------------------------+
+| topic_id | id | name                                              |
++----------+----+---------------------------------------------------+
+|     NULL |  1 | corresponds to working in the current environment |
+|        2 |  2 | working in the current environment                |
++----------+----+---------------------------------------------------+
+2 rows in set (0.00 sec)
+
+SELECT DISTINCT items.subject_id, subject.* FROM subject LEFT JOIN items ON items.subject_id = subject.id; SELECT DISTINCT items.environment_id, environment.* FROM environment LEFT JOIN items ON items.environment_id = environment.id; SELECT DISTINCT items.topic_id, topic.* FROM topic LEFT JOIN items ON items.topic_id = topic.id;
++------------+----+-----------+----------+
+| subject_id | id | name_v    | platform |
++------------+----+-----------+----------+
+|          3 |  3 | MYSQL_L1  | GB       |
+|       NULL |  4 | Vim43text | YourTube |
+|       NULL |  5 | MYSQL_L5  | GB       |
+|       NULL |  6 | MYSQL_L2  | GB       |
++------------+----+-----------+----------+
+4 rows in set (0.00 sec)
+
++----------------+----+---------+
+| environment_id | id | value   |
++----------------+----+---------+
+|              1 |  1 | mysql   |
+|           NULL |  2 | vimdiff |
++----------------+----+---------+
+2 rows in set (0.00 sec)
+
++----------+----+---------------------------------------------------+
+| topic_id | id | name                                              |
++----------+----+---------------------------------------------------+
+|     NULL |  1 | corresponds to working in the current environment |
+|        2 |  2 | working in the current environment                |
++----------+----+---------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+ UPDATE TEMP SET COMMENT = 'УПРАЖЕНИЕ ПО СИНТАКСИСУ' WHERE COMMENT = 'УРАЖНЕНИЕ ПО СИНТАКСИСУ';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0 -- ИЗМЕНИТЬ (ОБНОВИТЬ) ЗАПИСЬ
+
+
+UPDATE ITEMS SET COMMENT = '0' WHERE COMMENT IS NULL;
+Query OK, 47 rows affected (0.01 sec)
+Rows matched: 47  Changed: 47  Warnings: 0 -- ИЗМЕНИТЬ (ОБНОВИТЬ) ЗАПИСЬ ГДЕ ЗНАЧЕНИЕ РАВНО NULL (ПРИМЕЧАНИЕ ЗНАК РАВНО ДЛЯ ВЫБОРКИ NULL НЕ ПОДХОДИТ ДЛЯ ЭТО ИСПОЛЬЗУЮТ: IS NULL ИЛИ НАБОРОТ IS NOT NULL)
