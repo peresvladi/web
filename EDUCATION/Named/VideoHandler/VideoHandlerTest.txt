@@ -77,3 +77,40 @@ textarea {
               document.getElementById('welcomeDiv1').style.display = "block";
      }
 </script>
+
+
+
+
+Еще по теме скрыть элемент (в данном случае по нажатии кнопки):
+
+JavaScript изменяет свойство display элемента на none, тем самым скрывая его. 
+HTML:
+Код
+
+<button id="hideButton">Спрятать</button>
+<div id="myElement">Этот элемент будет скрыт</div>
+JavaScript:
+JavaScript
+
+const hideButton = document.getElementById('hideButton');
+const myElement = document.getElementById('myElement');
+
+hideButton.addEventListener('click', () => {
+  myElement.style.display = 'none';
+});
+CSS (необязательно, но рекомендуется для управления видимостью):
+Код
+
+#myElement {
+  display: block; /* Или любое другое значение по умолчанию */
+}
+Пошаговое объяснение:
+1. HTML:
+Создаем кнопку с идентификатором hideButton и элемент (например, div), который будет скрываться, с идентификатором myElement.
+2. JavaScript:
+Получаем ссылки на кнопку и элемент.
+Добавляем обработчик события click к кнопке.
+В обработчике события меняем свойство display элемента на none.
+3. CSS (дополнительно):
+Устанавливаем начальное значение display элемента (например, block), чтобы он был виден по умолчанию.
+Когда пользователь нажимает кнопку, JavaScript изменит свойство display элемента на none, и элемент будет скрыт. Он больше не будет занимать место на странице, по словам Habr. Если нужно показать элемент обратно, то нужно изменить свойство display на block или на любое другое значение, которое было установлено изначально. 
