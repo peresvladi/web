@@ -637,15 +637,15 @@ Query OK, 47 rows affected, 7 warnings (0.01 sec)
 Records: 47  Deleted: 0  Skipped: 0  Warnings: 7
 
 CREATE TABLE TEMP SELECT ID, START, END, NAME, SETTINGS, INTERVIEW, SNIPPETS, BASICS, RECORD, THEORY, COMMENT FROM ITEMS WHERE ID = NULL;
-Query OK, 0 rows affected (0.02 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+Query OK, 0 rows affected (0.02 sec) -- СОЗДАТЬ ТАБЛИЦУ TEMP ПО ТАБЛИЦЕ ITEMS
+Records: 0  Duplicates: 0  Warnings: 0 
 
 ALTER TABLE TEMP MODIFY COLUMN ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT; -- ИЗМЕНИЛИ СВОЙСТВА ПОЛЯ НА КЛЮЧЕВОЕ PRIMARY KEY
 Query OK, 0 rows affected (0.03 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
 
-mysql> INSERT INTO ITEMS (`EX_ID`, `START`, `END`, `NAME`, `SETTINGS`, `INTERVIEW`, `SNIPPETS`, `BASICS`, `RECORD`, `THEORY`, `COMMENT`) SELECT `ID`, `START`, `END`, `NAME`, `SETTINGS`, `INTERVIEW`, `SNIPPETS`, `BASICS`, `RECORD`, `THEORY`, `COMMENT` FROM TEMP; -- КОПИРОВАТЬ ЗАПИСИ ИЗ ТАБЛИЦЫ TEMP В ТАБЛИЦУ ITEMS ИМЕНА ПОЛЕЙ КОТОРЫХ ЧАСТИЧНО НЕ СОВПАДАЮТ(А ИМЕННО: EX_ID AND ID кроме того изменен синтаксис команды с учетом изменений в таблице ITEMS от 31-05-25)
+INSERT INTO ITEMS (`EX_ID`, `START`, `END`, `NAME`, `SETTINGS`, `INTERVIEW`, `SNIPPETS`, `BASICS`, `RECORD`, `THEORY`, `COMMENT`) SELECT `ID`, `START`, `END`, `NAME`, `SETTINGS`, `INTERVIEW`, `SNIPPETS`, `BASICS`, `RECORD`, `THEORY`, `COMMENT` FROM TEMP; -- КОПИРОВАТЬ ЗАПИСИ ИЗ ТАБЛИЦЫ TEMP В ТАБЛИЦУ ITEMS ИМЕНА ПОЛЕЙ КОТОРЫХ ЧАСТИЧНО НЕ СОВПАДАЮТ(А ИМЕННО: EX_ID AND ID кроме того изменен синтаксис команды с учетом изменений в таблице ITEMS от 31-05-25)
 Query OK, 47 rows affected (0.01 sec)
 Records: 47  Duplicates: 0  Warnings: 0
 
@@ -718,3 +718,16 @@ Rows matched: 1  Changed: 1  Warnings: 0 -- ИЗМЕНИТЬ (ОБНОВИТЬ) 
 UPDATE ITEMS SET COMMENT = '0' WHERE COMMENT IS NULL;
 Query OK, 47 rows affected (0.01 sec)
 Rows matched: 47  Changed: 47  Warnings: 0 -- ИЗМЕНИТЬ (ОБНОВИТЬ) ЗАПИСЬ ГДЕ ЗНАЧЕНИЕ РАВНО NULL (ПРИМЕЧАНИЕ ЗНАК РАВНО ДЛЯ ВЫБОРКИ NULL НЕ ПОДХОДИТ ДЛЯ ЭТО ИСПОЛЬЗУЮТ: IS NULL ИЛИ НАБОРОТ IS NOT NULL)
+
+ALTER TABLE items ALTER COLUMN environment_id SET DEFAULT 3;
+Query OK, 0 rows affected (0.02 sec) -- ИЗМЕНИТЬ ЗНАЧЕНИЕ ПО УМОЛЧАНИЮ СТОЛБЦА environment_id В ТАБЛИЦЕ items
+Records: 0  Duplicates: 0  Warnings: 0
+
+ALTER TABLE items ALTER COLUMN subject_id SET DEFAULT 8;
+Query OK, 0 rows affected (0.02 sec)-- ИЗМЕНИТЬ ЗНАЧЕНИЕ ПО УМОЛЧАНИЮ СТОЛБЦА subject_id В ТАБЛИЦЕ items
+Records: 0  Duplicates: 0  Warnings: 0
+
+SHOW CREATE TABLE ITEMS; -- ПРОСМОТРЕТЬ ПАРАМЕТРЫ ТАБЛИЦЫ items
+
+UPDATE TEMP SET COMMENT = 'Резиновые, в котором шир. столбц/рис задана в % от текущего разреш. экрана. Фиксированной шир. (таблич. или блочн.), шир. столб/рис в пикс., то есть оговорены точно. Адаптивные, дизайн подстраивается под р-р экрана, может происходить перестройка блоков' WHERE ID = 15;
+Query OK, 1 row affected (0.01 sec) - ЗАМЕНА ЗНАЧЕНИЯ В СТОЛЦЕ С ID = 15
