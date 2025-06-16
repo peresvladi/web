@@ -62,11 +62,11 @@ function keySave(whatKey) {
 
             let study = sess.slice(sess.indexOf(";;") + 2); // возвращает количество символов с права (зарезервированные имена (имя), расположенных после: ;; и присваивает их переменной study
 
-            sess = sess.replace(";;" + study, creatingPortionForTheDB(study)); // вызывает функцию обработки символов (или их отсутствие), внесенных вручную при создании фрагмента после ;;. Заменяем с помощью .replsce символы зарезервированных имен после ;; или пробел после этого символа на шаблон из 0 и 1 для автомат. внесение в БД 
-            return sess; //возвращает сформированный ( в виде строкии из 0 и 1) шаблон для присваиванию записи фрагмента, которую в дальнейшем возможно использовать для автоматического внесения в базу данных
+            sess = sess.replace(";;" + study, creatingPortionForTheDB(study)); // вызывает функцию обработки символов (или их отсутствие), внесенных вручную при создании фрагмента после ;;. Заменяем с помощью .replace символы зарезервированных имен после ;; или пробел после этого символа на шаблон из 0 и 1 для автомат. внесение в БД 
+            return sess + commentCreate(); //возвращает сформированный ( в виде строкии из 0 и 1) шаблон для присваиванию записи фрагмента, которую в дальнейшем возможно использовать для автоматического внесения в базу данных, (14.06.2025) а также вызывает константу commentCreate() функции createComment() для формирования комментария игнорирование которого вставляется в виде символов "~0" в конце строки, что указвает на отсутствие комментария
         } else {
-            sess = sess + creatingPortionForTheDB(study = ";;" + prompt('ДЛЯ ОПРЕДЕЛЕНИЯ ОТНОШЕНИЯ ФРАГМЕНТА ВИДЕО К НАСТРОЙКАМ (SETTING), ВВЕДИТЕ: "H"(РУССКАЯ РАСКЛАДКА) ИЛИ "S"(АНГЛИЙСКАЯ РАСКЛАДКА), К ЧАСТЫМ ВОПРОСАМ СОБЕСЕДОВАНИЙ (INTERVIEWS), ВВЕДИТЕ:"И"(РУССКАЯ РАСКЛАДКА) ИЛИ "I"(АНГЛИЙСКАЯ РАСКЛАДКА), К ИСПОЛЬЗОВАНИЮ СНИППЕТОВ (SNIPPETS), ВВЕДИТЕ: "С"(РУССКАЯ РАСКЛАДКА) ИЛИ "SN"(АНГЛИЙСКАЯ РАСКЛАДКА), К БАЗОВОЙ ИНФОРМАЦИИ ВВЕДИТЕ: "Б"(РУССКАЯ РАСКЛАДКА) ИЛИ "B" (АНГЛИЙСКАЯ РАСКЛАДКА), ЛИБО ВВЕДИТЕ ИНОЙ ЗНАЧАНИЕ ИЛИ ОТМЕНИТЕ ВВОД ЕСЛИ ФРАГМЕНТ НЕ ИМЕЕТ ТАКОЙ ПРИНАДЛЕЖНОСТИ'));
-            return sess;
+            sess = sess + creatingPortionForTheDB(study = ";;" + prompt('ДЛЯ ОПРЕДЕЛЕНИЯ ОТНОШЕНИЯ ФРАГМЕНТА ВИДЕО К НАСТРОЙКАМ (SETTING), ВВЕДИТЕ: "H"(РУССКАЯ РАСКЛАДКА) ИЛИ "S"(АНГЛИЙСКАЯ РАСКЛАДКА), К ЧАСТЫМ ВОПРОСАМ СОБЕСЕДОВАНИЙ (INTERVIEWS), ВВЕДИТЕ:"И"(РУССКАЯ РАСКЛАДКА) ИЛИ "I"(АНГЛИЙСКАЯ РАСКЛАДКА), К ИСПОЛЬЗОВАНИЮ СНИППЕТОВ (SNIPPETS), ВВЕДИТЕ: "СН"(РУССКАЯ РАСКЛАДКА) ИЛИ "SN"(АНГЛИЙСКАЯ РАСКЛАДКА), К БАЗОВОЙ ИНФОРМАЦИИ ВВЕДИТЕ: "Б"(РУССКАЯ РАСКЛАДКА) ИЛИ "B" (АНГЛИЙСКАЯ РАСКЛАДКА), К СИНТАКСИСУ ВВЕДИТЕ: "З"(РУССКАЯ РАСКЛАДКА) ИЛИ "R" (АНГЛИЙСКАЯ РАСКЛАДКА), К ТЕОРИИ ВВЕДИТЕ: "Т"(РУССКАЯ РАСКЛАДКА) ИЛИ "T" (АНГЛИЙСКАЯ РАСКЛАДКА),ЛИБО ВВЕДИТЕ ИНОЙ ЗНАЧАНИЕ ИЛИ ОТМЕНИТЕ ВВОД ЕСЛИ ФРАГМЕНТ НЕ ИМЕЕТ ТАКОЙ ПРИНАДЛЕЖНОСТИ'));
+            return sess + commentCreate(); //возвращает сформированный ( в виде строкии из 0 и 1) шаблон для присваиванию записи фрагмента, которую в дальнейшем возможно использовать для автоматического внесения в базу данных, (14.06.2025) а также вызывает константу commentCreate() функции createComment() для формирования комментария игнорирование которого вставляется в виде символов "~0" в конце строки, что указвает на отсутствие комментария
         }
 
     } else if (whatKey === 1203) {
@@ -83,7 +83,7 @@ function creatingPortionForTheDB(implementationStudy) {
     if (implementationStudy.toLowerCase().includes("b")) { study_basics = "1" };
     if (implementationStudy.toLowerCase().includes("и")) { study_interviews = "1" };
     if (implementationStudy.toLowerCase().includes("i")) { study_interviews = "1" };
-    if (implementationStudy.toLowerCase().includes("с")) { study_snippets = "1" };
+    if (implementationStudy.toLowerCase().includes("с" && 'н')) { study_snippets = "1" };
     if (implementationStudy.toLowerCase().includes("s" && "n")) { study_snippets = "1"; implementationStudy = implementationStudy.toLowerCase().replace(/sn/g, "") };
     if (implementationStudy.toLowerCase().includes("н")) { study_settings = "1" };
     if (implementationStudy.toLowerCase().includes("s") && (implementationStudy.toLowerCase().includes("n")) === false) { study_settings = "1" };
@@ -317,7 +317,7 @@ function inputVideo() {
                     window.localStorage.setItem("00" + correctName, relative.slice(1));
 
 
-                    let arrForMenyTwo = ["0", "0", "All~0~0~0~0~0~0", correctName];
+                    let arrForMenyTwo = ["*0", "0", "All~0~0~0~0~0~0~0", correctName];
                     // (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
                     handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);
                     window.location.reload();
@@ -358,27 +358,35 @@ function listNamberOne(a = meny1()) {
     let selectedNameMeny1 = nameSelectedMeny1.substr(1); // убирает лишний символ ключа с левой стороны для использования ниже
     document.write(`<select name='${nameSelectedMeny1}' id="topic">`); // записывает тег в подменю веб документа
     let i = 1; // создает переменную со значением для использование ниже
+    //alert(window.localStorage.getItem(selectedNameMeny1.replace("0", i)));
     while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
+
         let nameВutton = selectedNameMeny1.replace("0", i);
+    //alert(window.localStorage.getItem(nameВutton));        
         if (window.localStorage.getItem(nameВutton).charAt(0) !== "*") {
             var nameValueВut = i + valueSeparator() + whitespace + window.localStorage.getItem(nameВutton);
         } else {
-            nameValueВut = "*" + i + valueSeparator() + whitespace + window.localStorage.getItem(nameВutton).slice(1);
-            var nameValueВuty = nameValueВut;
+            nameValueВut = "*" + i + valueSeparator() + whitespace + window.localStorage.getItem(nameВutton).slice(1); // Присваиваем значение пункта меню имеющего звезвдочку
+            var nameValueВuty = nameValueВut;// Присваиваем значение пункта меню имеющего звезвдочку переменной nameValueВuty (nameValueВuty затем будет использована для вывода в первую строку меню пункта со звездочкой, а также для присовоения текстовому полю комментария - текста комментария из текстового значения пункта меню со звездочкой)
         }
         i++;
         document.write(`<option value='${nameValueВut}'>'${nameValueВut.split(valueSeparator())[0].replace("*", "  *  ") + ") " + nameValueВut.split(valueSeparator())[3]}'</option>`);
-
     }
     document.write(`</select>`);
     document.getElementById("topic").value = nameValueВuty;
-    document.write(`<button id="hideButton">Спрятать</button>
-                    <div id="myElement">Этот элемент будет скрыт</div>`);
+    //document.write(`<button id="hideButton">Спрятать</button><div id="myElement"><textarea name = "comment" rows="5" cols="25" wrap="physical"></textarea></div>`);
+    document.write(`<button id="hideButton">.   .   .</button><div id="myElement" style = "display:none";><textarea name = "comment" rows="5" cols=90% wrap="physical">'${nameValueВuty.split(valueSeparator()).slice(-1)}'</textarea></div>`); // (14.06.2025) эти строки кода вставляют текстовый комментарий либо символы "~0" указывающие на его отсутсвие из строки значения localStorage (комментарий расположен последним в строке и извлекается поэтому: nameValueВuty.split(valueSeparator()).slice(-1))
     const hideButton = document.getElementById('hideButton');
     const myElement = document.getElementById('myElement');
+    
+    
+   
 
     hideButton.addEventListener('click', () => {
-        myElement.style.display = 'none';
+        if (myElement.style.display === 'block'){
+        myElement.style.display = 'none';}
+        else{myElement.style.display = 'block';}
+        
     });
 }
 
