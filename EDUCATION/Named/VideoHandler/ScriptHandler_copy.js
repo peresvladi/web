@@ -140,8 +140,10 @@ function handlerInputNow(a, e, u, z) {
     let BodyLocStorage = "";
     let y = 0;
     for (let x = 0; x < a.length; x++) {
+        // alert(a[x] + " !== " + u);
         if (a[x] !== u) {
             BodyLocStorage = BodyLocStorage + a[x];
+            // alert(a[x + 1] + " !== " + u);
             if (a[x + 1] !== u) {
                 try { BodyLocStorage = BodyLocStorage + valueSepar } catch { // 03.04.25 добавил блок try, что бы обходить ошибку отсутствия инициализации переменной valueSepar, в случае когда у функции которая ей присваивает значение, еще несоздан источник данных (инфа в locakStorage или в меню, надо посмотреть где именно, т.к. сейчас не помню)
                     BodyLocStorage = BodyLocStorage + defaultSeparator()
@@ -362,7 +364,7 @@ function listNamberOne(a = meny1()) {
     while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
 
         let nameВutton = selectedNameMeny1.replace("0", i);
-    //alert(window.localStorage.getItem(nameВutton));        
+        //alert(window.localStorage.getItem(nameВutton));        
         if (window.localStorage.getItem(nameВutton).charAt(0) !== "*") {
             var nameValueВut = i + valueSeparator() + whitespace + window.localStorage.getItem(nameВutton);
         } else {
@@ -378,15 +380,16 @@ function listNamberOne(a = meny1()) {
     document.write(`<button id="hideButton">.   .   .</button><div id="myElement" style = "display:none";><textarea name = "comment" rows="5" cols=90% wrap="physical">'${nameValueВuty.split(valueSeparator()).slice(-1)}'</textarea></div>`); // (14.06.2025) эти строки кода вставляют текстовый комментарий либо символы "~0" указывающие на его отсутсвие из строки значения localStorage (комментарий расположен последним в строке и извлекается поэтому: nameValueВuty.split(valueSeparator()).slice(-1))
     const hideButton = document.getElementById('hideButton');
     const myElement = document.getElementById('myElement');
-    
-    
-   
+
+
+
 
     hideButton.addEventListener('click', () => {
-        if (myElement.style.display === 'block'){
-        myElement.style.display = 'none';}
-        else{myElement.style.display = 'block';}
-        
+        if (myElement.style.display === 'block') {
+            myElement.style.display = 'none';
+        }
+        else { myElement.style.display = 'block'; }
+
     });
 }
 
