@@ -584,9 +584,9 @@ function setSoundMinus() {
     else { vid.volume = 0.0; }
 }
 
-function setPausePlay() {
-    if (vid.paused === false) { vid.pause(); } else { vid.play(); vid.muted = false; }
-}
+// function setPausePlay() {
+//     if (vid.paused === false) { vid.pause(); } else { vid.play(); vid.muted = false; }
+// }
 
 function setPositionBack() {
     if (g != 1) { g = 1; }
