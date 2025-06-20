@@ -28,11 +28,11 @@ if (p_url === "") {
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
     var menyTopItem = document.getElementById("top").value;
     var pathURLName = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
-    startVideo(pathURLName);
+    startVideo(pathURLName, sss, fff);//12-25_20-06-25-добавили в параметры вызова функции startVideo(pathURLName) дополнительно еще параметры: sss, fff (значания меток начала и конца выбранного фрагмента), для использования в указанной здесь функции ниже (описание для чего добавлены параметры: sss, fff  в указанной функции ниже)
 } else {
-    startVideo(eee);
+    startVideo(eee, sss, fff);//12-25_20-06-25-добавили в параметры вызова функции startVideo(eee) дополнительно еще параметры: sss, fff (значания меток начала и конца выбранного фрагмента), для использования в указанной здесь функции ниже (описание для чего добавлены параметры: sss, fff  в указанной функции ниже)
 };
-function startVideo(path) {
+function startVideo(path, theMarkOfTheBeginningOfAll, theMarkOfTheEndOfAll) {
     source.setAttribute('src', path);
     source.setAttribute('type', 'video/mp4');
     vid.appendChild(source);
@@ -42,6 +42,8 @@ function startVideo(path) {
         type: source.getAttribute('type'),
     });
     vid.addEventListener("timeupdate", getCurTime);
+    if (theMarkOfTheBeginningOfAll.trim() !== "0" && theMarkOfTheEndOfAll.trim() === "0") { setPause(); } //если параметр theMarkOfTheBeginningOfAll (в функции локально обозначает начало выбранного фрагмента) не равен "0", а параметр theMarkOfTheEndOfAll(в функции локально обозначает конец фрагмента) одновременно равен "0" описываемый код при запуске видео  ставит его на паузу, иначе текущий фрагмент видео запускается как обычно. (Логика работы основана на изначально введенном правиле при обозначение общего отрезка всего видео - т.е. All, метки начала и конча обозначаются: "0" и обрабатываются далее кодом преобразуя их значение фактического начала всего видео и значение фактического конца всего видео. При просмотре видео и переходе от других отрезков указанных в меню к меню All программой предлогается начать воспроизведение видео с точки текущего восроизведения видео, либо оставить стандартное воспроизведение - с начала всей видеозаписи)
+
 }
 
 let arr = new Array();
