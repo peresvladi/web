@@ -379,7 +379,7 @@ function listNamberOne(a = meny1()) {
     document.write(`</select>`);
     document.getElementById("topic").value = nameValueВuty;
     //document.write(`<button id="hideButton">Спрятать</button><div id="myElement"><textarea name = "comment" rows="5" cols="25" wrap="physical"></textarea></div>`);
-    document.write(`<button id="hideButton">.   .   .</button><div id="myElement" style = "display:none";><textarea name = "comment" rows="5" cols=90% wrap="physical">'${nameValueВuty.split(valueSeparator()).slice(-1)}'</textarea></div>`); // (14.06.2025) эти строки кода вставляют текстовый комментарий либо символы "~0" указывающие на его отсутсвие из строки значения localStorage (комментарий расположен последним в строке и извлекается поэтому: nameValueВuty.split(valueSeparator()).slice(-1))
+    document.write(`<button id="hideButton">.   .   .</button><div id="myElement" style = "display:none";><textarea name = "comment" rows="5" cols=90% minlength="2" maxlength="255" wrap="physical">'${nameValueВuty.split(valueSeparator()).slice(-1)}'</textarea></div>`); // (14.06.2025) эти строки кода вставляют текстовый комментарий либо символы "~0" указывающие на его отсутсвие из строки значения localStorage (комментарий расположен последним в строке и извлекается поэтому: nameValueВuty.split(valueSeparator()).slice(-1))
     const hideButton = document.getElementById('hideButton');
     const myElement = document.getElementById('myElement');
 
