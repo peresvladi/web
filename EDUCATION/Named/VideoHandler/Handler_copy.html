@@ -13,14 +13,15 @@
 
     <div class="header">
       <button class="button_header" onclick="setBeginningSoundOn()" ; type="button">beginning</button>
-      <button class="button_header" onclick="setSoundMinus()" ; type="button">-</button>
-      <button class="button_header" onclick="setSoundPlus()" ; type="button">+</button>
       <button class="button_header" autofocus onclick="setPausePlay()" ; type="button">stop/play</button>
       <button class="button_header" onclick="setPositionBack()" ; type="button">&#060;</button>
-      <button class="button_header" onclick="setShiftPowerPlus()" ; type="button">*10</button>
-      <button class="button_header" onclick="setShiftPowerMinus()" ; type="button">/2</button>
+      <button class="button_header" id="demo3" onclick="setShiftPowerPlus()"; type="button"></button>
+      <button class="button_header" id="demo2" onclick ="MathRound()" ondblclick="setReset()" ; type="button"></button>
+      <button class="button_header" id="demo4" onclick="setShiftPowerMinus()"; type="button"></button>
       <button class="button_header" onclick="setPositionGoo()" ; type="button">&#062;</button>
-      <button class="button_header" id="demo" onclick="setShowTime()" ; type="button"></button>
+      <button class="button_header" onclick="setSoundMinus()" ; type="button">pw-</button>
+      <button class="button_header" onclick="setSoundPlus()" ; type="button">pw+</button>
+      <button class="button_header" id="demo1" onclick="setShowTime()" ; type="button"></button>
 
       <div class="header_right">
         <a href="javascript:document.getElementById('inputfile1').click();">Click to upload FILE</a>
@@ -37,6 +38,9 @@
   <!-- <select name="listOne" id="listOne-select">Choose a listOne:</labelOne>
     <script src="listOne.js"></script>
   </select> -->
+  <script src="modules/reset.js"></script>
+  <script src="modules/magnificationСalculator.js"></script>
+  <script src="modules/reductionCalculator.js"></script>
   <script src="./modules/setPause.js"></script>
   <script src="./modules/setPausePlay.js"></script>
   <script src="./modules/commentCreate.js"></script>

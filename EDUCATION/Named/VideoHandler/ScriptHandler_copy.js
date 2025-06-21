@@ -1,5 +1,12 @@
-var g = 1;
-var b = 1;
+const theDefaultValueOfThePlayPosition = 4;
+var theMainValueOfThePlayPosition = theDefaultValueOfThePlayPosition;  //1254210625 //1255210625 читабельности
+var theSecondMultiplier = 10;
+var theDivider = 2;
+
+document.getElementById("demo4").innerHTML = " /" + theDivider;
+document.getElementById("demo3").innerHTML = theSecondMultiplier + " *";
+document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step"; //1249210625
+
 var pos1 = 0;
 var pos2 = 0;
 var m = 10;
@@ -469,21 +476,20 @@ function delStar(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
     window.localStorage.removeItem(a);
     window.localStorage.setItem(a, tempValueItemLocalStorage.slice(1));
-    alert("до удаления звездочки до отправки в хранилище: " +  tempValueItemLocalStorage[0] + e.slice(1));
-    alert("после удаления звездочки до отправки в хранилище: " +  tempValueItemLocalStorage[0] + e.slice(1));
+    
 }
 
 function addStarlocalStorage(a, e) { // функция добавляет звезду строке меню, что-бы она была оформлена как выбранная
     let tempValueItemLocalStorage = a.split(valueSepar); // разбивает строку (по разделителю - значению содержащемуся в переменной valueSepar) формируя массив, которые присваевается переменной tempValueItemLocalStorage
     let tempValuePartEndItemLocalStorage = addStarEnd(valueSepar, tempValueItemLocalStorage); // передает значение разделителя из переменной - valueSepar, и переменную tempValueItemLocalStorage содержащуя массив созданный в предыдущей строке, в качестве аргументов функции addStarEnd, которая возвращает значение из последних элементов переданного массива обратно и присваивает его переменной - tempValuePartEndItemLocalStorage
-    alert("tempValueItemLocalStorage[0] + e.slice(1) : " + tempValueItemLocalStorage[0] + e.slice(1));
+    // alert("tempValueItemLocalStorage[0] + e.slice(1) : " + tempValueItemLocalStorage[0] + e.slice(1));
     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1)); // удаляет в локальном хранилище запись без звездочки
 
     // alert(" tempValueItemLocalStorage[0] = " + tempValueItemLocalStorage[0] + " tempValueItemLocalStorage[1] = " + tempValueItemLocalStorage[1] + valueSepar + " tempValueItemLocalStorage[2] = " + tempValueItemLocalStorage[2] + " tempValuePartEndItemLocalStorage " + tempValuePartEndItemLocalStorage);
 
     // alert("функция - currentStart_or_defaultStart возвращает: " + defaultStart_or_currentStart());
 
-    alert( "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);
+    // alert( "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);
 
     window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);//вставляет аналогичную запись но с добавлением звездочки
     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage; // возвращает вызвавшей функции запись с добавлением взездочки
@@ -554,7 +560,7 @@ function go_key(event) {
 }
 
 function getCurTime() {
-    document.getElementById("demo").innerHTML = Math.floor(vid.currentTime / 3600) + "." + Math.floor((vid.currentTime % 3600) / 60) + "." + Math.floor(vid.currentTime % 60) + " (" + Math.floor(vid.currentTime) + " sec)";
+    document.getElementById("demo1").innerHTML = Math.floor(vid.currentTime / 3600) + "." + Math.floor((vid.currentTime % 3600) / 60) + "." + Math.floor(vid.currentTime % 60) + " (" + Math.floor(vid.currentTime) + " sec)";
 }
 function setBeginningSoundOn() {
     if (vid.muted === true) {
@@ -591,41 +597,64 @@ function setSoundMinus() {
     else { vid.volume = 0.0; }
 }
 
-// function setPausePlay() {
-//     if (vid.paused === false) { vid.pause(); } else { vid.play(); vid.muted = false; }
-// }
+function setReset(){
+theMainValueOfThePlayPosition = reset(theMainValueOfThePlayPosition, theDefaultValueOfThePlayPosition)
+document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step";
+}
+
+function MathRound(){
+theMainValueOfThePlayPosition = Math.floor(theMainValueOfThePlayPosition);
+document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + ' step';
+}
 
 function setPositionBack() {
-    if (g != 1) { g = 1; }
     pos1 = vid.currentTime;
-    pos2 = pos1 - b;
+    pos2 = pos1 - theMainValueOfThePlayPosition; //1255210625
     //alert(s);
     //alert(pos2);
     if (sss > pos2) {
         vid.currentTime = sss
     } else { vid.currentTime = pos2; };
+    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + ' step'; //1255210625
 }
 
 function setPositionGoo() {
-    if (b != 1) { b = 1; }
+    //if (bbb != 4) { bbb = 4; } //1254210625 //1255210625
     pos1 = vid.currentTime;
-    pos2 = pos1 + g;
+    pos2 = pos1 + theMainValueOfThePlayPosition;
     if (pos2 > fff) {
         vid.currentTime = fff; setPausePlay()
     } else { vid.currentTime = pos2 };
+    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step"; //1255210625
+    
 }
 
+
+
+
 function setShiftPowerPlus() {
-    g = g * 10;
-    b = b * 10;
+    theMainValueOfThePlayPosition = magnificationСalculator(theMainValueOfThePlayPosition, theSecondMultiplier); //1255210625
+    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step"; //1255210625
+    
 }
 
 function setShiftPowerMinus() {
-    g = g / 2;
-    b = b / 2;
+    theMainValueOfThePlayPosition = reductionCalculator(theMainValueOfThePlayPosition, theDivider); //1255210625
+    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step"; //1255210625
 }
+
+
+
 
 function setShowTime() {
     if (vid.paused === false) { vid.pause(); } else { vid.play(); vid.muted = false; }
 
 }
+
+
+
+//ВВЕДЕНИЕ С 21-06-25 НОВОГО ВИДА ЗАМЕТОК О ПОРЯДКЕ ИЗМЕНЕНИИ КОДА: 
+//1254210625 -поменяли шаг изменения позиции с 1 на 4
+//1255210625 -увеличили в 3 раза количество символов переменной для большей читабельности
+//1249210625 - добавили строку для демонстрации  на кнопке управления размера шага изменения позиции видео
+
