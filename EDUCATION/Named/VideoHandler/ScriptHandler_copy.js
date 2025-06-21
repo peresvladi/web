@@ -467,16 +467,21 @@ function delStar(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
     window.localStorage.removeItem(a);
     window.localStorage.setItem(a, tempValueItemLocalStorage.slice(1));
+    alert("до удаления звездочки до отправки в хранилище: " +  tempValueItemLocalStorage[0] + e.slice(1));
+    alert("после удаления звездочки до отправки в хранилище: " +  tempValueItemLocalStorage[0] + e.slice(1));
 }
 
 function addStarlocalStorage(a, e) { // функция добавляет звезду строке меню, что-бы она была оформлена как выбранная
     let tempValueItemLocalStorage = a.split(valueSepar); // разбивает строку (по разделителю - значению содержащемуся в переменной valueSepar) формируя массив, которые присваевается переменной tempValueItemLocalStorage
     let tempValuePartEndItemLocalStorage = addStarEnd(valueSepar, tempValueItemLocalStorage); // передает значение разделителя из переменной - valueSepar, и переменную tempValueItemLocalStorage содержащуя массив созданный в предыдущей строке, в качестве аргументов функции addStarEnd, которая возвращает значение из последних элементов переданного массива обратно и присваивает его переменной - tempValuePartEndItemLocalStorage
+    alert("tempValueItemLocalStorage[0] + e.slice(1) : " + tempValueItemLocalStorage[0] + e.slice(1));
     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1)); // удаляет в локальном хранилище запись без звездочки
 
     // alert(" tempValueItemLocalStorage[0] = " + tempValueItemLocalStorage[0] + " tempValueItemLocalStorage[1] = " + tempValueItemLocalStorage[1] + valueSepar + " tempValueItemLocalStorage[2] = " + tempValueItemLocalStorage[2] + " tempValuePartEndItemLocalStorage " + tempValuePartEndItemLocalStorage);
 
     // alert("функция - currentStart_or_defaultStart возвращает: " + defaultStart_or_currentStart());
+
+    alert( "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);
 
     window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);//вставляет аналогичную запись но с добавлением звездочки
     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage; // возвращает вызвавшей функции запись с добавлением взездочки
