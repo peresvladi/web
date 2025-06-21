@@ -28,11 +28,11 @@ if (p_url === "") {
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
     var menyTopItem = document.getElementById("top").value;
     var pathURLName = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
-    startVideo(pathURLName);
+    startVideo(pathURLName, sss, fff);//12-25_20-06-25-добавили в параметры вызова функции startVideo(pathURLName) дополнительно еще параметры: sss, fff (значания меток начала и конца выбранного фрагмента), для использования в указанной здесь функции ниже (описание для чего добавлены параметры: sss, fff  в указанной функции ниже)
 } else {
-    startVideo(eee);
+    startVideo(eee, sss, fff);//12-25_20-06-25-добавили в параметры вызова функции startVideo(eee) дополнительно еще параметры: sss, fff (значания меток начала и конца выбранного фрагмента), для использования в указанной здесь функции ниже (описание для чего добавлены параметры: sss, fff  в указанной функции ниже)
 };
-function startVideo(path) {
+function startVideo(path, theMarkOfTheBeginningOfAll, theMarkOfTheEndOfAll) {
     source.setAttribute('src', path);
     source.setAttribute('type', 'video/mp4');
     vid.appendChild(source);
@@ -42,6 +42,8 @@ function startVideo(path) {
         type: source.getAttribute('type'),
     });
     vid.addEventListener("timeupdate", getCurTime);
+    if (theMarkOfTheBeginningOfAll.trim() !== "0" && theMarkOfTheEndOfAll.trim() === "0") { setPause(); } //если параметр theMarkOfTheBeginningOfAll (в функции локально обозначает начало выбранного фрагмента) не равен "0", а параметр theMarkOfTheEndOfAll(в функции локально обозначает конец фрагмента) одновременно равен "0" описываемый код при запуске видео  ставит его на паузу, иначе текущий фрагмент видео запускается как обычно. (Логика работы основана на изначально введенном правиле при обозначении общего отрезка всего видео - т.е. All, метки начала и конча воспроизведения обозначаются: "0" и обрабатываются далее кодом преобразуя их в значение фактического начала всего видео и в значение фактического конца всего видео. При просмотре видео и переходе от других отрезков указанных в меню к меню All программой предлогается начать воспроизведение видео с точки текущего восроизведения видео, либо оставить стандартное воспроизведение - с начала всей видеозаписи)
+
 }
 
 let arr = new Array();
@@ -377,7 +379,7 @@ function listNamberOne(a = meny1()) {
     document.write(`</select>`);
     document.getElementById("topic").value = nameValueВuty;
     //document.write(`<button id="hideButton">Спрятать</button><div id="myElement"><textarea name = "comment" rows="5" cols="25" wrap="physical"></textarea></div>`);
-    document.write(`<button id="hideButton">.   .   .</button><div id="myElement" style = "display:none";><textarea name = "comment" rows="5" cols=90% wrap="physical">'${nameValueВuty.split(valueSeparator()).slice(-1)}'</textarea></div>`); // (14.06.2025) эти строки кода вставляют текстовый комментарий либо символы "~0" указывающие на его отсутсвие из строки значения localStorage (комментарий расположен последним в строке и извлекается поэтому: nameValueВuty.split(valueSeparator()).slice(-1))
+    document.write(`<button id="hideButton">.   .   .</button><div id="myElement" style = "display:none";><textarea name = "comment" rows="5" cols=90% minlength="2" maxlength="255" wrap="physical">'${nameValueВuty.split(valueSeparator()).slice(-1)}'</textarea></div>`); // (14.06.2025) эти строки кода вставляют текстовый комментарий либо символы "~0" указывающие на его отсутсвие из строки значения localStorage (комментарий расположен последним в строке и извлекается поэтому: nameValueВuty.split(valueSeparator()).slice(-1))
     const hideButton = document.getElementById('hideButton');
     const myElement = document.getElementById('myElement');
 

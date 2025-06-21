@@ -1,0 +1,1 @@
+const setPausePlay = () => { if (vid.paused === false) { vid.pause(); } else { vid.play(); vid.muted = false; } }
