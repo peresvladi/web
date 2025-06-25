@@ -1,5 +1,5 @@
 const theDefaultValueOfThePlayPosition = 4;
-var theMainValueOfThePlayPosition = theDefaultValueOfThePlayPosition;  //1254210625 //1255210625 читабельности
+var theMainValueOfThePlayPosition = theDefaultValueOfThePlayPosition;  //1254210625 //1255210625
 var theSecondMultiplier = 10;
 var theDivider = 2;
 
@@ -34,7 +34,7 @@ if (p_url === "") {
     fff = document.getElementById("topic").value.split(valueSepar)[2];
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
     var menyTopItem = document.getElementById("top").value;
-    var pathURLName = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
+    var pathURLName = definingTheHierarchicalLeveloftheDirectory() + getItemFunction(menyTopItem);//1239250625
     startVideo(pathURLName, sss, fff);//12-25_20-06-25-добавили в параметры вызова функции startVideo(pathURLName) дополнительно еще параметры: sss, fff (значания меток начала и конца выбранного фрагмента), для использования в указанной здесь функции ниже (описание для чего добавлены параметры: sss, fff  в указанной функции ниже)
 } else {
     startVideo(eee, sss, fff);//12-25_20-06-25-добавили в параметры вызова функции startVideo(eee) дополнительно еще параметры: sss, fff (значания меток начала и конца выбранного фрагмента), для использования в указанной здесь функции ниже (описание для чего добавлены параметры: sss, fff  в указанной функции ниже)
@@ -137,8 +137,8 @@ function nameOftheСontrFragm(a, e, u) {
     let outputLocStorage = "";
     let s = 0;
     do {
-        outputLocStorage = e.getItem((keySearchForS - s) + u);
-        e.setItem(((keySearchForS + (a.length / 4) - s) + u), outputLocStorage);
+        outputLocStorage = getItemFunction((keySearchForS - s) + u);//1239250625
+        setItemFunction(((keySearchForS + (a.length / 4) - s) + u), outputLocStorage); //1209250625
         nameOftheСontrolFragment2 = (keySearchForS - s) + u;
         s++
     } while (nameOftheСontrolFragment1 !== nameOftheСontrolFragment2);
@@ -160,7 +160,7 @@ function handlerInputNow(a, e, u, z) {
 
             };
         } else {
-            e.setItem((y + z) + u, BodyLocStorage);
+            setItemFunction((y + z) + u, BodyLocStorage); //1209250625
             //document.getElementById("topic").value = BodyLocStorage; (не стабилизирует пункт All меню 2 надо протестировать и разобраться почему)
             BodyLocStorage = "";
             y++;
@@ -221,8 +221,8 @@ function availabilityOfaKeys(e) {
 function addInputLocStorage(e, u) {
     let element = "";
     let iSt = 2;
-    while ((e.getItem(iSt + u) !== null)) {
-        element = element + e.getItem(iSt + u) + "," + u + ",";
+    while ((getItemFunction(iSt + u) !== null)) {
+        element = element + getItemFunction(iSt + u) + "," + u + ",";//1239250625
         iSt++;
     };
     return element;
@@ -319,26 +319,24 @@ function inputVideo() {
                     return nameResulte.split(".")[0];
                 }
 
-                if (window.localStorage.getItem("0" + correctName) === null && window.localStorage.getItem("00" + correctName) === null) {
+                if (getItemFunction("0" + correctName) === null && getItemFunction("00" + correctName) === null) {//1239250625
 
-                    // let theDesiredValue = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
-                    // document.getElementById("top").value = theDesiredValue;
-                    // alert("theDesiredValue = "+theDesiredValue); закомментировал 04-01-24, вроде бесполезный код, через alert постоянно выдает  неопределенное значение.
 
-                    window.localStorage.setItem("00" + correctName, relative.slice(1));
+
+                    setItemFunction("00" + correctName, relative.slice(1));//1209250625
 
 
                     let arrForMenyTwo = ["*0", "0", "All~0~0~0~0~0~0~0", correctName];
                     // (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
-                    handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);
+                    handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);// улучшить код ? есть ли необходимость передавать в аргументе - window.localStorage ? Может он и без того глобально доступен в любой части кода ? Вопрос ?
                     window.location.reload();
                 } else {
-                    if (window.localStorage.getItem("0" + correctName) !== null) {
+                    if (getItemFunction("0" + correctName) !== null) {//1239250625
                         document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
                         ReplacementWithAdoubleOfLocalStorage("0" + correctName);
                         window.location.reload();
                     }
-                    if (window.localStorage.getItem("00" + correctName) !== null) {
+                    if (getItemFunction("00" + correctName) !== null) {//1239250625
                         document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
                         window.location.reload();
                     }
@@ -347,8 +345,8 @@ function inputVideo() {
                 return relative.slice(1);
             };
             let nameDir = nameResulte.split(".");
-            if (window.localStorage.getItem("00" + nameDir[0]) === null) {
-                window.localStorage.setItem("0" + nameDir[0], relativePath);
+            if (getItemFunction("00" + nameDir[0]) === null) {//1239250625
+                setItemFunction("0" + nameDir[0], relativePath);//1209250625
             }
             vid.src = url;
             document.getElementById('inputfile1').value = "";
@@ -370,12 +368,12 @@ function listNamberOne(a = meny1()) {
     document.write(`<select name='${nameSelectedMeny1}' id="topic">`); // записывает тег в подменю веб документа
     let i = 1; // создает переменную со значением для использование ниже
     //alert(window.localStorage.getItem(selectedNameMeny1.replace("0", i)));
-    while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
+    while (getItemFunction(selectedNameMeny1.replace("0", i)) !== null) {//1239250625
 
         let nameВutton = selectedNameMeny1.replace("0", i);
         //alert(window.localStorage.getItem(nameВutton));        
-        if (window.localStorage.getItem(nameВutton).charAt(0) !== "*") {
-            var nameValueВut = i + valueSeparator() + whitespace + window.localStorage.getItem(nameВutton);
+        if (getItemFunction(nameВutton).charAt(0) !== "*") {//1239250625
+            var nameValueВut = i + valueSeparator() + whitespace + getItemFunction(nameВutton);//1239250625
         } else {
             nameValueВut = "*" + i + valueSeparator() + whitespace + window.localStorage.getItem(nameВutton).slice(1); // Присваиваем значение пункта меню имеющего звезвдочку
             var nameValueВuty = nameValueВut;// Присваиваем значение пункта меню имеющего звезвдочку переменной nameValueВuty (nameValueВuty затем будет использована для вывода в первую строку меню пункта со звездочкой, а также для присовоения текстовому полю комментария - текста комментария из текстового значения пункта меню со звездочкой)
@@ -432,13 +430,13 @@ function meny1() {
 }
 
 function ReplacementWithAdoubleOfLocalStorage(a) {
-    let tempValueItemLocalStorage = window.localStorage.getItem(a);
+    let tempValueItemLocalStorage = getItemFunction(a);//1239250625
     if (a.charAt(1) === "0") {
-        window.localStorage.setItem('0' + ReplacingItWithAsingleOneInThelocalStorage(a), tempValueItemLocalStorage);
+        setItemFunction('0' + ReplacingItWithAsingleOneInThelocalStorage(a), tempValueItemLocalStorage);//1209250625
         window.localStorage.removeItem(a);
     } else {
         window.localStorage.removeItem(a);
-        window.localStorage.setItem('0' + a, tempValueItemLocalStorage);
+        setItemFunction('0' + a, tempValueItemLocalStorage);//1209250625
     }
 }
 
@@ -447,7 +445,7 @@ function ReplacingItWithAsingleOneInThelocalStorage(a) {
     while (a.charAt(1) === "0") {
         window.localStorage.removeItem(a);
         a = a.slice(1);
-        window.localStorage.setItem(a, tempValueItemLocalStorage);
+        setItemFunction(a, tempValueItemLocalStorage);//1209250625
     }
     return a;
 }
@@ -457,26 +455,28 @@ function ReplacementWithAdoubleOfMeny(a) {
 }
 
 document.getElementById("top").onchange = function () {
+    alert("внутри топа1")
     ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("topic").name);
     ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
     window.location.reload();
+    alert("внутри топа2")
 };
 
 function scrollThroughTheOldKey(a) {
     a = a.slice(1);
     let i = 0;
     while (null !== window.localStorage.getItem(++i + a.slice(1))) {
-        if (window.localStorage.getItem(i + a.slice(1)).charAt(0) === "*") {
+        if (getItemFunction(i + a.slice(1)).charAt(0) === "*") {//1239250625
             delStar(i + a.slice(1));
         };
     }
 }
 
 function delStar(a) {
-    let tempValueItemLocalStorage = window.localStorage.getItem(a);
+    let tempValueItemLocalStorage = getItemFunction(a);//1239250625
     window.localStorage.removeItem(a);
-    window.localStorage.setItem(a, tempValueItemLocalStorage.slice(1));
-    
+    setItemFunction(a, tempValueItemLocalStorage.slice(1));//1209250625
+
 }
 
 function addStarlocalStorage(a, e) { // функция добавляет звезду строке меню, что-бы она была оформлена как выбранная
@@ -491,14 +491,16 @@ function addStarlocalStorage(a, e) { // функция добавляет зве
 
     // alert( "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);
 
-    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);//вставляет аналогичную запись но с добавлением звездочки
+    setItemFunction(tempValueItemLocalStorage[0] + e.slice(1), "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);//вставляет аналогичную запись но с добавлением звездочки //1209250625
     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage; // возвращает вызвавшей функции запись с добавлением взездочки
 }
 
 document.getElementById("topic").onchange = function () {
     scrollThroughTheOldKey(document.getElementById("topic").name);
     addStarlocalStorage(document.getElementById("topic").value, document.getElementById("topic").name.slice(1));
+    alert("внутри топика1")
     window.location.reload();
+    alert("внутри топика2")
 };
 
 function definingTheHierarchicalLeveloftheDirectory() {
@@ -537,7 +539,7 @@ function go_key(event) {
         case 40: setSoundMinus(); break;
         case 119: vid.pause(); arr.push((keySave(119))); break;
         case 120: vid.pause(); arr.push((keySave(1201))); arr.push((keySave(1202))); arr.push(namePartVCatalog); confirm("Начать следующий фрагмент") === true ? arr.push((keySave(1203))) : arr; break;
-        case 115: inputNow(arr, window.localStorage, namePartVCatalog); window.location.reload(); break;
+        case 115: inputNow(arr, window.localStorage, namePartVCatalog); window.location.reload(); break; // улучшить код ? зачем нам в аргумента передавать - window.localStorage ? (есть подозрение что оно и так доступно из любой части кода, т.е. является глобальным значением или, что-то в этом духе похоже наверно)
         case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
         case 90: httpGetAsync();
 
@@ -597,14 +599,14 @@ function setSoundMinus() {
     else { vid.volume = 0.0; }
 }
 
-function setReset(){
-theMainValueOfThePlayPosition = reset(theMainValueOfThePlayPosition, theDefaultValueOfThePlayPosition)
-document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step";
+function setReset() {
+    theMainValueOfThePlayPosition = reset(theMainValueOfThePlayPosition, theDefaultValueOfThePlayPosition)
+    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step";
 }
 
-function MathRound(){
-theMainValueOfThePlayPosition = Math.floor(theMainValueOfThePlayPosition);
-document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + ' step';
+function MathRound() {
+    theMainValueOfThePlayPosition = Math.floor(theMainValueOfThePlayPosition);
+    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + ' step';
 }
 
 function setPositionBack() {
@@ -626,7 +628,7 @@ function setPositionGoo() {
         vid.currentTime = fff; setPausePlay()
     } else { vid.currentTime = pos2 };
     document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step"; //1255210625
-    
+
 }
 
 
@@ -635,7 +637,7 @@ function setPositionGoo() {
 function setShiftPowerPlus() {
     theMainValueOfThePlayPosition = magnificationСalculator(theMainValueOfThePlayPosition, theSecondMultiplier); //1255210625
     document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step"; //1255210625
-    
+
 }
 
 function setShiftPowerMinus() {
@@ -653,8 +655,9 @@ function setShowTime() {
 
 
 
-//ВВЕДЕНИЕ С 21-06-25 НОВОГО ВИДА ЗАМЕТОК О ПОРЯДКЕ ИЗМЕНЕНИИ КОДА: 
+//ВВЕДЕНИЕ С 21-06-25 НОВОГО ВИДА ЗАМЕТОК О ПОРЯДКЕ ИЗМЕНЕНИИ КОДА:
 //1254210625 -поменяли шаг изменения позиции с 1 на 4
 //1255210625 -увеличили в 3 раза количество символов переменной для большей читабельности
 //1249210625 - добавили строку для демонстрации  на кнопке управления размера шага изменения позиции видео
-
+//1209250625 провел замену кода обращения e.setItem(или - window.localStorage.setItem) на setItemFunction, т.е. замена настоящего когда на обращение к функции - setItemFunction (функции с аналогичным функционалом)
+//1239250625 заменил в строке код: window.localStorage.getItem на вызов функции: getItemFunction (с аналогичным функционалом) 
