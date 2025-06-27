@@ -383,12 +383,19 @@ function listNamberOne(a = meny1()) {
     }
     document.write(`</select>`);
     document.getElementById("topic").value = nameValueВuty;
-    //document.write(`<button id="hideButton">Спрятать</button><div id="myElement"><textarea name = "comment" rows="5" cols="25" wrap="physical"></textarea></div>`);
-    document.write(`<button id="hideButton">.   .   .</button><div id="myElement" style = "display:none";><textarea name = "comment" rows="5" cols=90% minlength="2" maxlength="255" wrap="physical">'${nameValueВuty.split(valueSeparator()).slice(-1)}'</textarea></div>`); // (14.06.2025) эти строки кода вставляют текстовый комментарий либо символы "~0" указывающие на его отсутсвие из строки значения localStorage (комментарий расположен последним в строке и извлекается поэтому: nameValueВuty.split(valueSeparator()).slice(-1))
+
+
+    // document.write(`<button id="hideButton">.   .   .</button><div id="myElement" style = "display:none";><textarea name = "comment" rows="5" cols=90% minlength="2" maxlength="255" wrap="physical">'${nameValueВuty.split(valueSeparator()).slice(-1)}'</textarea></div>`); // (14.06.2025) эти строки кода вставляют текстовый комментарий либо символы "~0" указывающие на его отсутсвие из строки значения localStorage (комментарий расположен последним в строке и извлекается поэтому: nameValueВuty.split(valueSeparator()).slice(-1))
+    // const hideButton = document.getElementById('hideButton');
+    // const myElement = document.getElementById('myElement');
+
+
+
+    document.write(`<button id="hideButton">.   .   .</button><div id="myElement" style = "display:none";><textarea id ="valueTextarea" name = "comment" rows="5" cols=90% minlength="2" maxlength="255" wrap="physical">'${nameValueВuty.split(valueSeparator()).slice(-1)}'</textarea><button id="saveButtonTextarea">сохранить</button><div id="myElement2";></div> `); // (14.06.2025) эти строки кода вставляют текстовый комментарий либо символы "~0" указывающие на его отсутсвие из строки значения localStorage (комментарий расположен последним в строке и извлекается поэтому: nameValueВuty.split(valueSeparator()).slice(-1))
     const hideButton = document.getElementById('hideButton');
     const myElement = document.getElementById('myElement');
-
-
+    const saveButtonTextarea = document.getElementById('saveButtonTextarea');
+    // const valueTextarea = document.getElementById('valueTextarea');
 
 
     hideButton.addEventListener('click', () => {
@@ -398,6 +405,8 @@ function listNamberOne(a = meny1()) {
         else { myElement.style.display = 'block'; }
 
     });
+
+    saveButtonTextarea.addEventListener('click', saveButtonTextareaFunction);
 }
 
 function meny1() {
@@ -420,7 +429,7 @@ function meny1() {
     const theBeginningOftheName = theSelectedLine.charAt(1);
     document.write(`</select>`);
 
-    // alert(theBeginningOftheName);
+
     if (theBeginningOftheName !== '0') {
         ReplacementWithAdoubleOfLocalStorage(theSelectedLine);
         ReplacementWithAdoubleOfMeny(theSelectedLine);
@@ -433,9 +442,9 @@ function ReplacementWithAdoubleOfLocalStorage(a) {
     let tempValueItemLocalStorage = getItemFunction(a);//1239250625
     if (a.charAt(1) === "0") {
         setItemFunction('0' + ReplacingItWithAsingleOneInThelocalStorage(a), tempValueItemLocalStorage);//1209250625
-        window.localStorage.removeItem(a);
+        removeItemFunction(a); //1430260625
     } else {
-        window.localStorage.removeItem(a);
+        removeItemFunction(a); //1430260625
         setItemFunction('0' + a, tempValueItemLocalStorage);//1209250625
     }
 }
@@ -443,7 +452,7 @@ function ReplacementWithAdoubleOfLocalStorage(a) {
 function ReplacingItWithAsingleOneInThelocalStorage(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
     while (a.charAt(1) === "0") {
-        window.localStorage.removeItem(a);
+        removeItemFunction(a); //1430260625
         a = a.slice(1);
         setItemFunction(a, tempValueItemLocalStorage);//1209250625
     }
@@ -455,11 +464,9 @@ function ReplacementWithAdoubleOfMeny(a) {
 }
 
 document.getElementById("top").onchange = function () {
-    alert("внутри топа1")
     ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("topic").name);
     ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
     window.location.reload();
-    alert("внутри топа2")
 };
 
 function scrollThroughTheOldKey(a) {
@@ -474,7 +481,7 @@ function scrollThroughTheOldKey(a) {
 
 function delStar(a) {
     let tempValueItemLocalStorage = getItemFunction(a);//1239250625
-    window.localStorage.removeItem(a);
+    removeItemFunction(a); //1430260625
     setItemFunction(a, tempValueItemLocalStorage.slice(1));//1209250625
 
 }
@@ -483,24 +490,15 @@ function addStarlocalStorage(a, e) { // функция добавляет зве
     let tempValueItemLocalStorage = a.split(valueSepar); // разбивает строку (по разделителю - значению содержащемуся в переменной valueSepar) формируя массив, которые присваевается переменной tempValueItemLocalStorage
     let tempValuePartEndItemLocalStorage = addStarEnd(valueSepar, tempValueItemLocalStorage); // передает значение разделителя из переменной - valueSepar, и переменную tempValueItemLocalStorage содержащуя массив созданный в предыдущей строке, в качестве аргументов функции addStarEnd, которая возвращает значение из последних элементов переданного массива обратно и присваивает его переменной - tempValuePartEndItemLocalStorage
     // alert("tempValueItemLocalStorage[0] + e.slice(1) : " + tempValueItemLocalStorage[0] + e.slice(1));
-    window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1)); // удаляет в локальном хранилище запись без звездочки
-
-    // alert(" tempValueItemLocalStorage[0] = " + tempValueItemLocalStorage[0] + " tempValueItemLocalStorage[1] = " + tempValueItemLocalStorage[1] + valueSepar + " tempValueItemLocalStorage[2] = " + tempValueItemLocalStorage[2] + " tempValuePartEndItemLocalStorage " + tempValuePartEndItemLocalStorage);
-
-    // alert("функция - currentStart_or_defaultStart возвращает: " + defaultStart_or_currentStart());
-
-    // alert( "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);
-
+    removeItemFunction(tempValueItemLocalStorage[0] + e.slice(1));// удаляет в локальном хранилище запись без звездочки //1430260625
     setItemFunction(tempValueItemLocalStorage[0] + e.slice(1), "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);//вставляет аналогичную запись но с добавлением звездочки //1209250625
     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage; // возвращает вызвавшей функции запись с добавлением взездочки
 }
 
-document.getElementById("topic").onchange = function () {
-    scrollThroughTheOldKey(document.getElementById("topic").name);
-    addStarlocalStorage(document.getElementById("topic").value, document.getElementById("topic").name.slice(1));
-    alert("внутри топика1")
-    window.location.reload();
-    alert("внутри топика2")
+document.getElementById("topic").onchange = function () { //функция запускается при изменении (выборе другого пункта меню) меню "topic"
+    scrollThroughTheOldKey(document.getElementById("topic").name); //строка кода вызывает функцию scrollThroughTheOldKey
+    addStarlocalStorage(document.getElementById("topic").value, document.getElementById("topic").name.slice(1)); //строка кода вызывает функцию addStarlocalStorage
+    window.location.reload(); // строка кода перезагружает окно браузера
 };
 
 function definingTheHierarchicalLeveloftheDirectory() {
@@ -660,4 +658,5 @@ function setShowTime() {
 //1255210625 -увеличили в 3 раза количество символов переменной для большей читабельности
 //1249210625 - добавили строку для демонстрации  на кнопке управления размера шага изменения позиции видео
 //1209250625 провел замену кода обращения e.setItem(или - window.localStorage.setItem) на setItemFunction, т.е. замена настоящего когда на обращение к функции - setItemFunction (функции с аналогичным функционалом)
-//1239250625 заменил в строке код: window.localStorage.getItem на вызов функции: getItemFunction (с аналогичным функционалом) 
+//1239250625 заменил в строке код: window.localStorage.getItem на вызов функции: getItemFunction (с аналогичным функционалом)
+//1430260625 removeItemFunction - функция удаляет значение  window.localStorage (хранилища браузера) по входящему значению ключу - key, в соответствии с синтаксисом - localStorage;
