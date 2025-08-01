@@ -1,12 +1,5 @@
-const theDefaultValueOfThePlayPosition = 4;
-var theMainValueOfThePlayPosition = theDefaultValueOfThePlayPosition;  //1254210625 //1255210625
-var theSecondMultiplier = 10;
-var theDivider = 2;
-
-document.getElementById("demo4").innerHTML = " /" + theDivider;
-document.getElementById("demo3").innerHTML = theSecondMultiplier + " *";
-document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step"; //1249210625
-
+var g = 1;
+var b = 1;
 var pos1 = 0;
 var pos2 = 0;
 var m = 10;
@@ -27,19 +20,19 @@ if (typeof p_url.values === "undefined") {
 }
 const defaultSepar = defaultSeparator();
 const whitespace = " "; // создается переменая пустового символа строки для использования в создании строк далее
-meny2();
+listNamberOne();
 let valueSepar = valueSeparator();
 if (p_url === "") {
     sss = document.getElementById("topic").value.split(valueSepar)[1];
     fff = document.getElementById("topic").value.split(valueSepar)[2];
     namePartVCatalog = removingTheZerosOfTheKeyNumber(document.getElementById("top").value);
     var menyTopItem = document.getElementById("top").value;
-    var pathURLName = definingTheHierarchicalLeveloftheDirectory() + getItemFunction(menyTopItem);//1239250625
-    startVideo(pathURLName, sss, fff);//12-25_20-06-25-добавили в параметры вызова функции startVideo(pathURLName) дополнительно еще параметры: sss, fff (значания меток начала и конца выбранного фрагмента), для использования в указанной здесь функции ниже (описание для чего добавлены параметры: sss, fff  в указанной функции ниже)
+    var pathURLName = definingTheHierarchicalLeveloftheDirectory() + window.localStorage.getItem(menyTopItem);
+    startVideo(pathURLName);
 } else {
-    startVideo(eee, sss, fff);//12-25_20-06-25-добавили в параметры вызова функции startVideo(eee) дополнительно еще параметры: sss, fff (значания меток начала и конца выбранного фрагмента), для использования в указанной здесь функции ниже (описание для чего добавлены параметры: sss, fff  в указанной функции ниже)
+    startVideo(eee);
 };
-function startVideo(path, theMarkOfTheBeginningOfAll, theMarkOfTheEndOfAll) {
+function startVideo(path) {
     source.setAttribute('src', path);
     source.setAttribute('type', 'video/mp4');
     vid.appendChild(source);
@@ -49,8 +42,6 @@ function startVideo(path, theMarkOfTheBeginningOfAll, theMarkOfTheEndOfAll) {
         type: source.getAttribute('type'),
     });
     vid.addEventListener("timeupdate", getCurTime);
-    if (theMarkOfTheBeginningOfAll.trim() !== "0" && theMarkOfTheEndOfAll.trim() === "0") { setPause(); } //если параметр theMarkOfTheBeginningOfAll (в функции локально обозначает начало выбранного фрагмента) не равен "0", а параметр theMarkOfTheEndOfAll(в функции локально обозначает конец фрагмента) одновременно равен "0" описываемый код при запуске видео  ставит его на паузу, иначе текущий фрагмент видео запускается как обычно. (Логика работы основана на изначально введенном правиле при обозначении общего отрезка всего видео - т.е. All, метки начала и конча воспроизведения обозначаются: "0" и обрабатываются далее кодом преобразуя их в значение фактического начала всего видео и в значение фактического конца всего видео. При просмотре видео и переходе от других отрезков указанных в меню к меню All программой предлогается начать воспроизведение видео с точки текущего восроизведения видео, либо оставить стандартное воспроизведение - с начала всей видеозаписи)
-
 }
 
 let arr = new Array();
@@ -71,11 +62,11 @@ function keySave(whatKey) {
 
             let study = sess.slice(sess.indexOf(";;") + 2); // возвращает количество символов с права (зарезервированные имена (имя), расположенных после: ;; и присваивает их переменной study
 
-            sess = sess.replace(";;" + study, creatingPortionForTheDB(study)); // вызывает функцию обработки символов (или их отсутствие), внесенных вручную при создании фрагмента после ;;. Заменяем с помощью .replace символы зарезервированных имен после ;; или пробел после этого символа на шаблон из 0 и 1 для автомат. внесение в БД 
-            return sess + commentCreate(); //возвращает сформированный ( в виде строкии из 0 и 1) шаблон для присваиванию записи фрагмента, которую в дальнейшем возможно использовать для автоматического внесения в базу данных, (14.06.2025) а также вызывает константу commentCreate() функции createComment() для формирования комментария игнорирование которого вставляется в виде символов "~0" в конце строки, что указвает на отсутствие комментария
+            sess = sess.replace(";;" + study, creatingPortionForTheDB(study)); // вызывает функцию обработки символов (или их отсутствие), внесенных вручную при создании фрагмента после ;;. Заменяем с помощью .replsce символы зарезервированных имен после ;; или пробел после этого символа на шаблон из 0 и 1 для автомат. внесение в БД 
+            return sess; //возвращает сформированный ( в виде строкии из 0 и 1) шаблон для присваиванию записи фрагмента, которую в дальнейшем возможно использовать для автоматического внесения в базу данных
         } else {
-            sess = sess + creatingPortionForTheDB(study = ";;" + prompt('ДЛЯ ОПРЕДЕЛЕНИЯ ОТНОШЕНИЯ ФРАГМЕНТА ВИДЕО К НАСТРОЙКАМ (SETTING), ВВЕДИТЕ: "H"(РУССКАЯ РАСКЛАДКА) ИЛИ "S"(АНГЛИЙСКАЯ РАСКЛАДКА), К ЧАСТЫМ ВОПРОСАМ СОБЕСЕДОВАНИЙ (INTERVIEWS), ВВЕДИТЕ:"И"(РУССКАЯ РАСКЛАДКА) ИЛИ "I"(АНГЛИЙСКАЯ РАСКЛАДКА), К ИСПОЛЬЗОВАНИЮ СНИППЕТОВ (SNIPPETS), ВВЕДИТЕ: "СН"(РУССКАЯ РАСКЛАДКА) ИЛИ "SN"(АНГЛИЙСКАЯ РАСКЛАДКА), К БАЗОВОЙ ИНФОРМАЦИИ ВВЕДИТЕ: "Б"(РУССКАЯ РАСКЛАДКА) ИЛИ "B" (АНГЛИЙСКАЯ РАСКЛАДКА), К СИНТАКСИСУ ВВЕДИТЕ: "З"(РУССКАЯ РАСКЛАДКА) ИЛИ "R" (АНГЛИЙСКАЯ РАСКЛАДКА), К ТЕОРИИ ВВЕДИТЕ: "Т"(РУССКАЯ РАСКЛАДКА) ИЛИ "T" (АНГЛИЙСКАЯ РАСКЛАДКА),ЛИБО ВВЕДИТЕ ИНОЙ ЗНАЧАНИЕ ИЛИ ОТМЕНИТЕ ВВОД ЕСЛИ ФРАГМЕНТ НЕ ИМЕЕТ ТАКОЙ ПРИНАДЛЕЖНОСТИ'));
-            return sess + commentCreate(); //возвращает сформированный ( в виде строкии из 0 и 1) шаблон для присваиванию записи фрагмента, которую в дальнейшем возможно использовать для автоматического внесения в базу данных, (14.06.2025) а также вызывает константу commentCreate() функции createComment() для формирования комментария игнорирование которого вставляется в виде символов "~0" в конце строки, что указвает на отсутствие комментария
+            sess = sess + creatingPortionForTheDB(study = ";;" + prompt('ДЛЯ ОПРЕДЕЛЕНИЯ ОТНОШЕНИЯ ФРАГМЕНТА ВИДЕО К НАСТРОЙКАМ (SETTING), ВВЕДИТЕ: "H"(РУССКАЯ РАСКЛАДКА) ИЛИ "S"(АНГЛИЙСКАЯ РАСКЛАДКА), К ЧАСТЫМ ВОПРОСАМ СОБЕСЕДОВАНИЙ (INTERVIEWS), ВВЕДИТЕ:"И"(РУССКАЯ РАСКЛАДКА) ИЛИ "I"(АНГЛИЙСКАЯ РАСКЛАДКА), К ИСПОЛЬЗОВАНИЮ СНИППЕТОВ (SNIPPETS), ВВЕДИТЕ: "С"(РУССКАЯ РАСКЛАДКА) ИЛИ "SN"(АНГЛИЙСКАЯ РАСКЛАДКА), К БАЗОВОЙ ИНФОРМАЦИИ ВВЕДИТЕ: "Б"(РУССКАЯ РАСКЛАДКА) ИЛИ "B" (АНГЛИЙСКАЯ РАСКЛАДКА), ЛИБО ВВЕДИТЕ ИНОЙ ЗНАЧАНИЕ ИЛИ ОТМЕНИТЕ ВВОД ЕСЛИ ФРАГМЕНТ НЕ ИМЕЕТ ТАКОЙ ПРИНАДЛЕЖНОСТИ'));
+            return sess;
         }
 
     } else if (whatKey === 1203) {
@@ -92,7 +83,7 @@ function creatingPortionForTheDB(implementationStudy) {
     if (implementationStudy.toLowerCase().includes("b")) { study_basics = "1" };
     if (implementationStudy.toLowerCase().includes("и")) { study_interviews = "1" };
     if (implementationStudy.toLowerCase().includes("i")) { study_interviews = "1" };
-    if (implementationStudy.toLowerCase().includes("с" && 'н')) { study_snippets = "1" };
+    if (implementationStudy.toLowerCase().includes("с")) { study_snippets = "1" };
     if (implementationStudy.toLowerCase().includes("s" && "n")) { study_snippets = "1"; implementationStudy = implementationStudy.toLowerCase().replace(/sn/g, "") };
     if (implementationStudy.toLowerCase().includes("н")) { study_settings = "1" };
     if (implementationStudy.toLowerCase().includes("s") && (implementationStudy.toLowerCase().includes("n")) === false) { study_settings = "1" };
@@ -137,8 +128,8 @@ function nameOftheСontrFragm(a, e, u) {
     let outputLocStorage = "";
     let s = 0;
     do {
-        outputLocStorage = getItemFunction((keySearchForS - s) + u);//1239250625
-        setItemFunction(((keySearchForS + (a.length / 4) - s) + u), outputLocStorage); //1209250625
+        outputLocStorage = e.getItem((keySearchForS - s) + u);
+        e.setItem(((keySearchForS + (a.length / 4) - s) + u), outputLocStorage);
         nameOftheСontrolFragment2 = (keySearchForS - s) + u;
         s++
     } while (nameOftheСontrolFragment1 !== nameOftheСontrolFragment2);
@@ -149,10 +140,8 @@ function handlerInputNow(a, e, u, z) {
     let BodyLocStorage = "";
     let y = 0;
     for (let x = 0; x < a.length; x++) {
-        // alert(a[x] + " !== " + u);
         if (a[x] !== u) {
             BodyLocStorage = BodyLocStorage + a[x];
-            // alert(a[x + 1] + " !== " + u);
             if (a[x + 1] !== u) {
                 try { BodyLocStorage = BodyLocStorage + valueSepar } catch { // 03.04.25 добавил блок try, что бы обходить ошибку отсутствия инициализации переменной valueSepar, в случае когда у функции которая ей присваивает значение, еще несоздан источник данных (инфа в locakStorage или в меню, надо посмотреть где именно, т.к. сейчас не помню)
                     BodyLocStorage = BodyLocStorage + defaultSeparator()
@@ -160,7 +149,7 @@ function handlerInputNow(a, e, u, z) {
 
             };
         } else {
-            setItemFunction((y + z) + u, BodyLocStorage); //1209250625
+            e.setItem((y + z) + u, BodyLocStorage);
             //document.getElementById("topic").value = BodyLocStorage; (не стабилизирует пункт All меню 2 надо протестировать и разобраться почему)
             BodyLocStorage = "";
             y++;
@@ -177,7 +166,7 @@ function handlerInputNow(a, e, u, z) {
 }
 
 function textSave(e, u) {
-    const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel' + u  + '_' + fCD('-','cYcMcD') + '_' + fCT('-','cHrcMi') + '_' + fSM('_','cSecMl'); a.click();
+    const data = e; const a = document.createElement('a'); const blob = new Blob([JSON.stringify(data)]); a.href = URL.createObjectURL(blob); a.download = 'fuel' + u; a.click();
 }
 
 // (arr, window.localStorage, namePartVCatalog);
@@ -216,11 +205,13 @@ function availabilityOfaKeys(e) {
     return e.length;
 }
 
+
+
 function addInputLocStorage(e, u) {
     let element = "";
     let iSt = 2;
-    while ((getItemFunction(iSt + u) !== null)) {
-        element = element + getItemFunction(iSt + u) + "," + u + ",";//1239250625
+    while ((e.getItem(iSt + u) !== null)) {
+        element = element + e.getItem(iSt + u) + "," + u + ",";
         iSt++;
     };
     return element;
@@ -312,25 +303,31 @@ function inputVideo() {
                 }
 
                 const correctName = correctedName();
+
                 function correctedName() {
                     return nameResulte.split(".")[0];
                 }
 
-                if (getItemFunction("0" + correctName) === null && getItemFunction("00" + correctName) === null) {//1239250625
+                if (window.localStorage.getItem("0" + correctName) === null && window.localStorage.getItem("00" + correctName) === null) {
 
-                    setItemFunction("00" + correctName, relative.slice(1));//1209250625
+                    // let theDesiredValue = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
+                    // document.getElementById("top").value = theDesiredValue;
+                    // alert("theDesiredValue = "+theDesiredValue); закомментировал 04-01-24, вроде бесполезный код, через alert постоянно выдает  неопределенное значение.
 
-                    let arrForMenyTwo = ["*0", "0", "All~0~0~0~0~0~0~0", correctName];
+                    window.localStorage.setItem("00" + correctName, relative.slice(1));
+
+
+                    let arrForMenyTwo = ["0", "0", "All~0~0~0~0", correctName];
                     // (arr, window.localStorage, namePartVCatalog, инфа_пользователя);
-                    handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);// улучшить код ? есть ли необходимость передавать в аргументе - window.localStorage ? Может он и без того глобально доступен в любой части кода ? Вопрос ?
+                    handlerInputNow(arrForMenyTwo, window.localStorage, correctName, 1);
                     window.location.reload();
                 } else {
-                    if (getItemFunction("0" + correctName) !== null) {//1239250625
+                    if (window.localStorage.getItem("0" + correctName) !== null) {
                         document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
                         ReplacementWithAdoubleOfLocalStorage("0" + correctName);
                         window.location.reload();
                     }
-                    if (getItemFunction("00" + correctName) !== null) {//1239250625
+                    if (window.localStorage.getItem("00" + correctName) !== null) {
                         document.getElementById("top").value = ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("top").value);
                         window.location.reload();
                     }
@@ -339,8 +336,8 @@ function inputVideo() {
                 return relative.slice(1);
             };
             let nameDir = nameResulte.split(".");
-            if (getItemFunction("00" + nameDir[0]) === null) {//1239250625
-                setItemFunction("0" + nameDir[0], relativePath);//1209250625
+            if (window.localStorage.getItem("00" + nameDir[0]) === null) {
+                window.localStorage.setItem("0" + nameDir[0], relativePath);
             }
             vid.src = url;
             document.getElementById('inputfile1').value = "";
@@ -355,19 +352,98 @@ function inputVideo() {
     }
 }
 
+function listNamberOne(a = meny1()) {
+
+    let nameSelectedMeny1 = a; // присваивается значение ключа возвращенного вызовом функции meny1() выше
+    let selectedNameMeny1 = nameSelectedMeny1.substr(1); // убирает лишний символ ключа с левой стороны для использования ниже
+    document.write(`<select name='${nameSelectedMeny1}' id="topic">`); // записывает тег в подменю веб документа
+    let i = 1; // создает переменную со значением для использование ниже
+    while (window.localStorage.getItem(selectedNameMeny1.replace("0", i)) !== null) {
+        let nameВutton = selectedNameMeny1.replace("0", i);
+        if (window.localStorage.getItem(nameВutton).charAt(0) !== "*") {
+            var nameValueВut = i + valueSeparator() + whitespace + window.localStorage.getItem(nameВutton);
+        } else {
+            nameValueВut = "*" + i + valueSeparator() + whitespace + window.localStorage.getItem(nameВutton).slice(1);
+            var nameValueВuty = nameValueВut;
+        }
+        i++;
+        document.write(`<option value='${nameValueВut}'>'${nameValueВut.split(valueSeparator())[0].replace("*", "  *  ") + ") " + nameValueВut.split(valueSeparator())[3]}'</option>`);
+
+    }
+    document.write(`</select>`);
+    document.getElementById("topic").value = nameValueВuty;
+}
+
+function meny1() {
+    if (window.localStorage.length === 0) {
+        alert('В ТЕКУЩЕМ АККАУНТЕ в localStorage (локальном хранилище гуглхром используемом данной программой) ОТСУТСТВУЮТ ДАНННЫЕ О ПУТИ К КАКОМУ-ЛИБО ВИДЕОФАЙЛУ И КАКИЕ-ЛИБО ТЕКСТЫ ДЛЯ ФОРМИРОВАНИЯ МЕНЮ, В СВЯЗИ С ЧЕМ МЕНЮ НЕ БУДЕТ ЗАГРУЖЕНО. ДЛЯ ПРОДОЛЖЕНИЯ РАБОТЫ ВОЙДИТЕ В НЕОБХОДИМЫЙ ВАМ АККАУНТ И ЗАПУСТИТЕ ПРОГРАММУ СНОВА, ЛИБО ДЛЯ ПРОДОЛЖЕНИЯ РАБОТЫ В ТЕКУЩЕМ АККУАНТЕ И СОЗДАНИЯ НОВОГО МЕНЮ ВОСПОЛЬЗУЙТЕ ССЫЛКОЙ ОКНА ПРОГРАММЫ: "Click to upload FILE" (для указания пути к виофайлу и создания начального меню для продолжения работы по создания нового меню )');
+        throw new Error;
+
+    }
+    document.write(`<select name="top" id="top">`);
+    for (let i = 0; i < window.localStorage.length; i++) {
+        if (window.localStorage.key(i).charAt(0) === "0") {
+            let nameValueВutton = window.localStorage.key(i);
+            document.write(`<option value='${nameValueВutton}'>'${nameValueВutton.slice(1).replace("0", " * ")}'</option>`);
+            if (nameValueВutton.charAt(1) === "0") {
+                document.getElementById("top").value = nameValueВutton;
+            }
+        }
+    }
+    let theSelectedLine = document.getElementById("top").value; // 16-03-25_17-34
+    const theBeginningOftheName = theSelectedLine.charAt(1);
+    document.write(`</select>`);
+
+    // alert(theBeginningOftheName);
+    if (theBeginningOftheName !== '0') {
+        ReplacementWithAdoubleOfLocalStorage(theSelectedLine);
+        ReplacementWithAdoubleOfMeny(theSelectedLine);
+    }
+
+    return document.querySelector("#top").value;
+}
+
+function ReplacementWithAdoubleOfLocalStorage(a) {
+    let tempValueItemLocalStorage = window.localStorage.getItem(a);
+    if (a.charAt(1) === "0") {
+        window.localStorage.setItem('0' + ReplacingItWithAsingleOneInThelocalStorage(a), tempValueItemLocalStorage);
+        window.localStorage.removeItem(a);
+    } else {
+        window.localStorage.removeItem(a);
+        window.localStorage.setItem('0' + a, tempValueItemLocalStorage);
+    }
+}
+
 function ReplacingItWithAsingleOneInThelocalStorage(a) {
     let tempValueItemLocalStorage = window.localStorage.getItem(a);
     while (a.charAt(1) === "0") {
-        removeItemFunction(a); //1430260625
+        window.localStorage.removeItem(a);
         a = a.slice(1);
-        setItemFunction(a, tempValueItemLocalStorage);//1209250625
+        window.localStorage.setItem(a, tempValueItemLocalStorage);
     }
     return a;
+}
+
+function ReplacementWithAdoubleOfMeny(a) {
+    a = '0' + a;
 }
 
 document.getElementById("top").onchange = function () {
     ReplacingItWithAsingleOneInThelocalStorage(document.getElementById("topic").name);
     ReplacementWithAdoubleOfLocalStorage(document.getElementById("top").value);
+
+
+
+    alert("vid.currentTime = " + vid.currentTime + "  document.getElementById('topic').value.split(valueSepar)[3] = " + document.getElementById("topic").value.split(valueSepar)[3]);
+
+    if (vid.currentTime != 0 && document.getElementById("topic").value.split(valueSepar)[3] === "All") {
+        document.getElementById("topic").value.split(valueSepar)[1] = defaultStart_or_currentStart();
+    }
+
+
+
+
+
     window.location.reload();
 };
 
@@ -375,32 +451,37 @@ function scrollThroughTheOldKey(a) {
     a = a.slice(1);
     let i = 0;
     while (null !== window.localStorage.getItem(++i + a.slice(1))) {
-        if (getItemFunction(i + a.slice(1)).charAt(0) === "*") {//1239250625
+        if (window.localStorage.getItem(i + a.slice(1)).charAt(0) === "*") {
             delStar(i + a.slice(1));
         };
     }
 }
 
 function delStar(a) {
-    let tempValueItemLocalStorage = getItemFunction(a);//1239250625
-    removeItemFunction(a); //1430260625
-    setItemFunction(a, tempValueItemLocalStorage.slice(1));//1209250625
-
+    let tempValueItemLocalStorage = window.localStorage.getItem(a);
+    window.localStorage.removeItem(a);
+    window.localStorage.setItem(a, tempValueItemLocalStorage.slice(1));
 }
+
+// function addStarlocalStorage(a, e) {
+//     let tempValueItemLocalStorage = a.split(valueSepar);
+//     window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1));
+//     window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + valueSepar + tempValueItemLocalStorage[3]);
+//     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + valueSepar + tempValueItemLocalStorage[3];
+// }
 
 function addStarlocalStorage(a, e) { // функция добавляет звезду строке меню, что-бы она была оформлена как выбранная
     let tempValueItemLocalStorage = a.split(valueSepar); // разбивает строку (по разделителю - значению содержащемуся в переменной valueSepar) формируя массив, которые присваевается переменной tempValueItemLocalStorage
     let tempValuePartEndItemLocalStorage = addStarEnd(valueSepar, tempValueItemLocalStorage); // передает значение разделителя из переменной - valueSepar, и переменную tempValueItemLocalStorage содержащуя массив созданный в предыдущей строке, в качестве аргументов функции addStarEnd, которая возвращает значение из последних элементов переданного массива обратно и присваивает его переменной - tempValuePartEndItemLocalStorage
-    // alert("tempValueItemLocalStorage[0] + e.slice(1) : " + tempValueItemLocalStorage[0] + e.slice(1));
-    removeItemFunction(tempValueItemLocalStorage[0] + e.slice(1));// удаляет в локальном хранилище запись без звездочки //1430260625
-    setItemFunction(tempValueItemLocalStorage[0] + e.slice(1), "*" + defaultStart_or_currentStart(tempValueItemLocalStorage) + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);//вставляет аналогичную запись но с добавлением звездочки //1209250625
+    window.localStorage.removeItem(tempValueItemLocalStorage[0] + e.slice(1)); // удаляет в локальном хранилище запись без звездочки
+    window.localStorage.setItem(tempValueItemLocalStorage[0] + e.slice(1), "*" + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage);//вставляет аналогичную запись но с добавлением звездочки
     return a = "*" + tempValueItemLocalStorage[0] + tempValueItemLocalStorage[1] + valueSepar + tempValueItemLocalStorage[2] + tempValuePartEndItemLocalStorage; // возвращает вызвавшей функции запись с добавлением взездочки
 }
 
-document.getElementById("topic").onchange = function () { //функция запускается при изменении (выборе другого пункта меню) меню "topic"
-    scrollThroughTheOldKey(document.getElementById("topic").name); //строка кода вызывает функцию scrollThroughTheOldKey
-    addStarlocalStorage(document.getElementById("topic").value, document.getElementById("topic").name.slice(1)); //строка кода вызывает функцию addStarlocalStorage
-    window.location.reload(); // строка кода перезагружает окно браузера
+document.getElementById("topic").onchange = function () {
+    scrollThroughTheOldKey(document.getElementById("topic").name);
+    addStarlocalStorage(document.getElementById("topic").value, document.getElementById("topic").name.slice(1));
+    window.location.reload();
 };
 
 function definingTheHierarchicalLeveloftheDirectory() {
@@ -439,7 +520,7 @@ function go_key(event) {
         case 40: setSoundMinus(); break;
         case 119: vid.pause(); arr.push((keySave(119))); break;
         case 120: vid.pause(); arr.push((keySave(1201))); arr.push((keySave(1202))); arr.push(namePartVCatalog); confirm("Начать следующий фрагмент") === true ? arr.push((keySave(1203))) : arr; break;
-        case 115: inputNow(arr, window.localStorage, namePartVCatalog); window.location.reload(); break; // улучшить код ? зачем нам в аргумента передавать - window.localStorage ? (есть подозрение что оно и так доступно из любой части кода, т.е. является глобальным значением или, что-то в этом духе похоже наверно)
+        case 115: inputNow(arr, window.localStorage, namePartVCatalog); window.location.reload(); break;
         case 114: confirm(`Удалить последнюю запись сессии: ${arr} `) === true ? arrPopDel(arr) : alert("Удаление последней записи отменено"); break;
         case 90: httpGetAsync();
 
@@ -451,18 +532,18 @@ function go_key(event) {
             ///confirm("Очистить arr ?") ? arr.length = 0 : alert(arr); 
             break;
 
-        // case 88: if (true === confirm('Очистить LocalStorage ?')) {
-        //     if (true === confirm('Вы действительно желаете удалить данные LocalStorage, без возможности их востановления ?')) {
-        //         window.localStorage.clear(); alert("очищено " + window.localStorage.length);
-        //     };
-        // };
-        //     break; //100725
+        case 88: if (true === confirm('Очистить LocalStorage ?')) {
+            if (true === confirm('Вы действительно желаете удалить данные LocalStorage, без возможности их востановления ?')) {
+                window.localStorage.clear(); alert("очищено " + window.localStorage.length);
+            };
+        };
+            break;
     }
 
 }
 
 function getCurTime() {
-    document.getElementById("demo1").innerHTML = Math.floor(vid.currentTime / 3600) + "." + Math.floor((vid.currentTime % 3600) / 60) + "." + Math.floor(vid.currentTime % 60) + " (" + Math.floor(vid.currentTime) + " sec)";
+    document.getElementById("demo").innerHTML = Math.floor(vid.currentTime / 3600) + "." + Math.floor((vid.currentTime % 3600) / 60) + "." + Math.floor(vid.currentTime % 60) + " (" + Math.floor(vid.currentTime) + " sec)";
 }
 function setBeginningSoundOn() {
     if (vid.muted === true) {
@@ -499,59 +580,41 @@ function setSoundMinus() {
     else { vid.volume = 0.0; }
 }
 
-function setReset() {
-    theMainValueOfThePlayPosition = reset(theMainValueOfThePlayPosition, theDefaultValueOfThePlayPosition)
-    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step";
-}
-
-function MathRound() {
-    theMainValueOfThePlayPosition = Math.floor(theMainValueOfThePlayPosition);
-    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + ' step';
+function setPausePlay() {
+    if (vid.paused === false) { vid.pause(); } else { vid.play(); vid.muted = false; }
 }
 
 function setPositionBack() {
+    if (g != 1) { g = 1; }
     pos1 = vid.currentTime;
-    pos2 = pos1 - theMainValueOfThePlayPosition; //1255210625
+    pos2 = pos1 - b;
     //alert(s);
     //alert(pos2);
     if (sss > pos2) {
         vid.currentTime = sss
     } else { vid.currentTime = pos2; };
-    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + ' step'; //1255210625
 }
 
 function setPositionGoo() {
-    //if (bbb != 4) { bbb = 4; } //1254210625 //1255210625
+    if (b != 1) { b = 1; }
     pos1 = vid.currentTime;
-    pos2 = pos1 + theMainValueOfThePlayPosition;
+    pos2 = pos1 + g;
     if (pos2 > fff) {
         vid.currentTime = fff; setPausePlay()
     } else { vid.currentTime = pos2 };
-    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step"; //1255210625
-
 }
 
 function setShiftPowerPlus() {
-    theMainValueOfThePlayPosition = magnificationСalculator(theMainValueOfThePlayPosition, theSecondMultiplier); //1255210625
-    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step"; //1255210625
-
+    g = g * 10;
+    b = b * 10;
 }
 
 function setShiftPowerMinus() {
-    theMainValueOfThePlayPosition = reductionCalculator(theMainValueOfThePlayPosition, theDivider); //1255210625
-    document.getElementById("demo2").innerHTML = theMainValueOfThePlayPosition + " step"; //1255210625
+    g = g / 2;
+    b = b / 2;
 }
 
 function setShowTime() {
     if (vid.paused === false) { vid.pause(); } else { vid.play(); vid.muted = false; }
 
 }
-
-//ВВЕДЕНИЕ С 21-06-25 НОВОГО ВИДА ЗАМЕТОК О ПОРЯДКЕ ИЗМЕНЕНИИ КОДА:
-//1254210625 -поменяли шаг изменения позиции с 1 на 4
-//1255210625 -увеличили в 3 раза количество символов переменной для большей читабельности
-//1249210625 - добавили строку для демонстрации  на кнопке управления размера шага изменения позиции видео
-//1209250625 провел замену кода обращения e.setItem(или - window.localStorage.setItem) на setItemFunction, т.е. замена настоящего когда на обращение к функции - setItemFunction (функции с аналогичным функционалом)
-//1239250625 заменил в строке код: window.localStorage.getItem на вызов функции: getItemFunction (с аналогичным функционалом)
-//1430260625 removeItemFunction - функция удаляет значение  window.localStorage (хранилища браузера) по входящему значению ключу - key, в соответствии с синтаксисом - localStorage;
-//100725-закоментировал: case 88: if (true === confirm('Очистить LocalStorage ?')) {... (что-то срабатывает в коде и предлагает очистить localStorage - надо понаблюдать, может прекратится)

@@ -1,0 +1,8 @@
+const saveButtonTextareaFunction = () => {
+    const addValue = changingThisLineFragment(getItemFunction(numMenuTopic() + keyMaster()), valueSeparator(), -1, document.getElementById("valueTextarea").value);     
+    const theKeyNumberInTheRequest = numMenuTopic();
+    const theLettersOfTheKeyInTheRequest = keyMaster();
+    const theKeyForRequestingTheValue = theKeyNumberInTheRequest + theLettersOfTheKeyInTheRequest;
+    setItemFunction(theKeyForRequestingTheValue, addValue);   
+}
+// saveButtonTextareaFunction  процедура без аргументов. В первой строке тела путем обращения к другим функциям формирует новую строку с учетом произведенных редакционных изменений (если они были) и присваивает ее константе addValue. Во второй строке обращаясь к функции numMenuTopic() получает от нее значение номера активного пункта меню topic и присваиваект его константе theKeyNumberInTheRequest. В третье строке обращаясь к функции keyMaster() получает от нее значение ключа (буквенной его части для решения вопроса обращения к localStorage в дальнейшем в соотвествии с установленым синтаксисом), которое присваивает константе theLettersOfTheKeyInTheRequest. В четвертой строке значения полученные в двух предыдущих строках складывает, таким образом, что получается ключ для обращения к localStorage, по которому можно переписать значение комментария активного пункта меню topic новым отредактированным значением (текстовым контентом). В пятой строке с помощью сознаданного ключа в установленном для localStorage синтаксисом переписывает в нем старое текстовое значение на новое.
