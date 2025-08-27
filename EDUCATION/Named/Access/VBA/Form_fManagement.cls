@@ -9,6 +9,14 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Compare Database
 
+Private Sub  ÌÓÔÍ‡10_Click()
+Dim value1, value2, result As Double
+value1 = 3.458
+value2 = 5.552
+result = value1 + value2
+MsgBox (result)
+End Sub
+
 Private Sub  ÌÓÔÍ‡2_DblClick(Cancel As Integer)
  
  Dim TextPart, NPart, Pash, Test, NameTable, ctrlName As String
@@ -37,7 +45,7 @@ oWord.Visible = True
 Set oDoc = oWord.Documents.Open(Pash)
 
 'MsgBox (oDoc.Application.Width)
-fmWidth = (oDoc.Application.Width * 10)
+fmWidth = (oDoc.Application.Width * 14)
 
 
 Dim PlusNewOne As Long
@@ -49,7 +57,7 @@ Set rngDocOne = oDoc.Range(Start:=PlusNewOne, End:=PlusNewTwo)
 Set rngDocTwo = oDoc.Range(Start:=PlusNewOne, End:=PlusNewTwo)
 Set rngDocGeneral = oDoc.Range(Start:=PlusNewOne, End:=PlusNewTwo)
 
-For iCounter = 1 To 10
+For iCounter = 1 To Count
 'Dim MyArray(Count) As String
 rngDocGeneral.SetRange Start:=PlusNewOne, End:=PlusNewTwo
 rngDocGeneral.Select
@@ -183,4 +191,27 @@ ctrl—oordinateY = ctrl—oordinateY + ctrlHeight
 Next
 
 DoCmd.Restore
+End Sub
+
+Private Sub  ÌÓÔÍ‡4_Click()
+Dim username As String
+username = InputBox("‚‚Â‰ËÚÂ ËÏˇ")
+MsgBox ("œË‚ÂÚ " & username & "!")
+End Sub
+
+
+
+Public Function choosing_a_new_name()
+
+End Function
+
+Private Sub  ÌÓÔÍ‡9_Click()
+Dim value1, value2, result As Integer
+value1 = 3
+value2 = 5
+result = value1 + value2
+MsgBox (result)
+
+
+
 End Sub
