@@ -10,8 +10,11 @@
 
 <body>
   <div class="all">
+    <video id="myVideo" width="90%" height="90%" autoplay muted ontimeupdate="setCurTime()">
 
-    <div class="header">
+      Your browser does not support the video tag.
+    </video><br>
+    <div class="settings_one">
       <button class="button_header" onclick="setBeginningSoundOn()" ; type="button">beginning</button>
       <button class="button_header" autofocus onclick="setPausePlay()" ; type="button">stop/play</button>
       <button class="button_header" onclick="setPositionBack()" ; type="button">&#060;</button>
@@ -22,18 +25,9 @@
       <button class="button_header" onclick="setSoundMinus()" ; type="button">pw-</button>
       <button class="button_header" onclick="setSoundPlus()" ; type="button">pw+</button>
       <button class="button_header" id="demo1" onclick="setShowTime()" ; type="button"></button>
-
-      <div class="header_right">
-        <a href="javascript:document.getElementById('inputfile1').click();">Click to upload FILE</a>
-        <input type="file" onchange="inputFile()" style="display:none;" id="inputfile1" />
-      </div>
+      <a href="javascript:document.getElementById('inputfile1').click();">Click to upload FILE</a>
+      <input type="file" onchange="inputFile()" style="display:none;" id="inputfile1" />
     </div>
-
-    <video id="myVideo" width="90%" height="90%" autoplay muted ontimeupdate="setCurTime()">
-
-      Your browser does not support the video tag.
-    </video><br>
-
   </div>
   <!-- <select name="listOne" id="listOne-select">Choose a listOne:</labelOne>
     <script src="listOne.js"></script>
@@ -84,14 +78,14 @@
   <script src="modules/reset.js"></script>
   <script src="modules/magnificationСalculator.js"></script>
   <script src="modules/reductionCalculator.js"></script>
-  <script src="./modules/setPause.js"></script>
-  <script src="./modules/setPausePlay.js"></script>
-  <script src="./modules/commentCreate.js"></script>
-  <script src="./modules/currentStart_or_defaultStart.js"></script>
-  <script src="./modules/separatorValue.js"></script>
-  <script src="./modules/separatorValue2.js"></script>
-  <script src="./modules/separatorDefault.js"></script>
-  <script src="./modules/endStarAdd.js"></script>
+  <script src="modules/setPause.js"></script>
+  <script src="modules/setPausePlay.js"></script>
+  <script src="modules/commentCreate.js"></script>
+  <script src="modules/currentStart_or_defaultStart.js"></script>
+  <script src="modules/separatorValue.js"></script>
+  <script src="modules/separatorValue2.js"></script>
+  <script src="modules/separatorDefault.js"></script>
+  <script src="modules/endStarAdd.js"></script>
   <script src="modules/createValueTextarea.js"></script>
   <script src="ScriptHandler_copy.js"></script>
 
