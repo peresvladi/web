@@ -1,8 +1,8 @@
 EDUCATION/Named/Access/VBA/
 .vscode/
 /EDUCATION.sln
-#/EDUCATION
-#!/EDUCATION/Named/VideoHandler/Handler_copy.html
-#!/EDUCATION/Named/VideoHandler/Handler.html
+/EDUCATION
+!/EDUCATION/Named/VideoHandler/Handler_copy.html
+!/EDUCATION/Named/VideoHandler/Handler.html
 /Javajob
 /Named
